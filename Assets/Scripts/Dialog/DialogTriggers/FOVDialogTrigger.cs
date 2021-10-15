@@ -1,3 +1,7 @@
+/*Benton Justice
+ *10/15/2021
+ *FOV Dialog Trigger Implementation
+ */
 using UnityEngine;
 using Scare.AI.Components;
 
