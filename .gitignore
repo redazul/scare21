@@ -1,0 +1,7 @@
+Library/
+Logs/
+*.vsconfig
+*.zip
+/WebBuild
+/WindowsBuild
+/Temp
