@@ -1439,6 +1439,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1843,7 +1844,6 @@ GameObject:
   - component: {fileID: 8664525368157163341}
   - component: {fileID: 9202026766825076339}
   - component: {fileID: 9202026766825076341}
-  - component: {fileID: 9202026766825076340}
   m_Layer: 0
   m_Name: Mousey
   m_TagString: Untagged
@@ -1904,18 +1904,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &9202026766825076340
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8319629858706429431}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e7252f7f5099044ca529454c2df945f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &9055341288458185440
 GameObject:
   m_ObjectHideFlags: 0
