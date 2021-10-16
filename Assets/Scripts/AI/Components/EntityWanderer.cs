@@ -64,6 +64,7 @@ public class EntityWanderer : MonoBehaviour
         //this is a simple default movement behavior, but may be replaced by other methods (NavMeshAgent movement,...)
         float speed = 1;
         Vector3 targetPoint = currentPath.corners[0];
+        //test change
     }
 
     /// <summary>
