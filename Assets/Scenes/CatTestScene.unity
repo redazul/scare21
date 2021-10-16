@@ -256,6 +256,8 @@ MonoBehaviour:
   - {x: 12, y: 0, z: 3}
   - {x: 17, y: 0, z: -3}
   nextWaypointIndex: 2
+  minWaitBetweenMovement: 1
+  maxWaitBetweenMovement: 3
   displayGizmo: 1
 --- !u!1 &191707167
 GameObject:
