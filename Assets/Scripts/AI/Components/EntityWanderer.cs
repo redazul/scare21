@@ -22,64 +22,76 @@ public class EntityWanderer : MonoBehaviour
     private int nextWaypointIndex = 0;
 
     [SerializeField]
+    private float minWaitBetweenMovement = 1.0f;
+
+    [SerializeField]
+    private float maxWaitBetweenMovement = 3.0f;
+
+    [SerializeField]
     private bool displayGizmo = true;
 
     private Vector3? nextWaypoint;
 
-    NavMeshPath currentPath;
+    private NavMeshPath currentPath;
+    private bool pathDirty = false;
 
-    //ICustomMovement? customMovement;
+    private NavMeshAgent navMeshAgent;
+
+    private Timer timer = null;
 
     void Awake()
     {
-        //customMovement = GetComponent<ICustomMovement>();
-    }
+        navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
+        if(navMeshAgent == null)
+        {
+            navMeshAgent = gameObject.AddComponent<NavMeshAgent>();
+        }
 
+        timer = gameObject.AddComponent<Timer>();
+    }
 
     void Update()
     {
         CheckAndUpdateWaypoints();
         UpdateNavMeshPath();
-        if(currentPath.status != NavMeshPathStatus.PathInvalid)
-        {
-            MoveAlongPath();
-        }
+
     }
-    
-    private void MoveAlongPath()
+
+    private void PauseAfterTargetReached()
     {
-        /*
-        if (customMovement.HasValue)
-        {
-            customMovement.Move(currentPath); //use path, target vector or movement vector
-            return;
-        }
-        */
-
-        UseDefaultMovement();
+        StopDefaultMovement();
     }
 
-    private void UseDefaultMovement()
+    private void StartDefaultMovement()
     {
-        //this is a simple default movement behavior, but may be replaced by other methods (NavMeshAgent movement,...)
-        float speed = 1;
-        Vector3 targetPoint = currentPath.corners[0];
-        //test change
+        navMeshAgent.isStopped = false;
+        navMeshAgent.SetPath(currentPath);
+    }
+    private void StopDefaultMovement()
+    {
+        navMeshAgent.isStopped = true;
     }
 
-    /// <summary>
-    /// Checks if a valid next waypoint exists and updates the next waypoint, if necessary.
-    /// </summary>
     private void CheckAndUpdateWaypoints()
     {
-        if(!nextWaypoint.HasValue || FlatDistance(transform.position, nextWaypoint.Value) < WAYPOINT_REACHED_RANGE)
+        if (!nextWaypoint.HasValue)
         {
+            //make sure theres no invalid waypoint position
             UpdateNextWaypoint();
+        }
+        else if (FlatDistance(transform.position, nextWaypoint.Value) < WAYPOINT_REACHED_RANGE && !timer.IsRunning())
+        {
+            //wait for some time before going to the next waypoint
+            timer.Init(Random.Range(minWaitBetweenMovement, maxWaitBetweenMovement), UpdateNextWaypoint);
         }
     }
 
     private void UpdateNavMeshPath()
     {
+        if (!pathDirty)
+        {
+            return;
+        }
         if (!nextWaypoint.HasValue)
         {
             Debug.LogWarning("No nextWaypoint was assigned. Will not update the current NavMeshPath");
@@ -87,6 +99,12 @@ public class EntityWanderer : MonoBehaviour
         }
         currentPath = new NavMeshPath();
         NavMesh.CalculatePath(transform.position, nextWaypoint.Value, NavMesh.AllAreas, currentPath);
+        pathDirty = false;
+
+        if (currentPath.status != NavMeshPathStatus.PathInvalid)
+        {
+            StartDefaultMovement();
+        }
     }
 
     /// <summary>
@@ -121,11 +139,13 @@ public class EntityWanderer : MonoBehaviour
         bool foundPos = NavMesh.SamplePosition(targetWaypoint, out closestNavMeshPosition, navMeshSearchRadius, NavMesh.AllAreas);
         if (!foundPos)
         {
-            Debug.LogWarning("Could not find a nav mesh position within " + navMeshSearchRadius + " for given point " + targetWaypoint);
+            Debug.LogWarning("Could not find a nav mesh position within " + navMeshSearchRadius + "f for given point " + targetWaypoint);
             nextWaypointIndex = currentWaypointIndex;
             nextWaypoint = null;
+            return;
         }
 
+        pathDirty = true;
         nextWaypoint = closestNavMeshPosition.position;
     }
 
@@ -176,6 +196,7 @@ public class EntityWanderer : MonoBehaviour
         }
         DrawTargetWaypointGizmo();
         DrawNextTargetWaypointGizmo();
+        DrawPathGizmo();
     }
 
     private void DrawTargetWaypointGizmo()
@@ -201,14 +222,13 @@ public class EntityWanderer : MonoBehaviour
     {
         if (currentPath != null && currentPath.status != NavMeshPathStatus.PathInvalid)
         {
-            Gizmos.color = Gizmos.color = new Color(0.3f, 0.2f, 0.9f, 0.5f);
+            Gizmos.color = Gizmos.color = new Color(0.4f, 0.3f, 0.7f, 0.5f);
             for (int i = 0; i < currentPath.corners.Length-1; i++)
             {
                 Gizmos.DrawLine(currentPath.corners[i], currentPath.corners[i+1]);
             }
         }
     }
-
 #endif
 
 }

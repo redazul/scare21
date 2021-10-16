@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fd58e258199b74438abb070dbb870f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displacementRadius: 1.5
+  displacementRadius: 3
   useRandomWaypointOrder: 1
   waypoints:
   - {x: -3, y: 0, z: 0}
@@ -255,7 +255,7 @@ MonoBehaviour:
   - {x: 8, y: 0, z: -3.5}
   - {x: 12, y: 0, z: 3}
   - {x: 17, y: 0, z: -3}
-  nextWaypointIndex: 0
+  nextWaypointIndex: 2
   displayGizmo: 1
 --- !u!1 &191707167
 GameObject:
@@ -3228,6 +3228,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 632267742}
+  - {fileID: 1859692711}
   - {fileID: 1852380235}
   - {fileID: 1346344284}
   - {fileID: 1298882788}
@@ -3240,7 +3241,6 @@ Transform:
   - {fileID: 1688762963}
   - {fileID: 1653997812}
   - {fileID: 1500921781}
-  - {fileID: 1859692711}
   m_Father: {fileID: 1732219269}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3281,7 +3281,7 @@ Transform:
   - {fileID: 1216325324}
   - {fileID: 1287764060}
   m_Father: {fileID: 1825273720}
-  m_RootOrder: 13
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1876192569
 PrefabInstance:
