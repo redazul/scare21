@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class MenuNavigationManager : MonoBehaviour
 {
-    public enum MenuNavigationTarget
+    public enum MenuNavigationTarget 
     {
-        mainMenu, optionsMenu, startGame, quitGame,
+        //careful: reordering might mess up unity editor values (adding is fine)
+        mainMenu, optionsMenu, startGame, quitGame, showCredits
     }
 
     public static MenuNavigationManager Instance = null;
@@ -78,6 +79,11 @@ public class MenuNavigationManager : MonoBehaviour
             case MenuNavigationTarget.startGame:
                 {
                     SceneManager.Instance.StartGame();
+                    break;
+                }
+            case MenuNavigationTarget.showCredits:
+                {
+                    SceneManager.Instance.SwitchToScene(SceneManager.AvailableScene.credits);
                     break;
                 }
             case MenuNavigationTarget.quitGame:

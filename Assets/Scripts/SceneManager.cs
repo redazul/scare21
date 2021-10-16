@@ -7,7 +7,8 @@ public class SceneManager : MonoBehaviour
 {
     public enum AvailableScene
     {
-        mainMenu, sandBox
+        //careful: reordering might mess up unity editor values (adding is fine)
+        mainMenu, sandBox, credits
     }
 
     public static SceneManager Instance;
