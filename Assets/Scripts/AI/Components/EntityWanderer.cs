@@ -39,6 +39,8 @@ public class EntityWanderer : MonoBehaviour
 
     private Timer timer = null;
 
+    private bool isWandering;
+
     void Awake()
     {
         navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
@@ -49,6 +51,22 @@ public class EntityWanderer : MonoBehaviour
 
         timer = gameObject.AddComponent<Timer>();
     }
+
+    public void StartWandering(bool resumeLastPath)
+    {
+        if (!resumeLastPath)
+        {
+            timer.Stop();
+            UpdateNextWaypoint();
+        }
+        StartDefaultMovement();
+    }
+
+    public void StopWandering()
+    {
+        StopDefaultMovement();
+    }
+
 
     void Update()
     {
@@ -173,7 +191,6 @@ public class EntityWanderer : MonoBehaviour
         return Vector2.Distance(new Vector2(pos1.x, pos1.z), new Vector2(pos2.x, pos2.z));
     }
 
-
     private static Vector3 ApplyRandomXZDisplacement(Vector3 center, float radius)
     {
         if(radius == 0.0f)
@@ -185,7 +202,6 @@ public class EntityWanderer : MonoBehaviour
         float newZ = Random.Range(center.z - radius, center.z + radius);
         return new Vector3(newX, center.y, newZ);
     }
-
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
@@ -217,7 +233,6 @@ public class EntityWanderer : MonoBehaviour
             Gizmos.DrawSphere(waypoints[nextWaypointIndex], 0.8f+ displacementRadius);
         }
     }
-
     private void DrawPathGizmo()
     {
         if (currentPath != null && currentPath.status != NavMeshPathStatus.PathInvalid)
