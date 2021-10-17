@@ -46,6 +46,11 @@ public class Timer : MonoBehaviour
         onTargetReached?.Invoke();
     }
 
+    public void Stop()
+    {
+        timerFinished = true;
+    }
+
     public void SetPaused(bool pausedNew = true)
     {
         paused = pausedNew;
