@@ -1166,10 +1166,10 @@ MonoBehaviour:
   _imageCheeseCapacity: {fileID: 2068200386}
   _textFull: {fileID: 711399110}
   _cheeseBarMaxWidth: 300
-  _colorLow: {r: 0.29803923, g: 0.54901963, b: 0.29803923, a: 0}
-  _colorMed: {r: 0.7254902, g: 0.77254903, b: 0.4627451, a: 0}
-  _colorHigh: {r: 0.62352943, g: 0.47843137, b: 0.3254902, a: 0}
-  _colorMax: {r: 0.5294118, g: 0.2, b: 0.1764706, a: 0}
+  _colorLow: {r: 0.29803923, g: 0.54901963, b: 0.29803923, a: 1}
+  _colorMed: {r: 0.7254902, g: 0.77254903, b: 0.4627451, a: 1}
+  _colorHigh: {r: 0.62352943, g: 0.47843137, b: 0.3254902, a: 1}
+  _colorMax: {r: 0.5294118, g: 0.2, b: 0.1764706, a: 1}
   _cutOffMed: 50
   _cutOffHigh: 75
 --- !u!1 &2068200384
