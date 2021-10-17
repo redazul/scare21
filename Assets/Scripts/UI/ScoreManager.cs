@@ -23,7 +23,7 @@ public class ScoreManager : MonoBehaviour
         var cheeseUI = FindObjectOfType<HUDCheeseTest>();
         if (cheeseUI != null)
         {
-            cheeseUI.OnCheeseAmountChanged(References.cheese);
+            cheeseUI.OnCheeseAmountChanged(References.GetCheese());
         }
     }
 
@@ -32,15 +32,15 @@ public class ScoreManager : MonoBehaviour
         var survivorsUI = FindObjectOfType<HUDSurvivorsTest>();
         if (survivorsUI != null)
         {
-            survivorsUI.OnSurvivorsCountChanged(References.survivors);
+            survivorsUI.OnSurvivorsCountChanged(References.GetSurvivors());
         }
     }
 
     public static void EstimateSurvivors()
     {
         //Placeholder
-        float survivors = References.cheese / 10;
-        References.survivors = (int)survivors;
+        float survivors = References.GetCheese() / 10;
+        References.SetSurvivors((int)survivors);
 
         OnSurvivorChange();
     }

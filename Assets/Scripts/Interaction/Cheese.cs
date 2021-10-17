@@ -9,8 +9,7 @@ public class Cheese : MonoBehaviour, IInteractable
 {
     public void Interact()
     {
-        References.cheese++;
-        ScoreManager.OnCheeseChange();
+        References.SetCheese(References.GetCheese() + 1);
     }
 
 }
