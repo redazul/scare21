@@ -1100,6 +1100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2044159270}
   - component: {fileID: 2044159271}
+  - component: {fileID: 2044159272}
   m_Layer: 5
   m_Name: Cheese
   m_TagString: Untagged
@@ -1134,7 +1135,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2044159269}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d28c5e6b56907b84c8f41dd2dbd34e45, type: 3}
   m_Name: 
@@ -1147,6 +1148,28 @@ MonoBehaviour:
   _colorMed: {r: 0.7244235, g: 0.7735849, b: 0.46342114, a: 1}
   _colorHigh: {r: 0.6226415, g: 0.47934377, b: 0.3260057, a: 1}
   _colorMax: {r: 0.5283019, g: 0.20097977, b: 0.1769313, a: 1}
+  _cutOffMed: 50
+  _cutOffHigh: 75
+--- !u!114 &2044159272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044159269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2dd9e8b24d54fd4280cda5c594c0f95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cheeseCapacity: 100
+  _imageCheeseCapacity: {fileID: 2068200386}
+  _textFull: {fileID: 711399110}
+  _cheeseBarMaxWidth: 300
+  _colorLow: {r: 0.29803923, g: 0.54901963, b: 0.29803923, a: 0}
+  _colorMed: {r: 0.7254902, g: 0.77254903, b: 0.4627451, a: 0}
+  _colorHigh: {r: 0.62352943, g: 0.47843137, b: 0.3254902, a: 0}
+  _colorMax: {r: 0.5294118, g: 0.2, b: 0.1764706, a: 0}
   _cutOffMed: 50
   _cutOffHigh: 75
 --- !u!1 &2068200384
