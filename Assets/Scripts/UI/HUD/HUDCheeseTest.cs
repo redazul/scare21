@@ -38,18 +38,18 @@ public class HUDCheeseTest : MonoBehaviour
 
     private void Update()
     {
+        int cheese;
+
         if (Input.GetKeyDown(KeyCode.W))
         {
-            References.cheese = (int)Mathf.Clamp(References.cheese + 5, 0, _cheeseCapacity);
-            OnCheeseAmountChanged(References.cheese);
-            ScoreManager.OnCheeseChange();
+            cheese = (int)Mathf.Clamp(References.GetCheese() + 5, 0, _cheeseCapacity);
+            References.SetCheese(cheese);
         }
 
         if (Input.GetKeyDown(KeyCode.S))
         {
-            References.cheese = (int)Mathf.Clamp(References.cheese - 5, 0, _cheeseCapacity);
-            OnCheeseAmountChanged(References.cheese);
-            ScoreManager.OnCheeseChange();
+            cheese = (int)Mathf.Clamp(References.GetCheese() - 5, 0, _cheeseCapacity);
+            References.SetCheese(cheese);
         }
     }
 

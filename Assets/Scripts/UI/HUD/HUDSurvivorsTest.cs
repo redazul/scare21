@@ -17,7 +17,7 @@ public class HUDSurvivorsTest : MonoBehaviour
 
     private void Start()
     {
-        _textSurvivorsCount.text = _prefixSurvivorsCount + References.survivors;
+        _textSurvivorsCount.text = _prefixSurvivorsCount + References.GetSurvivors();
     }
 
 
@@ -25,12 +25,12 @@ public class HUDSurvivorsTest : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            OnSurvivorsCountChanged(--References.survivors);
+            References.SetSurvivors(References.GetSurvivors() - 1);
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
-            OnSurvivorsCountChanged(++References.survivors);
+            References.SetSurvivors(References.GetSurvivors() + 1);
         }
     }
 
