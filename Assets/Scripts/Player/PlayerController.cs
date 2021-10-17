@@ -124,6 +124,6 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateMovementSpeedFromCheeseAmount()
     {
-        currentMovementSpeed = baseMovementSpeed - (carriedCheese * movementReductionByCheese);
+        currentMovementSpeed = Mathf.Max(0.1f, baseMovementSpeed - carriedCheese * movementReductionByCheese);
     }
 }
