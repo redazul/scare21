@@ -28,9 +28,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float turnSpeedDegreePerSec = 250f;
 
+    [Tooltip("How fast the move corrects rotation based on terrain movement (surface normals)")]
+    [SerializeField]
+    float rotateCorrectionSpeed = 50f;
+
 
     private float carriedCheese = 0f;
     private float currentMovementSpeed = 1.0f;
+
+    private float groundCheckDistance = 1.5f;
 
     private Rigidbody rigidBody;
     //the current cheese that the mouse carries
@@ -65,8 +71,24 @@ public class PlayerController : MonoBehaviour
 
     private void ProcessMovement()
     {
+        //Vector3 newUp = transform.up, newForward = transform.forward;
+        //RaycastHit hit;
+        //if (Physics.Raycast(transform.position, -transform.up, out hit, groundCheckDistance))
+        //{
+        //    if (hit.transform.name != name)
+        //    {
+        //        newUp  = hit.normal;
+        //    }
+        //}
+
+
         float turnAngle = Input.GetAxis("Horizontal") * turnSpeedDegreePerSec;
         transform.Rotate(Vector3.up, Time.fixedDeltaTime * turnAngle);
+        
+        //Quaternion newRot = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(transform.forward, newUp), rotateCorrectionSpeed * Time.fixedDeltaTime);
+        //transform.rotation = newRot;
+
+        
 
 
         Vector3 movement = transform.forward * Input.GetAxis("Vertical");
