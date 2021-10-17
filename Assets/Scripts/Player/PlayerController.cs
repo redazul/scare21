@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private const float MAX_XZ_ROTATION_ANGLE = 30f;
+
     [Tooltip("maximum amount of cheese that can be carried")]
     [SerializeField]
     private float maxCheeseAmount = float.PositiveInfinity;
@@ -61,6 +63,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         ProcessInputs();
+        ApplyAngleLimits();
     }
 
     private void ProcessInputs()
@@ -147,5 +150,32 @@ public class PlayerController : MonoBehaviour
     private void UpdateMovementSpeedFromCheeseAmount()
     {
         currentMovementSpeed = Mathf.Max(0.1f, baseMovementSpeed - carriedCheese * movementReductionByCheese);
+    }
+
+    private void ApplyAngleLimits()
+    {
+        float currentXAngle = transform.localRotation.eulerAngles.x;
+        float currentYAngle = transform.localRotation.eulerAngles.y;
+        float currentZAngle = transform.localRotation.eulerAngles.z;
+
+        float targetXAngle = currentXAngle;
+        float targetZAngle = currentZAngle;
+
+        bool needsCorrection = false;
+
+        if (currentXAngle > MAX_XZ_ROTATION_ANGLE && currentXAngle < 360 - MAX_XZ_ROTATION_ANGLE)
+        {
+            targetXAngle = currentXAngle > 180 ? 360 - MAX_XZ_ROTATION_ANGLE : MAX_XZ_ROTATION_ANGLE;
+            needsCorrection = true;
+        }
+        if (currentZAngle > MAX_XZ_ROTATION_ANGLE && currentZAngle < 360 - MAX_XZ_ROTATION_ANGLE)
+        {
+            targetZAngle = currentZAngle > 180 ? 360 - MAX_XZ_ROTATION_ANGLE : MAX_XZ_ROTATION_ANGLE;
+            needsCorrection = true;
+        }
+        if (needsCorrection)
+        {
+            transform.eulerAngles = new Vector3(targetXAngle, currentYAngle, targetZAngle);
+        }
     }
 }
