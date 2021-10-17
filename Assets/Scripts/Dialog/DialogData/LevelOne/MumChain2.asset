@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 587447bfe88d06a4b9fd9e0912bb1774, type: 3}
-  m_Name: Test2
+  m_Name: MumChain2
   m_EditorClassIdentifier: 
-  _dialogText: Hi, how are you?
-  _dialogColor: {r: 0.99607843, g: 0.3254902, b: 0.73333335, a: 1}
-  _dialogAudio: {fileID: 8300000, guid: 9659ce433cab69741bac03ade877e7f0, type: 3}
-  _delay: 0.3
-  _speakerIndex: 1
-  _next: {fileID: 11400000, guid: 8fb576b8fd66276489c4b22f088b49f3, type: 2}
+  _dialogText: Remember to eat some cheese from the storage room before you go.
+  _dialogColor: {r: 1, g: 0, b: 0.75964546, a: 1}
+  _dialogAudio: {fileID: 0}
+  _delay: 0
+  _speakerIndex: 0
+  _next: {fileID: 11400000, guid: d32dc00c818e2b445b780c90caf48d87, type: 2}

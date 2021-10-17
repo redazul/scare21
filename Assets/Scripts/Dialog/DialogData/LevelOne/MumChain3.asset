@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 587447bfe88d06a4b9fd9e0912bb1774, type: 3}
-  m_Name: Test4
+  m_Name: MumChain3
   m_EditorClassIdentifier: 
-  _dialogText: Yes, it is.
-  _dialogColor: {r: 0.99607843, g: 0.3254902, b: 0.73333335, a: 1}
-  _dialogAudio: {fileID: 8300000, guid: 74e6b6ef80021324f88b3dd5b759b624, type: 3}
-  _delay: 0.3
+  _dialogText: Look after Minnie, I know she means a lot to you.
+  _dialogColor: {r: 1, g: 0, b: 0.75964546, a: 1}
+  _dialogAudio: {fileID: 0}
+  _delay: 0
   _speakerIndex: 0
   _next: {fileID: 0}
