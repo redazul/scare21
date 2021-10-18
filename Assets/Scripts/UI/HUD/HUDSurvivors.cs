@@ -16,7 +16,6 @@ public class HUDSurvivors : MonoBehaviour
 
     int _survivorsCountTest;
 
-
     private void Start()
     {
         _textSurvivorsCount.text = _prefixSurvivorsCount + _maxSurvivors;
@@ -24,9 +23,9 @@ public class HUDSurvivors : MonoBehaviour
         _survivorsCountTest = _maxSurvivors;
     }
 
-
     private void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.A))
         {
             OnSurvivorsCountChanged(--_survivorsCountTest);
@@ -35,9 +34,8 @@ public class HUDSurvivors : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.D))
         {
             OnSurvivorsCountChanged(++_survivorsCountTest);
-        }
+        }*/
     }
-
 
     public void OnSurvivorsCountChanged(int survivors)
     {

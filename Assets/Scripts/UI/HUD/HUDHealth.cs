@@ -14,13 +14,9 @@ public class HUDHealth : MonoBehaviour
     [SerializeField]
     Image _imageHeart, _bar1, _bar2, _bar3;
 
-
-    int health = 3;
-
-
-
     private void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             OnHealthChanged(++health);
@@ -29,10 +25,8 @@ public class HUDHealth : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             OnHealthChanged(--health);
-        }
+        }*/
     }
-
-
 
     public void OnHealthChanged(int newHealth)
     {

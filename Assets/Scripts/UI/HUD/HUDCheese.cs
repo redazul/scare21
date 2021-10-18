@@ -27,38 +27,18 @@ public class HUDCheese : MonoBehaviour
     RectTransform _rtCheeseCapacity;
     float _cheeseBarScale;
 
-    float _cheeseCountTest;
-
-
     private void Start()
     {
         _rtCheeseCapacity = _imageCheeseCapacity.rectTransform;
         _cheeseBarScale = _cheeseBarMaxWidth / _cheeseCapacity;
     }
 
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            _cheeseCountTest += 5;
-            OnCheeseAmountChanged(_cheeseCountTest);
-        }
-
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            _cheeseCountTest -= 5;
-            OnCheeseAmountChanged(_cheeseCountTest);
-        }
-    }
-
-
     public void OnCheeseAmountChanged(float cheese)
     {
         _textFull.enabled = (cheese >= _cheeseCapacity);
         cheese = Mathf.Clamp(cheese, 0f, _cheeseCapacity);
 
-        print(cheese);
+        //print(cheese);
 
         
         Color newColor = _colorMax;

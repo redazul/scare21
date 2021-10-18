@@ -20,20 +20,12 @@ public class ScoreManager : MonoBehaviour
 
     private static void UpdateCheeseUI()
     {
-        var cheeseUI = FindObjectOfType<HUDCheeseTest>();
-        if (cheeseUI != null)
-        {
-            cheeseUI.OnCheeseAmountChanged(References.GetCheese());
-        }
+        HUDManager.Instance.UpdateCheeseAmount(References.GetCheese());
     }
 
     private static void UpdateSurvivorUI()
     {
-        var survivorsUI = FindObjectOfType<HUDSurvivorsTest>();
-        if (survivorsUI != null)
-        {
-            survivorsUI.OnSurvivorsCountChanged(References.GetSurvivors());
-        }
+        HUDManager.Instance.UpdateSurvivorsAmount(References.GetSurvivors());
     }
 
     public static void EstimateSurvivors()

@@ -23,6 +23,7 @@ public class HUDSurvivorsTest : MonoBehaviour
 
     private void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.A))
         {
             References.SetSurvivors(References.GetSurvivors() - 1);
@@ -31,7 +32,7 @@ public class HUDSurvivorsTest : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.D))
         {
             References.SetSurvivors(References.GetSurvivors() + 1);
-        }
+        }*/
     }
 
 
