@@ -296,8 +296,8 @@ GameObject:
   - component: {fileID: 3677418269776767693}
   - component: {fileID: 3677418269776767692}
   - component: {fileID: 3677418269776767730}
-  - component: {fileID: 3677418269776767731}
   - component: {fileID: 3677418269669120404}
+  - component: {fileID: 3677418269776767731}
   m_Layer: 0
   m_Name: Cat
   m_TagString: Untagged
@@ -359,6 +359,31 @@ MonoBehaviour:
   minWaitBetweenMovement: 1
   maxWaitBetweenMovement: 3
   displayGizmo: 1
+--- !u!114 &3677418269669120404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3677418269776767695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecb472ed6b3ffcd45a05ebb52da26bc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewRadius: 8
+  viewAngle: 120
+  timeBetweenChecks: 1
+  isSearching: 0
+  whatToLookFor:
+    serializedVersion: 2
+    m_Bits: 256
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 1
+  searchOnStart: 1
+  recallIfSame: 0
+  searchType: 0
 --- !u!195 &3677418269776767731
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -381,28 +406,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &3677418269669120404
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3677418269776767695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecb472ed6b3ffcd45a05ebb52da26bc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewRadius: 8
-  viewAngle: 120
-  timeBetweenChecks: 1
-  shouldBeSearching: 1
-  whatToLookFor:
-    serializedVersion: 2
-    m_Bits: 256
-  obstructionMask:
-    serializedVersion: 2
-    m_Bits: 1
 --- !u!1 &3677418270094361584
 GameObject:
   m_ObjectHideFlags: 0

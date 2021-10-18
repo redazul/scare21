@@ -6,6 +6,14 @@ public class PlayerController : MonoBehaviour
 {
     private const float MAX_XZ_ROTATION_ANGLE = 30f;
 
+    [Tooltip("the maximum amount of health that the player can have")]
+    [SerializeField]
+    private int maxHealth = 3;
+
+    [Tooltip("the (initial) health of the player")]
+    [SerializeField]
+    private int health = 3;
+
     [Tooltip("maximum amount of cheese that can be carried")]
     [SerializeField]
     private float maxCheeseAmount = float.PositiveInfinity;
@@ -34,13 +42,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float rotateCorrectionSpeed = 50f;
 
-
     private float carriedCheese = 0f;
     private float currentMovementSpeed = 1.0f;
 
     private float groundCheckDistance = 1.5f;
 
     private Rigidbody rigidBody;
+
+    private bool isDead = false;
     //the current cheese that the mouse carries
 
     void Awake()
@@ -56,7 +65,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -68,6 +77,10 @@ public class PlayerController : MonoBehaviour
 
     private void ProcessInputs()
     {
+        if (isDead)
+        {
+            return;
+        }
         ProcessMovement();
         ProcessInteractions();
     }
@@ -84,15 +97,11 @@ public class PlayerController : MonoBehaviour
         //    }
         //}
 
-
         float turnAngle = Input.GetAxis("Horizontal") * turnSpeedDegreePerSec;
         transform.Rotate(Vector3.up, Time.fixedDeltaTime * turnAngle);
-        
+
         //Quaternion newRot = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(transform.forward, newUp), rotateCorrectionSpeed * Time.fixedDeltaTime);
         //transform.rotation = newRot;
-
-        
-
 
         Vector3 movement = transform.forward * Input.GetAxis("Vertical");
         if (movement == Vector3.zero)
@@ -121,6 +130,7 @@ public class PlayerController : MonoBehaviour
     public void AddCheese(float amountToAdd)
     {
         carriedCheese = Mathf.Min(carriedCheese + amountToAdd, maxCheeseAmount);
+        HUDManager.Instance.UpdateCheeseAmount(carriedCheese);
         UpdateMovementSpeedFromCheeseAmount();
     }
 
@@ -129,7 +139,7 @@ public class PlayerController : MonoBehaviour
         float amountToDrop = Mathf.Min(dropCheeseAmount, carriedCheese);
         carriedCheese = carriedCheese - amountToDrop;
 
-        if(cheesePrefab != null)
+        if (cheesePrefab != null)
         {
             Quaternion targetRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
 
@@ -144,6 +154,7 @@ public class PlayerController : MonoBehaviour
             //spawnedCheeseObject.GetComponent<Cheese>().SetAmount(amountToDrop);
         }
 
+        HUDManager.Instance.UpdateCheeseAmount(carriedCheese);
         UpdateMovementSpeedFromCheeseAmount();
     }
 
@@ -152,8 +163,30 @@ public class PlayerController : MonoBehaviour
         currentMovementSpeed = Mathf.Max(0.1f, baseMovementSpeed - carriedCheese * movementReductionByCheese);
     }
 
+    public void ReduceHealth()
+    {
+        ChangeHealth(-1);
+    }
+
+    public void IncreaseHealth()
+    {
+        ChangeHealth(1);
+    }
+
+    private void ChangeHealth(int changeAmount)
+    {
+        health = Mathf.Clamp(health + changeAmount, 0, maxHealth);
+
+        isDead = health <= 0;
+        HUDManager.Instance.UpdateHealthAmount(health);
+    }
+
     private void ApplyAngleLimits()
     {
+        if (isDead)
+        {
+            return;
+        }
         float currentXAngle = transform.localRotation.eulerAngles.x;
         float currentYAngle = transform.localRotation.eulerAngles.y;
         float currentZAngle = transform.localRotation.eulerAngles.z;
