@@ -118,10 +118,19 @@ public class PlayerController : MonoBehaviour
 
     private void ProcessInteractions()
     {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            TryToInteract();
+        }
         if (Input.GetKeyDown(KeyCode.F))
         {
             RemoveCheese();
         }
+    }
+
+    private void TryToInteract()
+    {
+
     }
 
     /// <summary>
@@ -130,7 +139,6 @@ public class PlayerController : MonoBehaviour
     public void AddCheese(float amountToAdd)
     {
         carriedCheese = Mathf.Min(carriedCheese + amountToAdd, maxCheeseAmount);
-        HUDManager.Instance.UpdateCheeseAmount(carriedCheese);
         UpdateMovementSpeedFromCheeseAmount();
     }
 
@@ -154,7 +162,6 @@ public class PlayerController : MonoBehaviour
             //spawnedCheeseObject.GetComponent<Cheese>().SetAmount(amountToDrop);
         }
 
-        HUDManager.Instance.UpdateCheeseAmount(carriedCheese);
         UpdateMovementSpeedFromCheeseAmount();
     }
 
@@ -179,6 +186,11 @@ public class PlayerController : MonoBehaviour
 
         isDead = health <= 0;
         HUDManager.Instance.UpdateHealthAmount(health);
+    }
+
+    public bool IsDead()
+    {
+        return isDead;
     }
 
     private void ApplyAngleLimits()

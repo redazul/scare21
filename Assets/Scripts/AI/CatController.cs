@@ -99,10 +99,9 @@ public class CatController : MonoBehaviour
         }
     }
 
-
     private void OnFoundItemOfInterest(Collider closestItemOfInterest)
     {
-        if (closestItemOfInterest.tag == PLAYER_TAG)
+        if (closestItemOfInterest.tag == PLAYER_TAG && !closestItemOfInterest.GetComponent<PlayerController>().IsDead())
         {
             GetComponentInChildren<Light>().color = Color.red;
             UpdatePlayerPursuit(closestItemOfInterest.gameObject);
