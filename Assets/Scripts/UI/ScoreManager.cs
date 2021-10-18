@@ -3,38 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI cheeseText;
-    [SerializeField] TextMeshProUGUI liveStockText;
-
-    //Placeholder. I don't know where the cheese value is stored yet.
-    [SerializeField] float cheese;
-
-    int liveStock = 10;
-    private void Start()
+    public static void OnCheeseChange()
     {
-        UpdateText();
+        FindObjectOfType<PlayerController>().AddCheese(1);
+        UpdateCheeseUI();
+        EstimateSurvivors();
     }
 
-    void UpdateText()
+    public static void OnSurvivorChange()
     {
-        cheeseText.text = cheese.ToString();
-        liveStockText.text = liveStock.ToString();
+        UpdateSurvivorUI();
     }
 
-    private void Update()
+    private static void UpdateCheeseUI()
     {
-        EstimateLiveStock(cheese);
+        HUDManager.Instance.UpdateCheeseAmount(References.GetCheese());
     }
 
-    private void EstimateLiveStock(float _cheese)
+    private static void UpdateSurvivorUI()
+    {
+        HUDManager.Instance.UpdateSurvivorsAmount(References.GetSurvivors());
+    }
+
+    public static void EstimateSurvivors()
     {
         //Placeholder
-        if (_cheese < 1) liveStock = 0;
-        else if (_cheese < 5) liveStock = 5;
-        else if (_cheese < 10) liveStock = 8;
-        else if (_cheese >= 10) liveStock = 10;
+        float survivors = References.GetCheese() / 10;
+        References.SetSurvivors((int)survivors);
+
+        OnSurvivorChange();
     }
 }

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 587447bfe88d06a4b9fd9e0912bb1774, type: 3}
-  m_Name: Test
+  m_Name: MumChain3
   m_EditorClassIdentifier: 
-  _dialogText: Hey, how are you?
-  _dialogColor: {r: 0.03137255, g: 0.96862745, b: 0.99607843, a: 1}
-  _dialogAudio: {fileID: 8300000, guid: 698ae5b372989a74aa4612de81b9a2d7, type: 3}
+  _dialogText: Look after Minnie, I know she means a lot to you.
+  _dialogColor: {r: 1, g: 0, b: 0.75964546, a: 1}
+  _dialogAudio: {fileID: 0}
   _delay: 0
   _speakerIndex: 0
-  _next: {fileID: 11400000, guid: 9bc45d87bcbb7984e913a15a3b80b9c4, type: 2}
+  _next: {fileID: 0}

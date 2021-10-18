@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HUDSurvivors : MonoBehaviour
+public class HUDSurvivorsTest : MonoBehaviour
 {
     [SerializeField]
     Text _textSurvivorsCount;
@@ -14,28 +14,27 @@ public class HUDSurvivors : MonoBehaviour
     [SerializeField]
     int _maxSurvivors = 10;
 
-    int _survivorsCountTest;
 
     private void Start()
     {
-        _textSurvivorsCount.text = _prefixSurvivorsCount + _maxSurvivors;
-
-        _survivorsCountTest = _maxSurvivors;
+        _textSurvivorsCount.text = _prefixSurvivorsCount + References.GetSurvivors();
     }
+
 
     private void Update()
     {
         /*
         if (Input.GetKeyDown(KeyCode.A))
         {
-            OnSurvivorsCountChanged(--_survivorsCountTest);
+            References.SetSurvivors(References.GetSurvivors() - 1);
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
-            OnSurvivorsCountChanged(++_survivorsCountTest);
+            References.SetSurvivors(References.GetSurvivors() + 1);
         }*/
     }
+
 
     public void OnSurvivorsCountChanged(int survivors)
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HUDCheese : MonoBehaviour
+public class HUDCheeseTest : MonoBehaviour
 {
     [SerializeField]
     float _cheeseCapacity = 100f;
@@ -27,27 +27,48 @@ public class HUDCheese : MonoBehaviour
     RectTransform _rtCheeseCapacity;
     float _cheeseBarScale;
 
+    float _cheeseCountTest;
+
+
     private void Start()
     {
         _rtCheeseCapacity = _imageCheeseCapacity.rectTransform;
         _cheeseBarScale = _cheeseBarMaxWidth / _cheeseCapacity;
     }
 
+    private void Update()
+    {
+        int cheese;
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            cheese = (int)Mathf.Clamp(References.GetCheese() + 5, 0, _cheeseCapacity);
+            References.SetCheese(cheese);
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            cheese = (int)Mathf.Clamp(References.GetCheese() - 5, 0, _cheeseCapacity);
+            References.SetCheese(cheese);
+        }
+    }
+
+
     public void OnCheeseAmountChanged(float cheese)
     {
         _textFull.enabled = (cheese >= _cheeseCapacity);
         cheese = Mathf.Clamp(cheese, 0f, _cheeseCapacity);
 
-        //print(cheese);
+        print(cheese);
 
-        
+
         Color newColor = _colorMax;
         if (cheese < _cutOffMed) newColor = Color.Lerp(_colorLow, _colorMed, cheese / _cutOffMed);
         else if (cheese >= _cutOffMed && cheese < _cutOffHigh) newColor = Color.Lerp(_colorMed, _colorHigh, (cheese - _cutOffMed) / (_cutOffHigh - _cutOffMed));
         else if (cheese >= _cutOffHigh && cheese < _cheeseCapacity) newColor = Color.Lerp(_colorHigh, _colorMax, (cheese - _cutOffHigh) / (_cheeseCapacity - _cutOffHigh));
 
         _imageCheeseCapacity.color = newColor;
-        
+
 
         _rtCheeseCapacity.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, cheese * _cheeseBarScale);
     }

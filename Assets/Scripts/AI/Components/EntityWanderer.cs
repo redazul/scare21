@@ -39,6 +39,8 @@ public class EntityWanderer : MonoBehaviour
 
     private Timer timer = null;
 
+    private bool isWandering;
+
     void Awake()
     {
         navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
@@ -49,6 +51,22 @@ public class EntityWanderer : MonoBehaviour
 
         timer = gameObject.AddComponent<Timer>();
     }
+
+    public void StartWandering(bool resumeLastPath)
+    {
+        if (!resumeLastPath)
+        {
+            timer.Stop();
+            UpdateNextWaypoint();
+        }
+        StartDefaultMovement();
+    }
+
+    public void StopWandering()
+    {
+        StopDefaultMovement();
+    }
+
 
     void Update()
     {
@@ -79,7 +97,7 @@ public class EntityWanderer : MonoBehaviour
             //make sure theres no invalid waypoint position
             UpdateNextWaypoint();
         }
-        else if (FlatDistance(transform.position, nextWaypoint.Value) < WAYPOINT_REACHED_RANGE && !timer.IsRunning())
+        else if (AIUtil.FlatDistance(transform.position, nextWaypoint.Value) < WAYPOINT_REACHED_RANGE && !timer.IsRunning())
         {
             //wait for some time before going to the next waypoint
             timer.Init(Random.Range(minWaitBetweenMovement, maxWaitBetweenMovement), UpdateNextWaypoint);
@@ -131,8 +149,7 @@ public class EntityWanderer : MonoBehaviour
             nextWaypointIndex = (nextWaypointIndex + 1) % waypoints.Count - 1;
         }
 
-        Vector3 targetWaypoint = ApplyRandomXZDisplacement(waypoints[currentWaypointIndex], displacementRadius);
-
+        Vector3 targetWaypoint = AIUtil.ApplyRandomXZDisplacement(waypoints[currentWaypointIndex], displacementRadius);
 
         float navMeshSearchRadius = 1.0f;
         NavMeshHit closestNavMeshPosition;
@@ -162,28 +179,6 @@ public class EntityWanderer : MonoBehaviour
             .Except(new List<int>(1) { currentWaypointIndex })
             .ToList();
         return possibleIndices[Random.Range(0, possibleIndices.Count)];
-    }
-
-
-    /// <summary>
-    /// Computes the distance between two 3D vectors, ignoring their y-Value
-    /// </summary>
-    private static float FlatDistance(Vector3 pos1, Vector3 pos2)
-    {
-        return Vector2.Distance(new Vector2(pos1.x, pos1.z), new Vector2(pos2.x, pos2.z));
-    }
-
-
-    private static Vector3 ApplyRandomXZDisplacement(Vector3 center, float radius)
-    {
-        if(radius == 0.0f)
-        {
-            return center;
-        }
-
-        float newX = Random.Range(center.x - radius, center.x + radius);
-        float newZ = Random.Range(center.z - radius, center.z + radius);
-        return new Vector3(newX, center.y, newZ);
     }
 
 
@@ -217,7 +212,6 @@ public class EntityWanderer : MonoBehaviour
             Gizmos.DrawSphere(waypoints[nextWaypointIndex], 0.8f+ displacementRadius);
         }
     }
-
     private void DrawPathGizmo()
     {
         if (currentPath != null && currentPath.status != NavMeshPathStatus.PathInvalid)

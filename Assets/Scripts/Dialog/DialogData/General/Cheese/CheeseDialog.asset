@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 587447bfe88d06a4b9fd9e0912bb1774, type: 3}
-  m_Name: Test4
+  m_Name: CheeseDialog
   m_EditorClassIdentifier: 
-  _dialogText: Yes, it is.
-  _dialogColor: {r: 0.99607843, g: 0.3254902, b: 0.73333335, a: 1}
-  _dialogAudio: {fileID: 8300000, guid: 74e6b6ef80021324f88b3dd5b759b624, type: 3}
-  _delay: 0.3
+  _dialogText: Oh, Cheese!
+  _dialogColor: {r: 0.03137255, g: 0.96862745, b: 0.99607843, a: 1}
+  _dialogAudio: {fileID: 8300000, guid: db55877c41de01b45a9e8f82437cef1b, type: 3}
+  _delay: 0
   _speakerIndex: 0
   _next: {fileID: 0}

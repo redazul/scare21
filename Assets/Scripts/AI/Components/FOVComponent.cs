@@ -17,25 +17,60 @@ namespace Scare.AI.Components
     {
 
         [Header("Field of View Properties")]
-        [SerializeField]
+
+        [SerializeField] [Tooltip("How far the entity can see")]
         private float viewRadius;
-        [SerializeField]
+        [SerializeField] [Tooltip("FOV angle of character")]
         private float viewAngle;
-        [SerializeField]
+        [SerializeField] [Tooltip("How much time should pass between checks in our FOV")]
         private float timeBetweenChecks = 5f;
-        [SerializeField]
-        private bool shouldBeSearching = true;
-        [SerializeField]
+
+        [SerializeField] [Tooltip("Determines if we are to begin looking on Start")]
+        private bool isSearching = false;
+
+        [SerializeField][Tooltip("What we are looking for in our FOV. Like cheese, cats, other rats.")]
         private LayerMask whatToLookFor;
-        [SerializeField]
+        [SerializeField] [Tooltip("What layers obstruct our FOV. Like walls, chairs, etc.")]
         private LayerMask obstructionMask;
+
+        [Header("Field of View Settings")]
+        [SerializeField] [Tooltip("Should begin searching on Start")]
+        private bool searchOnStart = true;
+        [SerializeField] [Tooltip("When true this will invoke the event even if the current item found is the previous item that has already been called.")]
+        private bool recallIfSame = false;
+        [SerializeField] [Tooltip("Search Type refers to which object we take in our FOV i.e. Closest, furthest, random")]
+        private SearchType searchType;
+
+        private Collider lastFound;
 
         public delegate void FoundItemOfInterest(Collider closestItemOfInterest);
         public event FoundItemOfInterest foundItemCallBack;
 
         private void Start()
         {
-            StartCoroutine(CheckRoutine());
+            if (searchOnStart)
+            {
+                isSearching = false;
+                StartSearching();
+            }
+        }
+
+        public void StartSearching()
+        {
+            if (!isSearching)
+            {
+                isSearching = true;
+                StartCoroutine(CheckRoutine());
+            }
+        }
+
+        public void StopSearching()
+        {
+            if (isSearching)
+            {
+                isSearching = false;
+                StopCoroutine(CheckRoutine());
+            }
         }
 
         /// <summary>
@@ -46,7 +81,7 @@ namespace Scare.AI.Components
 
             WaitForSeconds waitTime = new WaitForSeconds(timeBetweenChecks);
 
-            while (shouldBeSearching)
+            while (isSearching)
             {
                 yield return waitTime;
                 CheckForItemsOfInterest();
@@ -63,6 +98,18 @@ namespace Scare.AI.Components
 
             SortColliders(itemsFound);
 
+            Collider relevantItem = null;
+            float relevantItemDistance = 0;
+
+            if(searchType == SearchType.CLOSEST)
+            {
+                relevantItemDistance = float.MaxValue;
+            } 
+            else if(searchType == SearchType.FURTHEST)
+            {
+                relevantItemDistance = float.MinValue;
+            }
+
             foreach (Collider item in itemsFound)
             {
                 Transform target = item.transform;
@@ -73,9 +120,49 @@ namespace Scare.AI.Components
                     float distanceToTarget = Vector3.Distance(transform.position, item.transform.position);
                     if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask))
                     {
-                        foundItemCallBack?.Invoke(item);
+                        if (searchType == SearchType.CLOSEST)
+                        {
+                            if (distanceToTarget < relevantItemDistance)
+                            {
+                                relevantItem = item;
+                                distanceToTarget = relevantItemDistance;
+                            }
+                        }
+                        else if (searchType == SearchType.FURTHEST)
+                        {
+                            if (distanceToTarget > relevantItemDistance)
+                            {
+                                relevantItem = item;
+                                distanceToTarget = relevantItemDistance;
+                            }
+                        }
+                        else if (searchType == SearchType.RANDOM)
+                        {
+                            if ((lastFound == item && !recallIfSame) || item == null)
+                                break;
+
+                            foundItemCallBack?.Invoke(item);
+                            lastFound = item;
+                            break;
+                        }
+
                     }
                 }
+            }
+
+            if (relevantItem && !recallIfSame)
+            {
+                if (lastFound == relevantItem || relevantItem == null)
+                    return;
+                lastFound = relevantItem;
+                foundItemCallBack?.Invoke(relevantItem);
+            }
+            else
+            {
+                if (relevantItem == null)
+                    return;
+                lastFound = relevantItem;
+                foundItemCallBack?.Invoke(relevantItem);
             }
         }
 
@@ -85,7 +172,10 @@ namespace Scare.AI.Components
         /// <param name="items">Items of interest found in the FOV</param>
         private void SortColliders(Collider[] items)
         {
-            items = items.OrderBy(collider => (transform.position - collider.transform.position).sqrMagnitude).ToArray();
+            if (searchType == SearchType.CLOSEST)
+                items = items.OrderBy(collider => (transform.position - collider.transform.position).sqrMagnitude).ToArray();
+            else if (searchType == SearchType.FURTHEST)
+                items = items.OrderByDescending(collider => (transform.position - collider.transform.position).sqrMagnitude).ToArray();
         }
 
         private void OnDisable()
@@ -118,4 +208,6 @@ namespace Scare.AI.Components
         }
 #endif
     }
+
+    public enum SearchType { CLOSEST, FURTHEST, RANDOM }
 }
