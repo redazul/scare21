@@ -6,6 +6,9 @@ public class PlayerController : MonoBehaviour
 {
     private const float MAX_XZ_ROTATION_ANGLE = 30f;
 
+    private const float INTERACTION_RADIUS = 0.45f;
+    private const string INTERACTABLE_TAG = "Interactable";
+
     [Tooltip("the maximum amount of health that the player can have")]
     [SerializeField]
     private int maxHealth = 3;
@@ -14,13 +17,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private int health = 3;
 
-    [Tooltip("maximum amount of cheese that can be carried")]
-    [SerializeField]
-    private float maxCheeseAmount = float.PositiveInfinity;
+    //[Tooltip("maximum amount of cheese that can be carried")]
+    //[SerializeField]
+    //private float maxCheeseAmount = float.PositiveInfinity;
 
     [Tooltip("the amount that will be dropped if the player decides to drop cheese")]
     [SerializeField]
-    private float dropCheeseAmount = 0.3f;
+    private float dropCheeseAmount = 1f;
 
     [Tooltip("The cheese prefab to be instantiated when the player drops the cheese")]
     [SerializeField]
@@ -38,14 +41,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float turnSpeedDegreePerSec = 250f;
 
-    [Tooltip("How fast the move corrects rotation based on terrain movement (surface normals)")]
+    //[Tooltip("How fast the move corrects rotation based on terrain movement (surface normals)")]
+    //[SerializeField]
+    //float rotateCorrectionSpeed = 50f;
+
     [SerializeField]
-    float rotateCorrectionSpeed = 50f;
+    private bool displayInteractionSphereGizmo = true;
+
+    [SerializeField]
+    private GameObject interactionPosition;
 
     private float carriedCheese = 0f;
     private float currentMovementSpeed = 1.0f;
-
-    private float groundCheckDistance = 1.5f;
+    //private float groundCheckDistance = 1.5f;
 
     private Rigidbody rigidBody;
 
@@ -130,22 +138,36 @@ public class PlayerController : MonoBehaviour
 
     private void TryToInteract()
     {
+        Collider[] matchingColliders = Physics.OverlapSphere(interactionPosition.transform.position, INTERACTION_RADIUS);
 
+        foreach (Collider col in matchingColliders)
+        {
+            if (col.gameObject.CompareTag(INTERACTABLE_TAG))
+            {
+                col.gameObject.GetComponent<IInteractable>().Interact();
+                return;
+            }
+        } 
     }
 
     /// <summary>
     /// This should be called when cheese is picked up
     /// </summary>
-    public void AddCheese(float amountToAdd)
+    public void SetCheese(float newCheeseAmount)
     {
-        carriedCheese = Mathf.Min(carriedCheese + amountToAdd, maxCheeseAmount);
+        carriedCheese = newCheeseAmount;
         UpdateMovementSpeedFromCheeseAmount();
     }
 
     private void RemoveCheese()
     {
+
+        if (carriedCheese <= 0)
+        {
+            return;
+        }
         float amountToDrop = Mathf.Min(dropCheeseAmount, carriedCheese);
-        carriedCheese = carriedCheese - amountToDrop;
+        carriedCheese -= amountToDrop;
 
         if (cheesePrefab != null)
         {
@@ -157,11 +179,9 @@ public class PlayerController : MonoBehaviour
             Vector3 targetPosition = transform.position + transform.forward * 0.5f + displacement;
 
             GameObject spawnedCheeseObject = Instantiate(cheesePrefab, targetPosition, targetRotation);
-
-            //TODO: set the cheese amount to *amountToDrop*
-            //spawnedCheeseObject.GetComponent<Cheese>().SetAmount(amountToDrop);
         }
 
+        References.SetCheese((int)carriedCheese);
         UpdateMovementSpeedFromCheeseAmount();
     }
 
@@ -223,4 +243,19 @@ public class PlayerController : MonoBehaviour
             transform.eulerAngles = new Vector3(targetXAngle, currentYAngle, targetZAngle);
         }
     }
+
+
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        if (!displayInteractionSphereGizmo)
+        {
+            return;
+        }
+        Gizmos.color = new Color(0, 1, 1, 0.25f);
+        Gizmos.DrawSphere(interactionPosition.transform.position, INTERACTION_RADIUS);
+    }
+
+#endif
 }

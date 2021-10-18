@@ -10,6 +10,7 @@ public class Cheese : MonoBehaviour, IInteractable
     public void Interact()
     {
         References.SetCheese(References.GetCheese() + 1);
+        Destroy(this.gameObject);
     }
 
 }

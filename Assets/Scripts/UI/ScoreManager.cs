@@ -9,7 +9,7 @@ public class ScoreManager : MonoBehaviour
 {
     public static void OnCheeseChange()
     {
-        FindObjectOfType<PlayerController>().AddCheese(1);
+        FindObjectOfType<PlayerController>().SetCheese(References.GetCheese());
         UpdateCheeseUI();
         EstimateSurvivors();
     }

@@ -137,6 +137,7 @@ public class CatController : MonoBehaviour
         followPursuitTimer.SetPaused(false);
 
         navMeshAgent.isStopped = false;
+        navMeshAgent.speed = pursuitSpeed;
     }
 
     private void LoseInterest()
@@ -148,6 +149,7 @@ public class CatController : MonoBehaviour
         followPursuitTimer.SetPaused(true);
 
         //start wandering
+        navMeshAgent.speed = wanderSpeed;
         wanderer.StartWandering(false);
     }
 }
