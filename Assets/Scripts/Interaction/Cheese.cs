@@ -11,6 +11,8 @@ public class Cheese : MonoBehaviour, IInteractable
     public const float MAX_CHEESE_AMOUNT = 0.45f;
     public const float AVG_CHEESE_AMOUNT = MIN_CHEESE_AMOUNT + MAX_CHEESE_AMOUNT / 2;
 
+    private bool wasSpawned = false;
+
     Vector3 avgScale;
 
     float amount;
@@ -26,8 +28,14 @@ public class Cheese : MonoBehaviour, IInteractable
         if (other.CompareTag(PlayerController.PLAYER_TAG))
         {
             other.GetComponent<PlayerController>().AddCheese(amount);
-            Destroy(this.gameObject);
-
+            if (wasSpawned)
+            {
+               LevelManager.Instance.DespawnSingleCheese(this.gameObject);
+            }
+            else
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 
@@ -37,6 +45,11 @@ public class Cheese : MonoBehaviour, IInteractable
 
         float resizeFactor = amount / AVG_CHEESE_AMOUNT;
         transform.localScale = avgScale * resizeFactor;
+    }
+
+    public void SetWasSpawned(bool wasSpawned)
+    {
+        this.wasSpawned = wasSpawned;
     }
 
     public static float GetRandomCheeseAmount()

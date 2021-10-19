@@ -15,7 +15,7 @@ public class MenuNavigationManager : MonoBehaviour
     {
         if(Instance != null)
         {
-            Debug.LogWarning("There is more than one MenuManager in this scene.");
+            Debug.LogWarning("There is more than one MenuNavigationManager in this scene.");
         }
         Instance = this;
 

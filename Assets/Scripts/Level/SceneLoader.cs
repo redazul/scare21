@@ -17,7 +17,7 @@ public class SceneLoader : MonoBehaviour
     {
         if (Instance != null)
         {
-            Debug.LogWarning("There is more than one GameManager in this scene.");
+            Debug.LogWarning("There is more than one SceneLoader in this scene.");
         }
         Instance = this;
     }

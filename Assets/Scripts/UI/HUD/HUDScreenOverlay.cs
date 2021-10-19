@@ -34,7 +34,7 @@ public class HUDScreenOverlay : MonoBehaviour
         if (losses > 0)
         {
             lossesText.gameObject.SetActive(true);
-            lossesText.text = GetLossesString(losses);
+            lossesText.text = GetLossesString(losses, survivors);
         }
         else
         {
@@ -52,8 +52,12 @@ public class HUDScreenOverlay : MonoBehaviour
         return survivors + " have survived";
     }
 
-    private static string GetLossesString(int losses)
+    private static string GetLossesString(int losses, int survivors)
     {
+        if(survivors == 0)
+        {
+            return losses + " didn't make it";
+        }
         return "but " + losses + " didn't make it";
     }
 

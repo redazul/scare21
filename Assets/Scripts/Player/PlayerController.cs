@@ -286,6 +286,13 @@ public class PlayerController : MonoBehaviour
         return carriedCheese;
     }
 
+    public void RemoveAllCheese()
+    {
+        carriedCheese = 0;
+        UpdateMovementSpeedFromCheeseAmount();
+        HUDManager.Instance.UpdateCheeseAmount(carriedCheese);
+    }
+
     public static float GetCheeseCapacity()
     {
         return cheeseCapacity;

@@ -11,6 +11,7 @@ public class FinishArea : MonoBehaviour
         {
             PlayerController player = triggerCol.GetComponent<PlayerController>();
             float cheeseCarried = player.GetCarriedCheeseAmount();
+            player.RemoveAllCheese();
             ScoreManager.FinishLevel(cheeseCarried);
         }
     }

@@ -16,7 +16,7 @@ public class HUDManager : MonoBehaviour
     {
         if (Instance != null)
         {
-            Debug.LogWarning("There is more than one MenuManager in this scene.");
+            Debug.LogWarning("There is more than one HUDManager in this scene.");
         }
         Instance = this;
 
