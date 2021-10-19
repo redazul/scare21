@@ -84,6 +84,11 @@ public class PlayerController : MonoBehaviour
         cheeseCapacity = maxCheeseAmount;
     }
 
+    void Start()
+    {
+        References.SetPaused(false);
+    }
+
     private void Update()
     {
         ProcessPauseInteractions();
