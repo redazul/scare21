@@ -51,6 +51,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject interactionPosition;
 
+    [SerializeField]
+    GameObject trapPrefab;
+
+    [SerializeField]
+    int trapsAmount;
+
     public Transform MushroomRoot;
 
     private float carriedCheese = 0f;
@@ -139,7 +145,7 @@ public class PlayerController : MonoBehaviour
         {
             if (!TryToInteract())
             {
-                mushroom.Detach();
+                if (mushroom) mushroom.Detach();
             }
         }
         if (Input.GetKeyDown(KeyCode.F))
@@ -150,6 +156,16 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L))
         {
             if (mushroom) mushroom.ToggleLight();
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            //Create trap
+            if (trapsAmount > 0)
+            {
+                trapsAmount--;
+                Instantiate(trapPrefab, transform.position + transform.forward - Vector3.up * 0.1f, transform.rotation);
+            }
         }
     }
 

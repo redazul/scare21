@@ -197,6 +197,8 @@ MonoBehaviour:
   turnSpeedDegreePerSec: 250
   displayInteractionSphereGizmo: 1
   interactionPosition: {fileID: 1028559588}
+  trapPrefab: {fileID: 7161304466684872621, guid: d122c026593b32f4d87b3427c7f1cf73, type: 3}
+  trapsAmount: 5
   MushroomRoot: {fileID: 379021037334369723}
 --- !u!1 &9093237929259506795
 GameObject:
