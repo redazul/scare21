@@ -41,6 +41,13 @@ public class HUDManager : MonoBehaviour
         hudHealth.OnHealthChanged(newHealthAmount);
     }
 
+    public void DisableHUD()
+    {
+        hudCheese.gameObject.SetActive(false);
+        hudSurvivors.gameObject.SetActive(false);
+        hudCheese.gameObject.SetActive(false);
+    }
+
     public void ShowDayEndsScreenOverlay(int nextDay, int survivors, int losses, System.Action processNightCallback = null, System.Action onStartNewDayCallback = null)
     {
         hudScreenOverlay.ShowOverlayDailyTexts(nextDay, survivors, losses);

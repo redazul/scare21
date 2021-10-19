@@ -70,6 +70,8 @@ public class EntityWanderer : MonoBehaviour
 
     void Update()
     {
+        if (References.GetPaused()) return;
+
         CheckAndUpdateWaypoints();
         UpdateNavMeshPath();
 

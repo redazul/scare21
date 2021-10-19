@@ -39,6 +39,8 @@ public class Mushroom : MonoBehaviour, IInteractable
     // Test driver
     private void Update()
     {
+        if (References.GetPaused()) return;
+
         // "Battery Life"
         if (IsLit)
         {

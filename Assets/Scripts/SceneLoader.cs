@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneManager : MonoBehaviour
+public class SceneLoader : MonoBehaviour
 {
     public enum AvailableScene
     {
@@ -11,7 +11,7 @@ public class SceneManager : MonoBehaviour
         mainMenu, sandBox, credits
     }
 
-    public static SceneManager Instance;
+    public static SceneLoader Instance;
 
     void Awake()
     {
@@ -36,7 +36,7 @@ public class SceneManager : MonoBehaviour
 
     public void SwitchToScene(AvailableScene targetScene)
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(ToSceneName(targetScene));
+        SceneManager.LoadScene(ToSceneName(targetScene));
     }
 
     public void ReturnToMainMenu()
@@ -74,4 +74,8 @@ public class SceneManager : MonoBehaviour
         return availableScene.ToString();
     }
 
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }

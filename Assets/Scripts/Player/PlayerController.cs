@@ -49,6 +49,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject interactionPosition;
 
+    [SerializeField]
+    GameObject trapPrefab;
+
+    [SerializeField]
+    int trapsAmount;
+
     public Transform MushroomRoot;
 
     private float carriedCheese = 0f;
@@ -80,11 +86,16 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        PauseGame();
+        if (References.GetPaused()) return;
+
         ProcessInteractions();
     }
 
     void FixedUpdate()
     {
+        if (References.GetPaused()) return;
+
         ProcessMovement();
         ApplyAngleLimits();
     }
@@ -127,7 +138,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void ProcessInteractions()
-    {        
+    {
         //cant interact if you are dead
         if (isDead)
         {
@@ -139,7 +150,7 @@ public class PlayerController : MonoBehaviour
             bool interacted = TryToInteract();
             if (!interacted && mushroom)
             {
-                mushroom.Detach();
+                if (mushroom) mushroom.Detach();
             }
         }
         if (Input.GetKeyDown(KeyCode.F))
@@ -150,6 +161,42 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L))
         {
             if (mushroom) mushroom.ToggleLight();
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (trapsAmount > 0)
+            {
+                trapsAmount--;
+                Instantiate(trapPrefab, transform.position + transform.forward - Vector3.up * 0.1f, transform.rotation);
+            }
+        }
+    }
+
+    void PauseGame()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameMenu menu = References.GetGameMenu();
+            if (menu != null)
+            {
+                int currentMenu = menu.GetMenu();
+
+                if (currentMenu == References.PAUSE)
+                {
+                    DeactivateAllMenus();
+                    References.SetPaused(false);
+                }
+                else if (currentMenu == References.OPTIONS)
+                {
+                    SetMenu(References.PAUSE);
+                }
+                else if (currentMenu == -1)
+                {
+                    SetMenu(References.PAUSE);
+                    References.SetPaused(true);
+                }
+            }
         }
     }
 
@@ -271,6 +318,29 @@ public class PlayerController : MonoBehaviour
 
         isDead = health <= 0;
         HUDManager.Instance.UpdateHealthAmount(health);
+
+        if (isDead)
+        {
+            SetMenu(References.GAME_OVER);
+        }
+    }
+
+    void SetMenu(int menuIndex)
+    {
+        GameMenu menu = References.GetGameMenu();
+        if (menu != null)
+        {
+            menu.SetMenu(menuIndex);
+        }
+    }
+
+    void DeactivateAllMenus()
+    {
+        GameMenu menu = References.GetGameMenu();
+        if (menu != null)
+        {
+            menu.DeactivateAllMenus();
+        }
     }
 
     public bool IsDead()
