@@ -167,6 +167,15 @@ public class PlayerController : MonoBehaviour
                 Instantiate(trapPrefab, transform.position + transform.forward - Vector3.up * 0.1f, transform.rotation);
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameMenu menu = References.GetGameMenu();
+            if (menu != null)
+            {
+                SetMenuActive(References.PAUSE, !menu.GetPauseState());
+            }
+        }
     }
 
     private bool TryToInteract()
@@ -258,11 +267,16 @@ public class PlayerController : MonoBehaviour
 
         if (isDead)
         {
-            GameMenu menu = References.GetGameMenu();
-            if (menu != null)
-            {
-                menu.SetMenuActive(References.GAME_OVER, true);
-            }
+            SetMenuActive(References.GAME_OVER, true);
+        }
+    }
+
+    void SetMenuActive(int menuIndex, bool active)
+    {
+        GameMenu menu = References.GetGameMenu();
+        if (menu != null)
+        {
+            menu.SetMenuActive(menuIndex, active);
         }
     }
 

@@ -10,6 +10,8 @@ public class References : MonoBehaviour
     static GameMenu gameMenu;
 
     public const int GAME_OVER = 0;
+    public const int PAUSE = 1;
+    public const int OPTIONS = 2;
 
     public static void SetGameMenu(GameMenu menu)
     {
