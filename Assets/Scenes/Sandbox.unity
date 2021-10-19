@@ -2724,8 +2724,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOver: {fileID: 1522389910}
-  pause: {fileID: 0}
-  options: {fileID: 0}
+  pause: {fileID: 1041586075}
+  options: {fileID: 850878147}
 --- !u!4 &1025471859
 Transform:
   m_ObjectHideFlags: 0
@@ -2791,7 +2791,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1041586076
 Transform:
   m_ObjectHideFlags: 0
@@ -2949,7 +2949,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1119691100
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3014,9 +3014,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1025471857}
-        m_TargetAssemblyTypeName: SceneManager, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 8872180688390629587, guid: 69c4b8b83be4f0a44958c0380bd2593b, type: 3}
+        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+        m_MethodName: ReloadScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        PauseGame();
+        ProcessPauseInteractions();
         if (References.GetPaused()) return;
 
         ProcessInteractions();
@@ -173,7 +173,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void PauseGame()
+    private void ProcessPauseInteractions()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
