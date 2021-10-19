@@ -424,7 +424,7 @@ GameObject:
   - component: {fileID: 3677418270094361588}
   - component: {fileID: 3677418270094361591}
   - component: {fileID: 3677418270094361590}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CatDummyModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}

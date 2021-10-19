@@ -9,7 +9,7 @@ public class Cheese : MonoBehaviour, IInteractable
 {
     public const float MIN_CHEESE_AMOUNT = 0.2f;
     public const float MAX_CHEESE_AMOUNT = 0.45f;
-    public const float AVG_CHEESE_AMOUNT = MIN_CHEESE_AMOUNT + MAX_CHEESE_AMOUNT / 2;
+    public const float AVG_CHEESE_AMOUNT = (MIN_CHEESE_AMOUNT + MAX_CHEESE_AMOUNT) / 2;
 
     private bool wasSpawned = false;
 
@@ -45,6 +45,11 @@ public class Cheese : MonoBehaviour, IInteractable
 
         float resizeFactor = amount / AVG_CHEESE_AMOUNT;
         transform.localScale = avgScale * resizeFactor;
+    }
+
+    public float GetAmount()
+    {
+        return amount;
     }
 
     public void SetWasSpawned(bool wasSpawned)

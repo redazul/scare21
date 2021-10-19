@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField]
-    List<Vector3> cheeseSpawnLocations;
+    private const float SPAWN_MARGIN = 0.1f;
+
+    private const int NUM_RETRIES_FOR_SPAWNING = 10;
 
     [SerializeField]
-    int amountCheeseToSpawn = 10;
+    private LayerMask checkObstructionLayerMask = 0;
 
     [SerializeField]
-    GameObject cheesePrefab;
+    private List<SpawnArea> cheeseSpawnAreas;
 
-    List<GameObject> spawnedCheeseObjects;
+    [SerializeField]
+    private GameObject cheesePrefab;
+
+    private List<GameObject> spawnedCheeseObjects;
 
     public static LevelManager Instance = null;
     void Awake()
@@ -25,6 +29,7 @@ public class LevelManager : MonoBehaviour
         Instance = this;
 
         spawnedCheeseObjects = new List<GameObject>();
+
     }
 
     void Start()
@@ -34,36 +39,24 @@ public class LevelManager : MonoBehaviour
 
     private void SpawnAllCheese()
     {
-        if (cheeseSpawnLocations == null || cheeseSpawnLocations.Count == 0)
+        int amountCheeseToSpawn = ScoreManager.GetCheeseAmountNeeded();
+
+        if (cheeseSpawnAreas == null || cheeseSpawnAreas.Count == 0)
         {
             Debug.LogWarning("Could not spawn any cheese because no spawn locations are given");
             return;
         }
-        List<Vector3> locations = new List<Vector3>(cheeseSpawnLocations);
 
-        for(int i = 0; i < amountCheeseToSpawn; i++)
+        for (int i = 0; i < amountCheeseToSpawn; i++)
         {
-            if(locations.Count == 0)
+            GameObject result = TrySpawningPrefab(cheeseSpawnAreas, cheesePrefab, checkObstructionLayerMask);
+            if (result != null)
             {
-                Debug.Log("could not spawn cheese #" + i + ", there were not enough locations provided");
-            }
-
-            int locationIndex = Random.Range(0, locations.Count);
-            GameObject result = TrySpawnAt(cheesePrefab, locations[locationIndex], 0);
-            if (result != null) {
                 result.GetComponent<Cheese>().SetWasSpawned(true);
                 spawnedCheeseObjects.Add(result);
             }
         }
-    }
 
-    private void DespawnAllGameObjects(List<GameObject> listToDespawn)
-    {
-        for (int i = listToDespawn.Count - 1; i >= 0; i--)
-        {
-            Destroy(listToDespawn[i]);
-            listToDespawn.RemoveAt(i);
-        }
     }
 
     public void DespawnSingleCheese(GameObject cheeseObjectToDespawn)
@@ -78,20 +71,47 @@ public class LevelManager : MonoBehaviour
         SpawnAllCheese();
     }
 
-    public void SetCheeseAmountToSpawn(int amountCheeseToSpawn)
+    private static void DespawnAllGameObjects(List<GameObject> listToDespawn)
     {
-        this.amountCheeseToSpawn = amountCheeseToSpawn;
+        for (int i = listToDespawn.Count - 1; i >= 0; i--)
+        {
+            Destroy(listToDespawn[i]);
+            listToDespawn.RemoveAt(i);
+        }
     }
 
-    private GameObject TrySpawnAt(GameObject prefab, Vector3 location, float checkRange)
+    private static GameObject TrySpawningPrefab(List<SpawnArea> spawnAreas, GameObject prefab, LayerMask checkObstructionMask)
     {
-        if(checkRange == 0)
+        Vector3 prefabScale = prefab.transform.lossyScale; //warning - this is not very accurate
+        float maxRadius = Mathf.Max(prefabScale.x * 2, prefabScale.z * 2) + SPAWN_MARGIN;
+
+        for (int r = 0; r < NUM_RETRIES_FOR_SPAWNING; r++)
+        {
+            int locationIndex = Random.Range(0, spawnAreas.Count);
+
+            GameObject result = TrySpawningPrefabAt(prefab, spawnAreas[locationIndex].GetRandomPointWithin(), maxRadius, checkObstructionMask);
+            if (result != null)
+            {
+                return result;
+            }
+        }
+        return null;
+    }
+
+    private static GameObject TrySpawningPrefabAt(GameObject prefab, Vector3 location, float checkRange, LayerMask checkObstructionMask)
+    {
+        if (checkRange == 0)
         {
             return Instantiate(prefab, location, Quaternion.identity);
         }
 
-        //TODO: check if there is space in the specified location
-        return Instantiate(prefab, location, Quaternion.identity);
+        Collider[] colliders = Physics.OverlapSphere(location, checkRange, checkObstructionMask);//2 is purely chosen arbitrarly
+        if (colliders.Length == 0)
+        {
+            return Instantiate(prefab, location, Quaternion.identity);
+        }
+
+        return null;
     }
 
 }

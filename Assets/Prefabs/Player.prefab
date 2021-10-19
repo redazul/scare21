@@ -190,11 +190,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   health: 3
-  maxCheeseAmount: 8
-  dropCheeseAmount: 1
+  maxCheeseAmount: 7
   cheesePrefab: {fileID: 3748418416030519392, guid: 14eb8b92b8e173b46a92da8aa5701e08, type: 3}
   baseMovementSpeed: 2.5
-  movementReductionByCheese: 0.1
+  movementReductionByCheese: 0.2
   turnSpeedDegreePerSec: 250
   displayInteractionSphereGizmo: 1
   interactionPosition: {fileID: 1028559588}
