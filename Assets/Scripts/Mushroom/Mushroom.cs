@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Mushroom : MonoBehaviour, IInteractable
 {
+    [Header("How many seconds of light mushroom has.")]
+    public float BatteryLifeSeconds = 10f;
+
+    public bool IsBatteryDepleted { get; private set; }
+
     [SerializeField]
     Light _light;
 
@@ -15,6 +20,7 @@ public class Mushroom : MonoBehaviour, IInteractable
 
     private Transform originalParent;
     PlayerController holder;
+    float batteryLifeLeft;
 
 
     private void Awake()
@@ -23,13 +29,28 @@ public class Mushroom : MonoBehaviour, IInteractable
     }
 
 
+    private void Start()
+    {
+        batteryLifeLeft = BatteryLifeSeconds;
+    }
+
+
 
     // Test driver
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L))
+        // "Battery Life"
+        if (IsLit)
         {
-            
+            batteryLifeLeft -= Time.deltaTime;
+            if (batteryLifeLeft < 0f)
+            {
+                batteryLifeLeft = 0f;
+                IsBatteryDepleted = true;
+                print("Battery depleted!");
+            }
+
+            _light.intensity = batteryLifeLeft / BatteryLifeSeconds;
         }
     }
 
@@ -64,6 +85,13 @@ public class Mushroom : MonoBehaviour, IInteractable
     {
         _light.enabled = false;
         IsLit = false;
+    }
+
+
+    public void ChargeBatteryBySeconds(float seconds)
+    {
+        batteryLifeLeft += seconds;
+        if (batteryLifeLeft > BatteryLifeSeconds) batteryLifeLeft = BatteryLifeSeconds;
     }
 
 
