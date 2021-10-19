@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Cheese : MonoBehaviour, IInteractable
 {
-    public void Interact()
+    public void Interact(Transform other)
     {
         References.SetCheese(References.GetCheese() + 1);
         Destroy(this.gameObject);

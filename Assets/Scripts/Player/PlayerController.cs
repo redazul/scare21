@@ -51,6 +51,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject interactionPosition;
 
+    public Transform MushroomRoot;
+
     private float carriedCheese = 0f;
     private float currentMovementSpeed = 1.0f;
     //private float groundCheckDistance = 1.5f;
@@ -59,6 +61,9 @@ public class PlayerController : MonoBehaviour
 
     private bool isDead = false;
     //the current cheese that the mouse carries
+
+    //Mushroom
+    Mushroom mushroom;
 
     void Awake()
     {
@@ -76,10 +81,15 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        ProcessInputs();
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
-        ProcessInputs();
+        ProcessMovement();
         ApplyAngleLimits();
     }
 
@@ -89,7 +99,6 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        ProcessMovement();
         ProcessInteractions();
     }
 
@@ -128,15 +137,23 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            TryToInteract();
+            if (!TryToInteract())
+            {
+                mushroom.Detach();
+            }
         }
         if (Input.GetKeyDown(KeyCode.F))
         {
             RemoveCheese();
         }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            if (mushroom) mushroom.ToggleLight();
+        }
     }
 
-    private void TryToInteract()
+    private bool TryToInteract()
     {
         Collider[] matchingColliders = Physics.OverlapSphere(interactionPosition.transform.position, INTERACTION_RADIUS);
 
@@ -144,10 +161,12 @@ public class PlayerController : MonoBehaviour
         {
             if (col.gameObject.CompareTag(INTERACTABLE_TAG))
             {
-                col.gameObject.GetComponent<IInteractable>().Interact();
-                return;
+                col.gameObject.GetComponent<IInteractable>().Interact(transform);
+                return true;
             }
-        } 
+        }
+
+        return false;
     }
 
     /// <summary>
@@ -184,6 +203,20 @@ public class PlayerController : MonoBehaviour
         References.SetCheese((int)carriedCheese);
         UpdateMovementSpeedFromCheeseAmount();
     }
+
+
+    public void HoldMushroom(Mushroom m)
+    {
+        mushroom = m;
+    }
+
+
+    public Vector3 DropMushroom()
+    {
+        mushroom = null;
+        return interactionPosition.transform.position;
+    }
+
 
     private void UpdateMovementSpeedFromCheeseAmount()
     {
