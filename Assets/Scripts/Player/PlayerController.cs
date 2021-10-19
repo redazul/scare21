@@ -255,6 +255,15 @@ public class PlayerController : MonoBehaviour
 
         isDead = health <= 0;
         HUDManager.Instance.UpdateHealthAmount(health);
+
+        if (isDead)
+        {
+            GameMenu menu = References.GetGameMenu();
+            if (menu != null)
+            {
+                menu.SetMenuActive(References.GAME_OVER, true);
+            }
+        }
     }
 
     public bool IsDead()
