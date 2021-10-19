@@ -11,24 +11,6 @@ public class GameMenu : MonoBehaviour
     {
         References.SetGameMenu(this);
     }
-    public void SetMenuActive(int menuIndex, bool active)
-    {
-        DeactivateAllMenus();
-
-        GameObject menu = gameObject;
-
-        switch (menuIndex)
-        {
-            case References.GAME_OVER: menu = gameOver; break;
-            case References.PAUSE: menu = pause; break;
-            case References.OPTIONS: menu = options; break;
-        }
-
-        if (menu != gameObject)
-        {
-            menu.SetActive(active);
-        }
-    }
 
     public void SetMenu(int menuIndex)
     {
@@ -49,9 +31,13 @@ public class GameMenu : MonoBehaviour
         }
     }
 
-    public bool GetPauseState()
+    public int GetMenu()
     {
-        return pause.activeInHierarchy;
+        if (gameOver.activeInHierarchy) return References.GAME_OVER;
+        if (pause.activeInHierarchy) return References.PAUSE;
+        if (options.activeInHierarchy) return References.OPTIONS;
+
+        return -1;
     }
 
     public void DeactivateAllMenus()
@@ -59,6 +45,11 @@ public class GameMenu : MonoBehaviour
         gameOver.SetActive(false);
         pause.SetActive(false);
         options.SetActive(false);
+    }
+
+    public void PauseGame(bool paused)
+    {
+        References.SetPaused(paused);
     }
 }
 

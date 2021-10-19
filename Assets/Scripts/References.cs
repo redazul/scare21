@@ -9,9 +9,29 @@ public class References : MonoBehaviour
 
     static GameMenu gameMenu;
 
+    static bool paused;
+
     public const int GAME_OVER = 0;
     public const int PAUSE = 1;
     public const int OPTIONS = 2;
+
+    public static void SetPaused(bool _paused)
+    {
+        paused = _paused;
+
+        if (paused)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+    }
+    public static bool GetPaused()
+    {
+        return paused;
+    }
 
     public static void SetGameMenu(GameMenu menu)
     {

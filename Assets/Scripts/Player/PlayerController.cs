@@ -89,12 +89,17 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        PauseGame();
+        if (References.GetPaused()) return;
+
         ProcessInputs();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (References.GetPaused()) return;
+
         ProcessMovement();
         ApplyAngleLimits();
     }
@@ -160,20 +165,37 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.T))
         {
-            //Create trap
             if (trapsAmount > 0)
             {
                 trapsAmount--;
                 Instantiate(trapPrefab, transform.position + transform.forward - Vector3.up * 0.1f, transform.rotation);
             }
         }
+    }
 
+    void PauseGame()
+    {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             GameMenu menu = References.GetGameMenu();
             if (menu != null)
             {
-                SetMenuActive(References.PAUSE, !menu.GetPauseState());
+                int currentMenu = menu.GetMenu();
+
+                if (currentMenu == References.PAUSE)
+                {
+                    DeactivateAllMenus();
+                    References.SetPaused(false);
+                }
+                else if (currentMenu == References.OPTIONS)
+                {
+                    SetMenu(References.PAUSE);
+                }
+                else if (currentMenu == -1)
+                {
+                    SetMenu(References.PAUSE);
+                    References.SetPaused(true);
+                }
             }
         }
     }
@@ -267,16 +289,25 @@ public class PlayerController : MonoBehaviour
 
         if (isDead)
         {
-            SetMenuActive(References.GAME_OVER, true);
+            SetMenu(References.GAME_OVER);
         }
     }
 
-    void SetMenuActive(int menuIndex, bool active)
+    void SetMenu(int menuIndex)
     {
         GameMenu menu = References.GetGameMenu();
         if (menu != null)
         {
-            menu.SetMenuActive(menuIndex, active);
+            menu.SetMenu(menuIndex);
+        }
+    }
+
+    void DeactivateAllMenus()
+    {
+        GameMenu menu = References.GetGameMenu();
+        if (menu != null)
+        {
+            menu.DeactivateAllMenus();
         }
     }
 
