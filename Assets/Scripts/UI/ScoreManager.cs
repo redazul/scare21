@@ -7,11 +7,11 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    public static void OnCheeseChange()
+    public static void FinishLevel(float cheeseCarried)
     {
-        FindObjectOfType<PlayerController>().SetCheese(References.GetCheese());
-        UpdateCheeseUI();
-        EstimateSurvivors();
+        EstimateSurvivors(cheeseCarried);
+        References.AddDay();
+        HUDManager.Instance.ShowDayEndsScreenOverlay(References.GetDayCounter(), References.GetSurvivors(), References.GetRelativeLosses());
     }
 
     public static void OnSurvivorChange()
@@ -19,21 +19,21 @@ public class ScoreManager : MonoBehaviour
         UpdateSurvivorUI();
     }
 
-    private static void UpdateCheeseUI()
-    {
-        HUDManager.Instance.UpdateCheeseAmount(References.GetCheese());
-    }
-
     private static void UpdateSurvivorUI()
     {
         HUDManager.Instance.UpdateSurvivorsAmount(References.GetSurvivors());
     }
 
-    public static void EstimateSurvivors()
-    {
+    private static void EstimateSurvivors(float cheeseCarried)
+    {        
         //Placeholder
-        float survivors = References.GetCheese() / 10;
-        References.SetSurvivors((int)survivors);
+
+        int previousSurvivors = References.GetSurvivors();
+        int currentSurvivors = Mathf.Min(previousSurvivors, (int) (cheeseCarried / 0.5f));
+        int losses = previousSurvivors - currentSurvivors;
+
+        References.SetSurvivors(currentSurvivors);
+        References.SetRelativeLosses(losses);
 
         OnSurvivorChange();
     }

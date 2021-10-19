@@ -7,8 +7,6 @@ using static Scare.AI.Components.FOVComponent;
 
 public class CatController : MonoBehaviour
 {
-    private const string PLAYER_TAG = "Player";
-
     [Tooltip("The time before the cat loses interest in the player if he wasn't found again via fovcomponent")]
     [SerializeField]
     private float timeToLosePursuitInterest = 1.25f;
@@ -101,7 +99,7 @@ public class CatController : MonoBehaviour
 
     private void OnFoundItemOfInterest(Collider closestItemOfInterest)
     {
-        if (closestItemOfInterest.tag == PLAYER_TAG && !closestItemOfInterest.GetComponent<PlayerController>().IsDead())
+        if (closestItemOfInterest.tag == PlayerController.PLAYER_TAG && !closestItemOfInterest.GetComponent<PlayerController>().IsDead())
         {
             GetComponentInChildren<Light>().color = Color.red;
             UpdatePlayerPursuit(closestItemOfInterest.gameObject);

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public const string PLAYER_TAG = "Player";
+
     private const float MAX_XZ_ROTATION_ANGLE = 30f;
 
     private const float INTERACTION_RADIUS = 0.45f;
@@ -17,13 +19,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private int health = 3;
 
-    //[Tooltip("maximum amount of cheese that can be carried")]
-    //[SerializeField]
-    //private float maxCheeseAmount = float.PositiveInfinity;
-
-    [Tooltip("the amount that will be dropped if the player decides to drop cheese")]
+    [Tooltip("maximum amount of cheese that can be carried")]
     [SerializeField]
-    private float dropCheeseAmount = 1f;
+    private float maxCheeseAmount = 10.0f;
 
     [Tooltip("The cheese prefab to be instantiated when the player drops the cheese")]
     [SerializeField]
@@ -65,6 +63,8 @@ public class PlayerController : MonoBehaviour
     //Mushroom
     Mushroom mushroom;
 
+    private static float cheeseCapacity = 10.0f;
+
     void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
@@ -73,37 +73,30 @@ public class PlayerController : MonoBehaviour
         {
             Debug.LogWarning("Cheese prefab was not set so no cheese will be instantiated when the player drops the cheese.");
         }
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
+        //make cheeseCapacity availabe for static getter access
+        cheeseCapacity = maxCheeseAmount;
     }
 
     private void Update()
     {
-        ProcessInputs();
+        ProcessInteractions();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         ProcessMovement();
         ApplyAngleLimits();
     }
 
-    private void ProcessInputs()
+    private void ProcessMovement()
     {
+        //cant move if you are dead
         if (isDead)
         {
             return;
         }
-        ProcessInteractions();
-    }
 
-    private void ProcessMovement()
-    {
         //Vector3 newUp = transform.up, newForward = transform.forward;
         //RaycastHit hit;
         //if (Physics.Raycast(transform.position, -transform.up, out hit, groundCheckDistance))
@@ -134,10 +127,17 @@ public class PlayerController : MonoBehaviour
     }
 
     private void ProcessInteractions()
-    {
+    {        
+        //cant interact if you are dead
+        if (isDead)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (!TryToInteract())
+            bool interacted = TryToInteract();
+            if (!interacted && mushroom)
             {
                 mushroom.Detach();
             }
@@ -153,6 +153,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Tries to interact with the objects around the interaction position.
+    /// </summary>
+    /// <returns>True, if the player interacted with anything</returns>
     private bool TryToInteract()
     {
         Collider[] matchingColliders = Physics.OverlapSphere(interactionPosition.transform.position, INTERACTION_RADIUS);
@@ -172,22 +176,35 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// This should be called when cheese is picked up
     /// </summary>
-    public void SetCheese(float newCheeseAmount)
+    public void AddCheese(float amountToAdd)
     {
-        carriedCheese = newCheeseAmount;
-        UpdateMovementSpeedFromCheeseAmount();
+        ChangeCheeseAmount(amountToAdd);
     }
 
     private void RemoveCheese()
     {
-
+        //don't drop anything if you dont have any cheese
         if (carriedCheese <= 0)
         {
             return;
         }
-        float amountToDrop = Mathf.Min(dropCheeseAmount, carriedCheese);
-        carriedCheese -= amountToDrop;
 
+        float amountToDrop;
+        //make sure you don't drop too much cheese
+        if (carriedCheese <= Cheese.MIN_CHEESE_AMOUNT * 2)
+        {
+            amountToDrop = carriedCheese;
+        } else if(carriedCheese <= Cheese.MAX_CHEESE_AMOUNT * 2)
+        {
+            amountToDrop = carriedCheese / 2;
+        } else
+        {
+            amountToDrop = Mathf.Min(Cheese.GetRandomCheeseAmount(), carriedCheese);
+        }
+
+
+
+        //spawn the cheese
         if (cheesePrefab != null)
         {
             Quaternion targetRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
@@ -198,25 +215,40 @@ public class PlayerController : MonoBehaviour
             Vector3 targetPosition = transform.position + transform.forward * 0.5f + displacement;
 
             GameObject spawnedCheeseObject = Instantiate(cheesePrefab, targetPosition, targetRotation);
+            spawnedCheeseObject.GetComponent<Cheese>().SetAmount(amountToDrop);
         }
 
-        References.SetCheese((int)carriedCheese);
-        UpdateMovementSpeedFromCheeseAmount();
+        //update carried cheese amount
+        ChangeCheeseAmount(-amountToDrop);
     }
 
+    private void ChangeCheeseAmount(float change)
+    {
+        carriedCheese = Mathf.Clamp(carriedCheese + change, 0, maxCheeseAmount);
+        UpdateMovementSpeedFromCheeseAmount();
+        HUDManager.Instance.UpdateCheeseAmount(carriedCheese);
+    }
+
+    public float GetCarriedCheeseAmount()
+    {
+        return carriedCheese;
+    }
+
+    public static float GetCheeseCapacity()
+    {
+        return cheeseCapacity;
+    }
 
     public void HoldMushroom(Mushroom m)
     {
         mushroom = m;
     }
 
-
     public Vector3 DropMushroom()
     {
         mushroom = null;
         return interactionPosition.transform.position;
     }
-
 
     private void UpdateMovementSpeedFromCheeseAmount()
     {
@@ -276,8 +308,6 @@ public class PlayerController : MonoBehaviour
             transform.eulerAngles = new Vector3(targetXAngle, currentYAngle, targetZAngle);
         }
     }
-
-
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()

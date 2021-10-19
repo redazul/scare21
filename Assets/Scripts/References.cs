@@ -4,19 +4,9 @@ using UnityEngine;
 
 public class References : MonoBehaviour
 {
-    static int cheese;
     static int survivors = 10;
-
-    public static int GetCheese()
-    {
-        return cheese;
-    }
-
-    public static void SetCheese(int _cheese)
-    {
-        cheese = _cheese;
-        ScoreManager.OnCheeseChange();
-    }
+    static int relativeLosses = 0;
+    static int dayCounter = 0;
 
     public static int GetSurvivors()
     {
@@ -26,5 +16,24 @@ public class References : MonoBehaviour
     {
         survivors = _survivors;
         ScoreManager.OnSurvivorChange();
+    }
+    public static int GetRelativeLosses()
+    {
+        return relativeLosses;
+    }
+
+    public static void SetRelativeLosses(int losses)
+    {
+        relativeLosses = losses;
+    }
+
+    public static int GetDayCounter()
+    {
+        return dayCounter;
+    }
+
+    public static void AddDay()
+    {
+        dayCounter++;
     }
 }

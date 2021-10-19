@@ -10,6 +10,7 @@ public class HUDManager : MonoBehaviour
     private HUDSurvivors hudSurvivors;
     private HUDHealth hudHealth;
     private HUDCheese hudCheese;
+    private HUDScreenOverlay hudScreenOverlay;
 
     void Awake()
     {
@@ -22,6 +23,7 @@ public class HUDManager : MonoBehaviour
         hudHealth = GetComponentInChildren<HUDHealth>();
         hudCheese = GetComponentInChildren<HUDCheese>();
         hudSurvivors = GetComponentInChildren<HUDSurvivors>();
+        hudScreenOverlay = GetComponentInChildren<HUDScreenOverlay>();
     }
 
     public void UpdateCheeseAmount(float newCheeseAmount)
@@ -37,6 +39,13 @@ public class HUDManager : MonoBehaviour
     public void UpdateHealthAmount(int newHealthAmount)
     {
         hudHealth.OnHealthChanged(newHealthAmount);
+    }
+
+    public void ShowDayEndsScreenOverlay(int nextDay, int survivors, int losses, System.Action processNightCallback = null, System.Action onStartNewDayCallback = null)
+    {
+        hudScreenOverlay.ShowOverlayDailyTexts(nextDay, survivors, losses);
+        hudScreenOverlay.DisplayOverlay(processNightCallback, onStartNewDayCallback);
+
     }
 
 }
