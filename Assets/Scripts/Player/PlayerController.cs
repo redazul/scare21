@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour
     //private float groundCheckDistance = 1.5f;
 
     private Rigidbody rigidBody;
+    private AnimationControl animationControl;
 
     private bool isDead = false;
     //the current cheese that the mouse carries
@@ -74,6 +75,8 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
+        animationControl = GetComponentInChildren<AnimationControl>();
+
         UpdateMovementSpeedFromCheeseAmount();
         if (cheesePrefab == null)
         {
@@ -103,6 +106,7 @@ public class PlayerController : MonoBehaviour
 
         ProcessMovement();
         ApplyAngleLimits();
+
     }
 
     private void ProcessMovement()
@@ -132,9 +136,11 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = transform.forward * Input.GetAxis("Vertical");
         if (movement == Vector3.zero)
         {
+            animationControl.SetMovementSpeed(0);
             return;
         }
         Move(movement * Time.fixedDeltaTime * currentMovementSpeed);
+        animationControl.SetMovementSpeed(currentMovementSpeed);
     }
 
     private void Move(Vector3 movement)
