@@ -17,7 +17,21 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private GameObject cheesePrefab;
 
+    [SerializeField]
+    private List<SpawnArea> catSpawnAreas;
+
+    [SerializeField]
+    private GameObject catPrefab;
+
+    [SerializeField]
+    private List<SpawnArea> trapSpawnAreas;
+
+    [SerializeField]
+    private GameObject trapPrefab;
+
     private List<GameObject> spawnedCheeseObjects;
+    private List<GameObject> spawnedCatObjects;
+    private List<GameObject> spawnedTrapObjects;
 
     public static LevelManager Instance = null;
     void Awake()
@@ -29,34 +43,41 @@ public class LevelManager : MonoBehaviour
         Instance = this;
 
         spawnedCheeseObjects = new List<GameObject>();
-
+        spawnedCatObjects = new List<GameObject>();
+        spawnedTrapObjects = new List<GameObject>();
     }
 
     void Start()
     {
-        SpawnAllCheese();
+        SpawnAllSpawnables();
     }
 
-    private void SpawnAllCheese()
+    public void CleanAndRespawnAll()
     {
+        DespawnAllSpawnables();
+        SpawnAllSpawnables();
+    }
+
+    public void SpawnAllSpawnables()
+    {
+        //cheese
         int amountCheeseToSpawn = ScoreManager.GetCheeseAmountNeeded();
+        SpawnMultiplePrefabs(amountCheeseToSpawn, cheesePrefab, cheeseSpawnAreas, spawnedCheeseObjects, checkObstructionLayerMask);
 
-        if (cheeseSpawnAreas == null || cheeseSpawnAreas.Count == 0)
-        {
-            Debug.LogWarning("Could not spawn any cheese because no spawn locations are given");
-            return;
-        }
+        //cats
+        int amountCatsToSpawn = 2;
+        SpawnMultiplePrefabs(amountCatsToSpawn, catPrefab, catSpawnAreas, spawnedCatObjects, checkObstructionLayerMask);
 
-        for (int i = 0; i < amountCheeseToSpawn; i++)
-        {
-            GameObject result = TrySpawningPrefab(cheeseSpawnAreas, cheesePrefab, checkObstructionLayerMask);
-            if (result != null)
-            {
-                result.GetComponent<Cheese>().SetWasSpawned(true);
-                spawnedCheeseObjects.Add(result);
-            }
-        }
+        //traps
+        int amountTrapsToSpawn = 3;
+        SpawnMultiplePrefabs(amountTrapsToSpawn, trapPrefab, trapSpawnAreas, spawnedTrapObjects, checkObstructionLayerMask);
+    }
 
+    private void DespawnAllSpawnables()
+    {
+        DespawnAllGameObjects(spawnedCheeseObjects);
+        DespawnAllGameObjects(spawnedCatObjects);
+        DespawnAllGameObjects(spawnedTrapObjects);
     }
 
     public void DespawnSingleCheese(GameObject cheeseObjectToDespawn)
@@ -65,11 +86,6 @@ public class LevelManager : MonoBehaviour
         Destroy(cheeseObjectToDespawn);
     }
 
-    public void CleanAndRespawnCheese()
-    {
-        DespawnAllGameObjects(spawnedCheeseObjects);
-        SpawnAllCheese();
-    }
 
     private static void DespawnAllGameObjects(List<GameObject> listToDespawn)
     {
@@ -77,6 +93,25 @@ public class LevelManager : MonoBehaviour
         {
             Destroy(listToDespawn[i]);
             listToDespawn.RemoveAt(i);
+        }
+    }
+
+    private static void SpawnMultiplePrefabs(int amountToSpawn, GameObject prefab, List<SpawnArea> spawnAreas, List<GameObject> managingList, LayerMask obstructionMask)
+    {
+        if (spawnAreas == null || spawnAreas.Count == 0)
+        {
+            Debug.LogWarning("Could not spawn any cheese because no spawn locations are given");
+            return;
+        }
+
+        for (int i = 0; i < amountToSpawn; i++)
+        {
+            GameObject result = TrySpawningPrefab(spawnAreas, prefab, obstructionMask);
+            if (result != null)
+            {
+                result.GetComponent<ISpawnable>().SetSpawned(true);
+                managingList.Add(result);
+            }
         }
     }
 

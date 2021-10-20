@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using static Scare.AI.Components.FOVComponent;
 
-public class CatController : MonoBehaviour
+public class CatController : MonoBehaviour, ISpawnable
 {
     [Tooltip("The time before the cat loses interest in the player if he wasn't found again via fovcomponent")]
     [SerializeField]
@@ -43,6 +43,8 @@ public class CatController : MonoBehaviour
     private bool isPursuing = false;
 
     private NavMeshAgent navMeshAgent;
+
+    private bool wasSpawned = false;
 
     void Awake()
     {
@@ -151,5 +153,10 @@ public class CatController : MonoBehaviour
         //start wandering
         navMeshAgent.speed = wanderSpeed;
         wanderer.StartWandering(false);
+    }
+
+    public void SetSpawned(bool wasSpawned)
+    {
+        this.wasSpawned = wasSpawned;
     }
 }

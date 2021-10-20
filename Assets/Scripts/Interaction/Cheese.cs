@@ -5,7 +5,7 @@
 
 using UnityEngine;
 
-public class Cheese : MonoBehaviour, IInteractable
+public class Cheese : MonoBehaviour, IInteractable, ISpawnable
 {
     public const float MIN_CHEESE_AMOUNT = 0.2f;
     public const float MAX_CHEESE_AMOUNT = 0.45f;
@@ -52,7 +52,7 @@ public class Cheese : MonoBehaviour, IInteractable
         return amount;
     }
 
-    public void SetWasSpawned(bool wasSpawned)
+    public void SetSpawned(bool wasSpawned)
     {
         this.wasSpawned = wasSpawned;
     }

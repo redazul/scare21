@@ -28,8 +28,7 @@ public class ScoreManager : MonoBehaviour
 
     public static void ProcessNight()
     {
-
-        LevelManager.Instance.CleanAndRespawnCheese();
+        LevelManager.Instance.CleanAndRespawnAll();
     }
 
     public static void OnSurvivorChange()
