@@ -39,6 +39,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float turnSpeedDegreePerSec = 250f;
 
+    [Tooltip("If the player returns to original angle")]
+    [SerializeField]
+    private float angleCorrectionPerSec = 5f;
+
     //[Tooltip("How fast the move corrects rotation based on terrain movement (surface normals)")]
     //[SerializeField]
     //float rotateCorrectionSpeed = 50f;
@@ -136,11 +140,11 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = transform.forward * Input.GetAxis("Vertical");
         if (movement == Vector3.zero)
         {
-            animationControl.SetMovementSpeed(0);
+            animationControl?.SetMovementSpeed(0);
             return;
         }
         Move(movement * Time.fixedDeltaTime * currentMovementSpeed);
-        animationControl.SetMovementSpeed(currentMovementSpeed);
+        animationControl?.SetMovementSpeed(currentMovementSpeed);
     }
 
     private void Move(Vector3 movement)
@@ -376,26 +380,50 @@ public class PlayerController : MonoBehaviour
         float currentYAngle = transform.localRotation.eulerAngles.y;
         float currentZAngle = transform.localRotation.eulerAngles.z;
 
-        float targetXAngle = currentXAngle;
-        float targetZAngle = currentZAngle;
-
-        bool needsCorrection = false;
+        if(FloatAlmostZero(currentXAngle, 0.01f) && FloatAlmostZero(currentZAngle, 0.01f))
+        {
+            return;
+        }
 
         if (currentXAngle > MAX_XZ_ROTATION_ANGLE && currentXAngle < 360 - MAX_XZ_ROTATION_ANGLE)
         {
-            targetXAngle = currentXAngle > 180 ? 360 - MAX_XZ_ROTATION_ANGLE : MAX_XZ_ROTATION_ANGLE;
-            needsCorrection = true;
+            currentXAngle = currentXAngle > 180 ? 360 - MAX_XZ_ROTATION_ANGLE : MAX_XZ_ROTATION_ANGLE;
         }
         if (currentZAngle > MAX_XZ_ROTATION_ANGLE && currentZAngle < 360 - MAX_XZ_ROTATION_ANGLE)
         {
-            targetZAngle = currentZAngle > 180 ? 360 - MAX_XZ_ROTATION_ANGLE : MAX_XZ_ROTATION_ANGLE;
-            needsCorrection = true;
+            currentZAngle = currentZAngle > 180 ? 360 - MAX_XZ_ROTATION_ANGLE : MAX_XZ_ROTATION_ANGLE;
         }
-        if (needsCorrection)
-        {
-            transform.eulerAngles = new Vector3(targetXAngle, currentYAngle, targetZAngle);
-        }
+
+        transform.eulerAngles = new Vector3(GetNextAngleToZero(currentXAngle, angleCorrectionPerSec), currentYAngle, GetNextAngleToZero(currentZAngle, angleCorrectionPerSec));
     }
+
+    private float GetNextAngleToZero(float currentAngle, float correctionPerTime)
+    {
+        float correction;
+        if (FloatAlmostZero(currentAngle, 0.1f))
+        {
+            return 0.0f;
+        }
+        if(currentAngle >= 180)
+        {
+            correction = Mathf.Min(360 - currentAngle, correctionPerTime * Time.fixedDeltaTime);
+            return currentAngle + correction;
+        }
+        //currentAngle < 180
+        correction = Mathf.Max(-currentAngle, -correctionPerTime * Time.fixedDeltaTime);
+        return currentAngle + correction;
+    }
+
+    private static bool FloatAlmostZero(float value, float delta)
+    {
+        if(value < delta && value > -delta)
+        {
+            return true;
+        }
+        return false;
+    }
+
+
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
