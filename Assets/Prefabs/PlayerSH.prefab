@@ -161,8 +161,6 @@ MonoBehaviour:
   angleCorrectionPerSec: 5
   displayInteractionSphereGizmo: 1
   interactionPosition: {fileID: 8426542939052931106}
-  trapPrefab: {fileID: 7161304466684872621, guid: d122c026593b32f4d87b3427c7f1cf73, type: 3}
-  trapsAmount: 5
   MushroomRoot: {fileID: 8193056560330243965}
 --- !u!143 &295262708242716270
 CharacterController:
@@ -2228,8 +2226,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.3, z: 0.3}
-  m_Center: {x: 0, y: 1, z: 0.49}
+  m_Size: {x: 0.33799744, y: 1.132808, z: 0.35848618}
+  m_Center: {x: 0.0034942627, y: 0.583596, z: 0.02775383}
 --- !u!114 &4131182947036073466
 MonoBehaviour:
   m_ObjectHideFlags: 0
