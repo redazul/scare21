@@ -15,7 +15,7 @@ public class MenuNavigationManager : MonoBehaviour
     {
         if(Instance != null)
         {
-            Debug.LogWarning("There is more than one MenuManager in this scene.");
+            Debug.LogWarning("There is more than one MenuNavigationManager in this scene.");
         }
         Instance = this;
 
@@ -78,17 +78,17 @@ public class MenuNavigationManager : MonoBehaviour
                 }
             case MenuNavigationTarget.startGame:
                 {
-                    SceneManager.Instance.StartGame();
+                    SceneLoader.Instance.StartGame();
                     break;
                 }
             case MenuNavigationTarget.showCredits:
                 {
-                    SceneManager.Instance.SwitchToScene(SceneManager.AvailableScene.credits);
+                    SceneLoader.Instance.SwitchToScene(SceneLoader.AvailableScene.credits);
                     break;
                 }
             case MenuNavigationTarget.quitGame:
                 {
-                    SceneManager.Instance.QuitGame();
+                    SceneLoader.Instance.QuitGame();
                     break;
                 }
         }

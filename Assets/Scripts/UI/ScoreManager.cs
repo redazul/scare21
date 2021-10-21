@@ -7,11 +7,28 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    public static void OnCheeseChange()
+    private const float CHEESE_PER_SURVIVOR = 0.5f;
+    private const float CHEESE_SPAWNED_FACTOR = 1.2f;
+
+    public static int GetCheeseAmountNeeded()
     {
-        FindObjectOfType<PlayerController>().AddCheese(1);
-        UpdateCheeseUI();
-        EstimateSurvivors();
+        int survivors = References.GetSurvivors();
+        float cheeseAmountNeeded = survivors * CHEESE_PER_SURVIVOR;
+        float cheeseAmountToSpawn = cheeseAmountNeeded * CHEESE_SPAWNED_FACTOR;
+        int cheesePiecesToSpawn = Mathf.CeilToInt(cheeseAmountToSpawn / Cheese.AVG_CHEESE_AMOUNT);
+        return cheesePiecesToSpawn;
+    }
+
+    public static void FinishLevel(float cheeseCarried)
+    {
+        EstimateSurvivors(cheeseCarried);
+        References.AddDay();
+        HUDManager.Instance.ShowDayEndsScreenOverlay(References.GetDayCounter(), References.GetSurvivors(), References.GetRelativeLosses(), ProcessNight);
+    }
+
+    public static void ProcessNight()
+    {
+        LevelManager.Instance.CleanAndRespawnAll();
     }
 
     public static void OnSurvivorChange()
@@ -19,21 +36,21 @@ public class ScoreManager : MonoBehaviour
         UpdateSurvivorUI();
     }
 
-    private static void UpdateCheeseUI()
-    {
-        HUDManager.Instance.UpdateCheeseAmount(References.GetCheese());
-    }
-
     private static void UpdateSurvivorUI()
     {
         HUDManager.Instance.UpdateSurvivorsAmount(References.GetSurvivors());
     }
 
-    public static void EstimateSurvivors()
-    {
+    private static void EstimateSurvivors(float cheeseCarried)
+    {        
         //Placeholder
-        float survivors = References.GetCheese() / 10;
-        References.SetSurvivors((int)survivors);
+
+        int previousSurvivors = References.GetSurvivors();
+        int currentSurvivors = Mathf.Min(previousSurvivors, (int) (cheeseCarried / CHEESE_PER_SURVIVOR));
+        int losses = previousSurvivors - currentSurvivors;
+
+        References.SetSurvivors(currentSurvivors);
+        References.SetRelativeLosses(losses);
 
         OnSurvivorChange();
     }

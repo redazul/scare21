@@ -38,7 +38,8 @@ public class HUDCheeseTest : MonoBehaviour
 
     private void Update()
     {
-        int cheese;
+        /*int cheese;
+
 
         if (Input.GetKeyDown(KeyCode.W))
         {
@@ -50,7 +51,7 @@ public class HUDCheeseTest : MonoBehaviour
         {
             cheese = (int)Mathf.Clamp(References.GetCheese() - 5, 0, _cheeseCapacity);
             References.SetCheese(cheese);
-        }
+        } */
     }
 
 

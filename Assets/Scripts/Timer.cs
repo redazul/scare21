@@ -12,7 +12,7 @@ public class Timer : MonoBehaviour
 
     void Update()
     {
-        if (!IsRunning())
+        if (!IsRunning() || References.GetPaused())
         {
             return;
         }

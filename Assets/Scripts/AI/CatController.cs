@@ -5,10 +5,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using static Scare.AI.Components.FOVComponent;
 
-public class CatController : MonoBehaviour
+public class CatController : MonoBehaviour, ISpawnable
 {
-    private const string PLAYER_TAG = "Player";
-
     [Tooltip("The time before the cat loses interest in the player if he wasn't found again via fovcomponent")]
     [SerializeField]
     private float timeToLosePursuitInterest = 1.25f;
@@ -46,6 +44,8 @@ public class CatController : MonoBehaviour
 
     private NavMeshAgent navMeshAgent;
 
+    private bool wasSpawned = false;
+
     void Awake()
     {
         wanderer = GetComponent<EntityWanderer>();
@@ -70,6 +70,8 @@ public class CatController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (References.GetPaused()) return;
+
         CheckAttackPlayerOnPursuit();
     }
 
@@ -101,7 +103,7 @@ public class CatController : MonoBehaviour
 
     private void OnFoundItemOfInterest(Collider closestItemOfInterest)
     {
-        if (closestItemOfInterest.tag == PLAYER_TAG && !closestItemOfInterest.GetComponent<PlayerController>().IsDead())
+        if (closestItemOfInterest.tag == PlayerController.PLAYER_TAG && !closestItemOfInterest.GetComponent<PlayerController>().IsDead())
         {
             GetComponentInChildren<Light>().color = Color.red;
             UpdatePlayerPursuit(closestItemOfInterest.gameObject);
@@ -137,6 +139,7 @@ public class CatController : MonoBehaviour
         followPursuitTimer.SetPaused(false);
 
         navMeshAgent.isStopped = false;
+        navMeshAgent.speed = pursuitSpeed;
     }
 
     private void LoseInterest()
@@ -148,6 +151,12 @@ public class CatController : MonoBehaviour
         followPursuitTimer.SetPaused(true);
 
         //start wandering
+        navMeshAgent.speed = wanderSpeed;
         wanderer.StartWandering(false);
+    }
+
+    public void SetSpawned(bool wasSpawned)
+    {
+        this.wasSpawned = wasSpawned;
     }
 }

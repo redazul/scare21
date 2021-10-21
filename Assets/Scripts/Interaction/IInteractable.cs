@@ -3,12 +3,14 @@
  * Interaction Implementation
  */
 
+using UnityEngine;
+
 public interface IInteractable
 {
 
     /// <summary>
     /// Method to be called to interact with object.
     /// </summary>
-    public void Interact();
+    public void Interact(Transform other);
 
 }

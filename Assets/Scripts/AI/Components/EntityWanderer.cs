@@ -70,6 +70,8 @@ public class EntityWanderer : MonoBehaviour
 
     void Update()
     {
+        if (References.GetPaused()) return;
+
         CheckAndUpdateWaypoints();
         UpdateNavMeshPath();
 
@@ -156,7 +158,7 @@ public class EntityWanderer : MonoBehaviour
         bool foundPos = NavMesh.SamplePosition(targetWaypoint, out closestNavMeshPosition, navMeshSearchRadius, NavMesh.AllAreas);
         if (!foundPos)
         {
-            Debug.LogWarning("Could not find a nav mesh position within " + navMeshSearchRadius + "f for given point " + targetWaypoint);
+            //Debug.LogWarning("Could not find a nav mesh position within " + navMeshSearchRadius + "f for given point " + targetWaypoint);
             nextWaypointIndex = currentWaypointIndex;
             nextWaypoint = null;
             return;

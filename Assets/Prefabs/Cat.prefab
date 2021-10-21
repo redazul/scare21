@@ -335,6 +335,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc4f2406e4726c146b557bf360086304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeToLosePursuitInterest: 1.25
+  pursuitSpeed: 1.9
+  wanderSpeed: 1.5
+  playerAttackRange: 2
+  attackReloadTime: 2
+  attackPushMagnitude: 5
 --- !u!114 &3677418269776767730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,7 +379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewRadius: 8
   viewAngle: 120
-  timeBetweenChecks: 1
+  timeBetweenChecks: 0.8
   isSearching: 0
   whatToLookFor:
     serializedVersion: 2
@@ -382,7 +388,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   searchOnStart: 1
-  recallIfSame: 0
+  recallIfSame: 1
   searchType: 0
 --- !u!195 &3677418269776767731
 NavMeshAgent:
@@ -418,7 +424,7 @@ GameObject:
   - component: {fileID: 3677418270094361588}
   - component: {fileID: 3677418270094361591}
   - component: {fileID: 3677418270094361590}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CatDummyModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
