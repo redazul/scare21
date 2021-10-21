@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: meshMaterialPass0
+  m_Shader: {fileID: 4800000, guid: 76b3a291c7a044bc8f04f4cb1a5771e6, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal0:
+        m_Texture: {fileID: 2800000, guid: 67a70a78d678fb649b5c703cd7dc85c1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal1:
+        m_Texture: {fileID: 2800000, guid: f45c3bd09301cc64783afc31dfca026b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal2:
+        m_Texture: {fileID: 2800000, guid: d4b07feb684a4c7408feee80ad0b3718, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal3:
+        m_Texture: {fileID: 2800000, guid: 88d33185aa199f54fa932451a103d0a3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Splat0:
+        m_Texture: {fileID: 2800000, guid: 43b54d39e0a4c4d47bef645abec127f1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Splat1:
+        m_Texture: {fileID: 2800000, guid: f7dd726c93b8f17418ea3be3f6768909, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Splat2:
+        m_Texture: {fileID: 2800000, guid: f10c4bcf68b109044b88f799639334ee, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Splat3:
+        m_Texture: {fileID: 2800000, guid: 34c508814816a294c8f94dd93e8da995, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Metallic0: 0
+    - _Metallic1: 0
+    - _Metallic2: 0
+    - _Metallic3: 0
+    - _Smoothness0: 0
+    - _Smoothness1: 0
+    - _Smoothness2: 0
+    - _Smoothness3: 0
+    - _normalScale0: 1
+    - _normalScale1: 2
+    - _normalScale2: 1
+    - _normalScale3: 2
+    - _offset0x: 0
+    - _offset0y: 0
+    - _offset1x: 0
+    - _offset1y: 0
+    - _offset2x: 0
+    - _offset2y: 0
+    - _offset3x: 0
+    - _offset3y: 0
+    - _tiles0x: 0.033333335
+    - _tiles0y: 0.033333335
+    - _tiles1x: 0.01
+    - _tiles1y: 0.01
+    - _tiles2x: 0.05
+    - _tiles2y: 0.05
+    - _tiles3x: 0.02
+    - _tiles3y: 0.02
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []

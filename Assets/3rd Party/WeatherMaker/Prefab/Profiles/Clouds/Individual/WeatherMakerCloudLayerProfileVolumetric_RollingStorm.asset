@@ -1,0 +1,249 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c50d1a0231b929d499944fc9f1d410b3, type: 3}
+  m_Name: WeatherMakerCloudLayerProfileVolumetric_RollingStorm
+  m_EditorClassIdentifier: 
+  CloudCover:
+    Minimum: 0.9
+    Maximum: 1
+  CloudCoverSecondary:
+    Minimum: 0.34920314
+    Maximum: 0.44920313
+  CloudDensity:
+    Minimum: 1
+    Maximum: 1
+  CloudDensitySecondary:
+    Minimum: 0
+    Maximum: 0
+  CloudType:
+    Minimum: 0.7
+    Maximum: 0.9
+  CloudTypeSecondary:
+    Minimum: 0
+    Maximum: 0
+  CloudNoiseShape: {fileID: 11700000, guid: 781eaf28272e3d445ade7b807ec52d82, type: 2}
+  CloudNoiseDetail: {fileID: 11700000, guid: 95078e308f795af4ab9c5814d9ee341d, type: 2}
+  CloudNoiseCurl: {fileID: 11700000, guid: 58998ea9d91048e45a8d0f4e9d44e8ac, type: 2}
+  CloudNoiseShapeScale:
+    Minimum: 0.9
+    Maximum: 1.1
+  CloudNoiseShapeScalar:
+    Minimum: 1.8
+    Maximum: 2.2
+  CloudNoiseShapeWeights: {x: 1, y: 0.5, z: 1, w: -1}
+  CloudBottomFade:
+    Minimum: 0
+    Maximum: 0.2
+  CloudTopFade:
+    Minimum: 0.85
+    Maximum: 0.9
+  CloudRoundness:
+    Minimum: 0.5
+    Maximum: 0.8
+  CloudAnvilStrength:
+    Minimum: 0
+    Maximum: 0
+  CloudAnvilStart:
+    Minimum: 0
+    Maximum: 0
+  CloudNoiseDetailScale:
+    Minimum: 0.2
+    Maximum: 0.4
+  CloudNoiseDetailPower:
+    Minimum: 0.6
+    Maximum: 0.9
+  CloudNoiseDetailHeightMultiplier:
+    Minimum: 15
+    Maximum: 20
+  CloudNoiseDetailCurlScale:
+    Minimum: 0.2
+    Maximum: 0.3
+  CloudNoiseDetailCurlIntensity:
+    Minimum: 0.1
+    Maximum: 0.25
+  CloudDitherMultiplier:
+    Minimum: 1
+    Maximum: 1
+  CloudOpticalDistanceMultiplier: 15
+  CloudHorizonFade: {x: 2, y: 1.1, z: 2, w: 0.15}
+  CloudRayOffset: 0.05
+  CloudRayMarchParameters: {x: 64, y: 512, z: 2, w: 0.5}
+  CloudSdfThreshold: 0.01
+  CloudCoverMinimum: 0.05
+  CloudShapeAnimationVelocity: {x: 16, y: -39, z: 17}
+  CloudDetailAnimationVelocity: {x: 15, y: -55, z: 44}
+  CloudColor: {r: 1, g: 1, b: 1, a: 1}
+  CloudEmissionGradientColor:
+    serializedVersion: 2
+    key0: {r: 0, g: 0, b: 0, a: 1}
+    key1: {r: 0, g: 0, b: 0, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  CloudDirLightGradientColor:
+    serializedVersion: 2
+    key0: {r: 0, g: 0, b: 0, a: 1}
+    key1: {r: 0, g: 0, b: 0, a: 1}
+    key2: {r: 1, g: 1, b: 1, a: 0}
+    key3: {r: 1, g: 1, b: 1, a: 0}
+    key4: {r: 1, g: 1, b: 1, a: 0}
+    key5: {r: 1, g: 1, b: 1, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 22937
+    ctime2: 42598
+    ctime3: 65535
+    ctime4: 65535
+    ctime5: 65535
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 4
+    m_NumAlphaKeys: 2
+  CloudDirLightMultiplier: 3
+  CloudLightDitherLevel: 0.0008
+  CloudPointSpotLightMultiplier: 1
+  CloudLightAbsorption: 4
+  CloudHenyeyGreensteinPhase: {x: 0.7, y: -0.2, z: 0.25, w: 1}
+  CloudPowderMultiplier:
+    Minimum: 1
+    Maximum: 1
+  CloudDirLightIndirectMultiplier: 0.1
+  CloudAmbientGroundIntensity: 1.5
+  CloudAmbientSkyIntensity: 4
+  CloudAmbientGroundHeightMultiplier: 0.85
+  CloudAmbientSkyHeightMultiplier: 0.85
+  CloudAmbientShadow: 0.3
+  CloudGradientStratus:
+    serializedVersion: 2
+    key0: {r: 0, g: 0, b: 0, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 1, g: 1, b: 1, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 6554
+    ctime2: 19661
+    ctime3: 26214
+    ctime4: 65535
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 4
+    m_NumAlphaKeys: 2
+  CloudGradientStratoCumulus:
+    serializedVersion: 2
+    key0: {r: 0, g: 0, b: 0, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 1, g: 1, b: 1, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 13107
+    ctime2: 26214
+    ctime3: 39321
+    ctime4: 65535
+    ctime5: 65535
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 4
+    m_NumAlphaKeys: 2
+  CloudGradientCumulus:
+    serializedVersion: 2
+    key0: {r: 0, g: 0, b: 0, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 1, g: 1, b: 1, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 16384
+    ctime2: 52428
+    ctime3: 65535
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 4
+    m_NumAlphaKeys: 2
+  FlatLayerMask: 1
+  CloudDirLightRaySpread: 0.6
+  CloudDirLightRayBrightness: 0
+  CloudDirLightRayStepMultiplier: 21
+  CloudDirLightRayDecay: 0.9
+  CloudDirLightRayTintColor: {r: 1, g: 1, b: 1, a: 1}
