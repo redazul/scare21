@@ -1,3 +1,4 @@
+using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -349,6 +350,7 @@ public class PlayerController : MonoBehaviour
         {
             if (useCharController)
             {
+                GetComponent<ThirdPersonController>().SetDead(true);
                 GetComponent<CharacterController>().enabled = false;
             }
             SetMenu(References.GAME_OVER);

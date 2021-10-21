@@ -98,7 +98,7 @@ public class CatController : MonoBehaviour, ISpawnable
         {
             Vector3 pushForce = (playerGameObject.transform.position - transform.position).normalized * attackPushMagnitude;
             pushForce.y = 0.5f;
-            playerGameObject.GetComponent<Rigidbody>()?.AddForce(pushForce, ForceMode.Impulse);
+            //playerGameObject.GetComponent<Rigidbody>()?.AddForce(pushForce, ForceMode.Impulse);
         }
     }
 
