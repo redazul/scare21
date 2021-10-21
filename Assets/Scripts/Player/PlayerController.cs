@@ -76,8 +76,15 @@ public class PlayerController : MonoBehaviour
 
     private static float cheeseCapacity = 10.0f;
 
+    private bool useCharController;
+
     void Awake()
     {
+        useCharController = GetComponent<CharacterController>() != null;
+        if (!useCharController)
+        {
+            Debug.LogWarning("character controller component not found on player. using custom movement");
+        }
         rigidBody = GetComponent<Rigidbody>();
         animationControl = GetComponentInChildren<AnimationControl>();
 
@@ -115,6 +122,10 @@ public class PlayerController : MonoBehaviour
 
     private void ProcessMovement()
     {
+        if (useCharController)
+        {
+            return;
+        }
         //cant move if you are dead
         if (isDead)
         {
@@ -343,6 +354,10 @@ public class PlayerController : MonoBehaviour
 
         if (isDead)
         {
+            if (useCharController)
+            {
+                GetComponent<CharacterController>().enabled = false;
+            }
             SetMenu(References.GAME_OVER);
         }
     }

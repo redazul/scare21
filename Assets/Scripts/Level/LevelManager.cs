@@ -13,25 +13,44 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField]
     private List<SpawnArea> cheeseSpawnAreas;
-
     [SerializeField]
     private GameObject cheesePrefab;
 
     [SerializeField]
     private List<SpawnArea> catSpawnAreas;
-
     [SerializeField]
     private GameObject catPrefab;
 
     [SerializeField]
     private List<SpawnArea> trapSpawnAreas;
-
     [SerializeField]
     private GameObject trapPrefab;
+
+    [SerializeField]
+    private List<SpawnArea> mushroomSpawnAreas;
+    [SerializeField]
+    private GameObject mushroomPrefab;
+
+    [SerializeField]
+    private bool doSpawnCheese;
+    [SerializeField]
+    private bool doSpawnCats;
+    [SerializeField]
+    private bool doSpawnTraps;
+    [SerializeField]
+    private bool doSpawnMushrooms;
 
     private List<GameObject> spawnedCheeseObjects;
     private List<GameObject> spawnedCatObjects;
     private List<GameObject> spawnedTrapObjects;
+    private List<GameObject> spawnedMushroomObjects;
+
+
+    private int amountCheeseToSpawn = 15;
+    private int amountCatsToSpawn = 2;
+    private int amountTrapsToSpawn = 3;
+    private int amountMushroomsToSpawn = 1;
+
 
     public static LevelManager Instance = null;
     void Awake()
@@ -40,11 +59,34 @@ public class LevelManager : MonoBehaviour
         {
             Debug.LogWarning("There is more than one LevelManager in this scene.");
         }
-        Instance = this;
 
         spawnedCheeseObjects = new List<GameObject>();
         spawnedCatObjects = new List<GameObject>();
         spawnedTrapObjects = new List<GameObject>();
+        spawnedMushroomObjects = new List<GameObject>();
+
+        SetAmountCheeseToSpawn(ScoreManager.GetCheeseAmountNeeded());
+        SetAmountCatsToSpawn(ScoreManager.GetAmountsCatsToSpawn());
+        SetAmountTrapsToSpawn(ScoreManager.GetAmountsTrapsToSpawn());
+        SetAmountMushroomsToSpawn(ScoreManager.GetAmountsMushroomsToSpawn());
+    }
+
+    public void SetAmountCheeseToSpawn(int amountCheeseToSpawn)
+    {
+        this.amountCheeseToSpawn = amountCheeseToSpawn;
+    }
+
+    public void SetAmountCatsToSpawn(int amountCatsToSpawn)
+    {
+        this.amountCatsToSpawn = amountCatsToSpawn;
+    }
+    public void SetAmountTrapsToSpawn(int amountTrapsToSpawn)
+    {
+        this.amountTrapsToSpawn = amountTrapsToSpawn;
+    }
+    public void SetAmountMushroomsToSpawn(int amountMushroomsToSpawn)
+    {
+        this.amountMushroomsToSpawn = amountMushroomsToSpawn;
     }
 
     void Start()
@@ -61,16 +103,16 @@ public class LevelManager : MonoBehaviour
     public void SpawnAllSpawnables()
     {
         //cheese
-        int amountCheeseToSpawn = ScoreManager.GetCheeseAmountNeeded();
         SpawnMultiplePrefabs(amountCheeseToSpawn, cheesePrefab, cheeseSpawnAreas, spawnedCheeseObjects, checkObstructionLayerMask);
 
         //cats
-        int amountCatsToSpawn = 2;
         SpawnMultiplePrefabs(amountCatsToSpawn, catPrefab, catSpawnAreas, spawnedCatObjects, checkObstructionLayerMask);
 
         //traps
-        int amountTrapsToSpawn = 3;
         SpawnMultiplePrefabs(amountTrapsToSpawn, trapPrefab, trapSpawnAreas, spawnedTrapObjects, checkObstructionLayerMask);
+
+        //mushrooms
+        SpawnMultiplePrefabs(amountMushroomsToSpawn, mushroomPrefab, mushroomSpawnAreas, spawnedMushroomObjects, checkObstructionLayerMask);
     }
 
     private void DespawnAllSpawnables()
@@ -78,6 +120,7 @@ public class LevelManager : MonoBehaviour
         DespawnAllGameObjects(spawnedCheeseObjects);
         DespawnAllGameObjects(spawnedCatObjects);
         DespawnAllGameObjects(spawnedTrapObjects);
+        DespawnAllGameObjects(spawnedMushroomObjects);
     }
 
     public void DespawnSingleCheese(GameObject cheeseObjectToDespawn)
@@ -100,7 +143,7 @@ public class LevelManager : MonoBehaviour
     {
         if (spawnAreas == null || spawnAreas.Count == 0)
         {
-            Debug.LogWarning("Could not spawn any cheese because no spawn locations are given");
+            Debug.LogWarning("Could not spawn any "+ prefab.name+"s because no spawn locations are given");
             return;
         }
 
@@ -135,6 +178,7 @@ public class LevelManager : MonoBehaviour
 
     private static GameObject TrySpawningPrefabAt(GameObject prefab, Vector3 location, float checkRange, LayerMask checkObstructionMask)
     {
+        //Debug.Log("try spawning a " + prefab.name +" prefab at " + location);
         if (checkRange == 0)
         {
             return Instantiate(prefab, location, Quaternion.identity);
@@ -143,9 +187,14 @@ public class LevelManager : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(location, checkRange, checkObstructionMask);//2 is purely chosen arbitrarly
         if (colliders.Length == 0)
         {
+
             return Instantiate(prefab, location, Quaternion.identity);
         }
-
+        foreach (Collider c in colliders)
+        {
+            //Debug.Log("found a collider: " + c.name + " at " + c.transform.position + " with tag " + c.tag);
+        }
+        //Debug.Log("did not spawn at " + location  + ", there were " + colliders.Length + " colliders in range");
         return null;
     }
 

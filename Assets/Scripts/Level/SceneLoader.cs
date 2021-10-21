@@ -8,7 +8,7 @@ public class SceneLoader : MonoBehaviour
     public enum AvailableScene
     {
         //careful: reordering might mess up unity editor values (adding is fine)
-        mainMenu, sandBox, credits
+        mainMenu, level1, credits, sandbox, sandbox2, playground
     }
 
     public static SceneLoader Instance;
@@ -24,7 +24,7 @@ public class SceneLoader : MonoBehaviour
 
     [Tooltip("The name of the initial scene that is started from the menu.")]
     [SerializeField]
-    AvailableScene initialScene = AvailableScene.sandBox;
+    AvailableScene initialScene = AvailableScene.level1;
 
     /// <summary>
     /// Starts the game by switching to the initialScene.
@@ -65,9 +65,13 @@ public class SceneLoader : MonoBehaviour
                 {
                     return "MainMenu";
                 }
-            case AvailableScene.sandBox:
+            case AvailableScene.level1:
                 {
-                    return "Sandbox";
+                    return "SallysHome";
+                }
+            case AvailableScene.credits:
+                {
+                    return "Credits";
                 }
         }
 

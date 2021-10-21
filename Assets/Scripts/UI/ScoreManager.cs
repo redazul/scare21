@@ -19,6 +19,23 @@ public class ScoreManager : MonoBehaviour
         return cheesePiecesToSpawn;
     }
 
+    public static int GetAmountsCatsToSpawn()
+    {
+        //add a cat every fifth day
+        return 1+References.GetDayCounter() / 5;
+    }
+
+    public static int GetAmountsTrapsToSpawn()
+    {
+        //add a trap every day
+        return 1+References.GetDayCounter() / 5;
+    }
+
+    public static int GetAmountsMushroomsToSpawn()
+    {
+        return 3;
+    }
+
     public static void FinishLevel(float cheeseCarried)
     {
         EstimateSurvivors(cheeseCarried);
@@ -28,6 +45,10 @@ public class ScoreManager : MonoBehaviour
 
     public static void ProcessNight()
     {
+        LevelManager.Instance.SetAmountCheeseToSpawn(GetCheeseAmountNeeded());
+        LevelManager.Instance.SetAmountCatsToSpawn(GetAmountsCatsToSpawn());
+        LevelManager.Instance.SetAmountTrapsToSpawn(GetAmountsTrapsToSpawn());
+        LevelManager.Instance.SetAmountMushroomsToSpawn(GetAmountsMushroomsToSpawn());
         LevelManager.Instance.CleanAndRespawnAll();
     }
 

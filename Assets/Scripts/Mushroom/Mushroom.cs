@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mushroom : MonoBehaviour, IInteractable
+public class Mushroom : MonoBehaviour, IInteractable, ISpawnable
 {
     [Header("How many seconds of light mushroom has.")]
     public float BatteryLifeSeconds = 10f;
@@ -22,6 +22,7 @@ public class Mushroom : MonoBehaviour, IInteractable
     PlayerController holder;
     float batteryLifeLeft;
 
+    private bool wasSpawned = false;
 
     private void Awake()
     {
@@ -119,5 +120,10 @@ public class Mushroom : MonoBehaviour, IInteractable
 
         _headCollider.enabled = true;
         _stemCollider.enabled = true;
+    }
+
+    public void SetSpawned(bool wasSpawned)
+    {
+        this.wasSpawned = wasSpawned;
     }
 }
