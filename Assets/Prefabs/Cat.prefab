@@ -380,6 +380,7 @@ MonoBehaviour:
   viewRadius: 8
   viewAngle: 120
   timeBetweenChecks: 0.8
+  eyeOrigin: {fileID: 1746266581}
   isSearching: 0
   whatToLookFor:
     serializedVersion: 2
