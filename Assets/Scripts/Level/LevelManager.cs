@@ -59,6 +59,7 @@ public class LevelManager : MonoBehaviour
         {
             Debug.LogWarning("There is more than one LevelManager in this scene.");
         }
+        Instance = this;
 
         spawnedCheeseObjects = new List<GameObject>();
         spawnedCatObjects = new List<GameObject>();

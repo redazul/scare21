@@ -275,24 +275,23 @@ public class PlayerController : MonoBehaviour
             amountToDrop = Mathf.Min(Cheese.GetRandomCheeseAmount(), carriedCheese);
         }
 
-
-
         //spawn the cheese
-        if (cheesePrefab != null)
-        {
-            Quaternion targetRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
-
-            Vector3 displacement = transform.right * Random.Range(0.2f, 0.5f);
-            displacement *= (Random.value > 0.5f) ? 1 : -1;
-
-            Vector3 targetPosition = transform.position + transform.forward * 0.5f + displacement;
-
-            GameObject spawnedCheeseObject = Instantiate(cheesePrefab, targetPosition, targetRotation);
-            spawnedCheeseObject.GetComponent<Cheese>().SetAmount(amountToDrop);
-        }
+        GameObject spawnedCheeseObject = SpawnDroppedItem(cheesePrefab);
+        spawnedCheeseObject.GetComponent<Cheese>().SetAmount(amountToDrop);
 
         //update carried cheese amount
         ChangeCheeseAmount(-amountToDrop);
+    }
+
+    private GameObject SpawnDroppedItem(GameObject prefab)
+    {
+        if (prefab == null)
+        {
+            Debug.LogWarning("prefab to be spawned when an item should be dropped is null. Make sure its assigned in the inspector.");
+        }
+        Quaternion targetRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+
+        return Instantiate(prefab, GetDisplacedDropPosition(), targetRotation);
     }
 
     private void ChangeCheeseAmount(float change)
@@ -327,7 +326,7 @@ public class PlayerController : MonoBehaviour
     public Vector3 DropMushroom()
     {
         mushroom = null;
-        return interactionPosition.transform.position;
+        return GetDisplacedDropPosition();
     }
 
     private void UpdateMovementSpeedFromCheeseAmount()
@@ -428,6 +427,14 @@ public class PlayerController : MonoBehaviour
         correction = Mathf.Max(-currentAngle, -correctionPerTime * Time.fixedDeltaTime);
         return currentAngle + correction;
     }
+
+    private Vector3 GetDisplacedDropPosition()
+    {
+        Vector3 displacement = transform.right * Random.Range(0.2f, 0.5f);
+        displacement *= (Random.value > 0.5f) ? 1 : -1;
+
+        return interactionPosition.transform.position + displacement;
+    } 
 
     private static bool FloatAlmostZero(float value, float delta)
     {
