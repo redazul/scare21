@@ -91,6 +91,8 @@ namespace StarterAssets
 
 		public bool _hasAnimator;
 
+		private bool isDead;
+
 
 		private void Awake()
 		{
@@ -169,6 +171,10 @@ namespace StarterAssets
 
 		private void Move()
 		{
+			if (isDead)
+			{
+				return;
+			}
 			// set target speed based on move speed, sprint speed and if sprint is pressed
 			float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
@@ -250,7 +256,7 @@ namespace StarterAssets
 				}
 
 				// Jump
-				if (_input.jump && _jumpTimeoutDelta <= 0.0f )
+				if (_input.jump && _jumpTimeoutDelta <= 0.0f && !isDead)
 				{
 					//Debug.Log("jump");
 					// the square root of H * -2 * G = how much velocity needed to reach desired height
@@ -297,6 +303,11 @@ namespace StarterAssets
 			{
 				_verticalVelocity += Gravity * Time.deltaTime;
 			}
+		}
+
+		public void SetDead(bool isDead)
+		{
+			this.isDead = isDead;
 		}
 
 		private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
