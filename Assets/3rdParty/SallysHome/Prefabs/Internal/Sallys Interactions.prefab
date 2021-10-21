@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &143210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 471632}
+  - 114: {fileID: 11497204}
+  m_Layer: 0
+  m_Name: Sallys Interactions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &471632
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 143210}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11497204
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 143210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15e2c53e9e34ce041a8bd9994d014de9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 10
+  topShards: {fileID: 154740, guid: 59db888f526cef1458069fec24773a41, type: 2}
+  bottomShards: {fileID: 176620, guid: a594a660cbb21914ca76e46b7cb06d75, type: 2}
+  removeShardsAfter: 5.03
+  glassBreak: {fileID: 8300000, guid: 06088d719425f5343a49b83bf5795141, type: 3}
+  windowOpen: {fileID: 8300000, guid: 5976ed62e3645ec4394cd8f9779e0b94, type: 3}
+  windowClose: {fileID: 8300000, guid: e64771caf5be0124b9a746ade3c8b712, type: 3}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 143210}
+  m_IsPrefabParent: 1
