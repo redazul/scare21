@@ -53,12 +53,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject interactionPosition;
 
-    [SerializeField]
-    GameObject trapPrefab;
-
-    [SerializeField]
-    int trapsAmount;
-
     public Transform MushroomRoot;
 
     private float carriedCheese = 0f;
@@ -109,6 +103,7 @@ public class PlayerController : MonoBehaviour
         if (References.GetPaused()) return;
 
         ProcessInteractions();
+        InteractWithTrap();
     }
 
     void FixedUpdate()
@@ -117,7 +112,34 @@ public class PlayerController : MonoBehaviour
 
         ProcessMovement();
         ApplyAngleLimits();
+    }
 
+    private void InteractWithTrap()
+    {
+        CharacterController controller = GetComponent<CharacterController>();
+
+        if (controller)
+        {
+            Vector3 p1 = transform.position + controller.center + Vector3.up * -controller.height * 0.5f;
+            Vector3 p2 = p1 + Vector3.up * controller.height;
+            Collider[] hit = Physics.OverlapCapsule(p1, p2, controller.radius, LayerMask.GetMask("Traps"), QueryTriggerInteraction.Collide);
+
+            foreach (Collider other in hit)
+            {
+                Transform otherTransform = other.gameObject.transform;
+                GetHit(1, otherTransform);
+            }
+        }
+    }
+
+    private void GetHit(float attackPushMagnitude, Transform other)
+    {
+        if (attackPushMagnitude > 0.0f)
+        {
+            Vector3 pushForce = (transform.position - other.position).normalized * attackPushMagnitude;
+            pushForce.y = 0.5f;
+            GetComponent<Rigidbody>()?.AddForce(pushForce, ForceMode.Impulse);
+        }
     }
 
     private void ProcessMovement()
@@ -187,15 +209,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L))
         {
             if (mushroom) mushroom.ToggleLight();
-        }
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            if (trapsAmount > 0)
-            {
-                trapsAmount--;
-                Instantiate(trapPrefab, transform.position + transform.forward - Vector3.up * 0.1f, transform.rotation);
-            }
         }
     }
 
