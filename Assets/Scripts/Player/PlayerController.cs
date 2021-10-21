@@ -103,7 +103,6 @@ public class PlayerController : MonoBehaviour
         if (References.GetPaused()) return;
 
         ProcessInteractions();
-        InteractWithTrap();
     }
 
     void FixedUpdate()
@@ -114,25 +113,7 @@ public class PlayerController : MonoBehaviour
         ApplyAngleLimits();
     }
 
-    private void InteractWithTrap()
-    {
-        CharacterController controller = GetComponent<CharacterController>();
-
-        if (controller)
-        {
-            Vector3 p1 = transform.position + controller.center + Vector3.up * -controller.height * 0.5f;
-            Vector3 p2 = p1 + Vector3.up * controller.height;
-            Collider[] hit = Physics.OverlapCapsule(p1, p2, controller.radius, LayerMask.GetMask("Traps"), QueryTriggerInteraction.Collide);
-
-            foreach (Collider other in hit)
-            {
-                Transform otherTransform = other.gameObject.transform;
-                GetHit(1, otherTransform);
-            }
-        }
-    }
-
-    private void GetHit(float attackPushMagnitude, Transform other)
+    public void GetHit(float attackPushMagnitude, Transform other)
     {
         if (attackPushMagnitude > 0.0f)
         {

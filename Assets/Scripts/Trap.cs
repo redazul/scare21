@@ -10,15 +10,12 @@ public class Trap : MonoBehaviour, ISpawnable
         this.wasSpawned = wasSpawned;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    void OnTriggerEnter(Collider triggerCol)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (triggerCol.CompareTag(PlayerController.PLAYER_TAG))
+        {
+            PlayerController player = triggerCol.GetComponent<PlayerController>();
+            if (player != null) player.GetHit(1, transform);
+        }
     }
 }
