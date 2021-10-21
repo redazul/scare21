@@ -25,6 +25,10 @@ namespace Scare.AI.Components
         [SerializeField] [Tooltip("How much time should pass between checks in our FOV")]
         private float timeBetweenChecks = 5f;
 
+        [SerializeField]
+        [Tooltip("from where the ray is cast")]
+        private Transform eyeOrigin;
+
         [SerializeField] [Tooltip("Determines if we are to begin looking on Start")]
         private bool isSearching = false;
 
@@ -118,8 +122,9 @@ namespace Scare.AI.Components
                 if (Vector3.Angle(transform.forward, directionToTarget) < viewAngle / 2)
                 {
                     float distanceToTarget = Vector3.Distance(transform.position, item.transform.position);
-                    if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask))
+                    if (!Physics.Raycast(eyeOrigin.position, directionToTarget, distanceToTarget, obstructionMask))
                     {
+
                         if (searchType == SearchType.CLOSEST)
                         {
                             if (distanceToTarget < relevantItemDistance)

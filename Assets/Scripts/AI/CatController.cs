@@ -31,8 +31,8 @@ public class CatController : MonoBehaviour, ISpawnable
     [SerializeField]
     private float attackPushMagnitude = 2.0f;
 
-    EntityWanderer wanderer;
-    FOVComponent fovChecker;
+    private EntityWanderer wanderer;
+    private FOVComponent fovChecker;
 
     private Timer followPursuitTimer;
     private Timer attackReloadTimer;
@@ -45,6 +45,7 @@ public class CatController : MonoBehaviour, ISpawnable
     private NavMeshAgent navMeshAgent;
 
     private bool wasSpawned = false;
+
 
     void Awake()
     {
@@ -85,35 +86,42 @@ public class CatController : MonoBehaviour, ISpawnable
         {
             attackReloadTimer.Reset();
             attackReloadTimer.SetPaused(false);
-            AttackPlayer(playerGameObject);
+            AttackPlayer();
         }
     }
 
-    private void AttackPlayer(GameObject playerGO)
+    private void AttackPlayer()
     {
-        playerGO.GetComponent<PlayerController>().ReduceHealth();
+        playerGameObject.GetComponent<PlayerController>().ReduceHealth();
 
         if(attackPushMagnitude > 0.0f)
         {
             Vector3 pushForce = (playerGameObject.transform.position - transform.position).normalized * attackPushMagnitude;
             pushForce.y = 0.5f;
-            playerGO.GetComponent<Rigidbody>()?.AddForce(pushForce, ForceMode.Impulse);
+            playerGameObject.GetComponent<Rigidbody>()?.AddForce(pushForce, ForceMode.Impulse);
         }
     }
 
     private void OnFoundItemOfInterest(Collider closestItemOfInterest)
     {
-        if (closestItemOfInterest.tag == PlayerController.PLAYER_TAG && !closestItemOfInterest.GetComponent<PlayerController>().IsDead())
+        if (closestItemOfInterest.gameObject.transform.root.CompareTag(PlayerController.PLAYER_TAG))
         {
-            GetComponentInChildren<Light>().color = Color.red;
-            UpdatePlayerPursuit(closestItemOfInterest.gameObject);
+            if (!playerGameObject)
+            {
+                playerGameObject = closestItemOfInterest.gameObject.transform.root.gameObject;
+            }
+            if (!playerGameObject.GetComponent<PlayerController>().IsDead())
+            {
+                GetComponentInChildren<Light>().color = Color.red;
+                UpdatePlayerPursuit();
+            }
         }
     }
 
-    private void UpdatePlayerPursuit(GameObject playerGO)
+    private void UpdatePlayerPursuit()
     {
-        playerGameObject = playerGO;
-        lastSeenPlayerPos = playerGO.transform.position;
+
+        lastSeenPlayerPos = playerGameObject.transform.position;
 
         NavMeshHit closestNavMeshPosition;
         NavMesh.SamplePosition(lastSeenPlayerPos, out closestNavMeshPosition, 2.0f, NavMesh.AllAreas);
@@ -123,7 +131,6 @@ public class CatController : MonoBehaviour, ISpawnable
         if (!isPursuing)
         {
             wanderer.StopWandering();
-
             StartPursuingPlayer();
         }
         else

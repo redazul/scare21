@@ -4321,6 +4321,58 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 485906, guid: a51da7f0bd0138546a4c0054a9d4ef28, type: 3}
   m_PrefabInstance: {fileID: 622036741}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &623940595
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 623940597}
+  - component: {fileID: 623940596}
+  m_Layer: 0
+  m_Name: Timeline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!320 &623940596
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623940595}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 36258b8e1aa4a8d4eaf8e53d47bdef7a, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: -7844510909591359974, guid: 36258b8e1aa4a8d4eaf8e53d47bdef7a, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -5101207628241563745, guid: 36258b8e1aa4a8d4eaf8e53d47bdef7a, type: 2}
+    value: {fileID: 0}
+  m_ExposedReferences:
+    m_References: []
+--- !u!4 &623940597
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623940595}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &633535683
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16043,6 +16095,14 @@ PrefabInstance:
     - target: {fileID: 1104274106331319518, guid: bb1eb3fc7cb83f340afda0a1de3a8a67, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4161759212510249241, guid: bb1eb3fc7cb83f340afda0a1de3a8a67, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7717130234933913504, guid: bb1eb3fc7cb83f340afda0a1de3a8a67, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb1eb3fc7cb83f340afda0a1de3a8a67, type: 3}
