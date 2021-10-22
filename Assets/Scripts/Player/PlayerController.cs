@@ -1,4 +1,5 @@
 using StarterAssets;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,6 +45,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float angleCorrectionPerSec = 5f;
 
+
+
     //[Tooltip("How fast the move corrects rotation based on terrain movement (surface normals)")]
     //[SerializeField]
     //float rotateCorrectionSpeed = 50f;
@@ -54,7 +57,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject interactionPosition;
 
-    public Transform MushroomRoot;
+    [SerializeField]
+    private Transform mushroomRoot;
+
+    [SerializeField]
+    private Light mushroomTargetLight;
 
     private float carriedCheese = 0f;
     private float currentMovementSpeed = 1.0f;
@@ -284,7 +291,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.LogWarning("prefab to be spawned when an item should be dropped is null. Make sure its assigned in the inspector.");
         }
-        Quaternion targetRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+        Quaternion targetRotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
 
         return Instantiate(prefab, GetDisplacedDropPosition(), targetRotation);
     }
@@ -426,8 +433,8 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 GetDisplacedDropPosition()
     {
-        Vector3 displacement = transform.right * Random.Range(0.2f, 0.5f);
-        displacement *= (Random.value > 0.5f) ? 1 : -1;
+        Vector3 displacement = transform.right * UnityEngine.Random.Range(0.2f, 0.5f);
+        displacement *= (UnityEngine.Random.value > 0.5f) ? 1 : -1;
 
         return interactionPosition.transform.position + displacement;
     } 
@@ -441,6 +448,19 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
+    public Transform GetMushroomRoot()
+    {
+        return mushroomRoot;
+    }
+
+    /// <summary>
+    /// Returns a custom light source to control. If null, the mushrooms light will be used
+    /// </summary>
+    /// <returns></returns>
+    public Light GetMushroomTargetLight()
+    {
+        return mushroomTargetLight;
+    }
 
 
 #if UNITY_EDITOR

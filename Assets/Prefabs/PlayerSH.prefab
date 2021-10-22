@@ -163,7 +163,8 @@ MonoBehaviour:
   angleCorrectionPerSec: 5
   displayInteractionSphereGizmo: 1
   interactionPosition: {fileID: 8426542939052931106}
-  MushroomRoot: {fileID: 0}
+  mushroomRoot: {fileID: 8669965454956434823}
+  mushroomTargetLight: {fileID: 0}
 --- !u!143 &295262708242716270
 CharacterController:
   m_ObjectHideFlags: 0
@@ -4063,6 +4064,36 @@ Transform:
   m_Father: {fileID: 1104274106331319518}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5753662704080250013
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8669965454956434823}
+  m_Layer: 8
+  m_Name: MushroomRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8669965454956434823
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5753662704080250013}
+  m_LocalRotation: {x: -0.29348758, y: 0.19384398, z: 0.597537, w: 0.7205825}
+  m_LocalPosition: {x: 8.7, y: -0.4, z: 4.5}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_Children: []
+  m_Father: {fileID: 194719675632107216}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: -40.891, y: -5.418, z: 81.355}
 --- !u!1 &5977400397443111046
 GameObject:
   m_ObjectHideFlags: 0
@@ -5173,9 +5204,9 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5866666021909216657, guid: 414c55a2cbcc6374583b61b74426f377, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 414c55a2cbcc6374583b61b74426f377, type: 3}
---- !u!4 &7610654913938104923 stripped
+--- !u!4 &194719675632107216 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -5671910290767253545, guid: 414c55a2cbcc6374583b61b74426f377, type: 3}
+  m_CorrespondingSourceObject: {fileID: -2709793182783671460, guid: 414c55a2cbcc6374583b61b74426f377, type: 3}
   m_PrefabInstance: {fileID: 6401631533978078604}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &6059100887500910813 stripped
@@ -5186,5 +5217,10 @@ GameObject:
 --- !u!4 &6871807533163391591 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 414c55a2cbcc6374583b61b74426f377, type: 3}
+  m_PrefabInstance: {fileID: 6401631533978078604}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7610654913938104923 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -5671910290767253545, guid: 414c55a2cbcc6374583b61b74426f377, type: 3}
   m_PrefabInstance: {fileID: 6401631533978078604}
   m_PrefabAsset: {fileID: 0}

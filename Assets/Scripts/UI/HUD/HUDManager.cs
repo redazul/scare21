@@ -11,6 +11,7 @@ public class HUDManager : MonoBehaviour
     private HUDHealth hudHealth;
     private HUDCheese hudCheese;
     private HUDScreenOverlay hudScreenOverlay;
+    private HUDMushLight hudMushLight;
 
     void Awake()
     {
@@ -24,6 +25,7 @@ public class HUDManager : MonoBehaviour
         hudCheese = GetComponentInChildren<HUDCheese>();
         hudSurvivors = GetComponentInChildren<HUDSurvivors>();
         hudScreenOverlay = GetComponentInChildren<HUDScreenOverlay>();
+        hudMushLight = GetComponentInChildren<HUDMushLight>();
     }
 
     public void UpdateCheeseAmount(float newCheeseAmount)
@@ -52,7 +54,16 @@ public class HUDManager : MonoBehaviour
     {
         hudScreenOverlay.ShowOverlayDailyTexts(nextDay, survivors, losses);
         hudScreenOverlay.DisplayOverlay(processNightCallback, onStartNewDayCallback);
+    }
 
+    public void UpdateMushroomBattery(float relativeBattery)
+    {
+        hudMushLight.SetRelativeBatteryLife(relativeBattery);
+    }
+
+    public void SetMushLightHudActive(bool mushLightHudActive)
+    {
+        hudMushLight.SetBatteryBarVisible(mushLightHudActive);
     }
 
 }
