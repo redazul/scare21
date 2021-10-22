@@ -12,16 +12,11 @@ public class VisualController : MonoBehaviour
     [SerializeField]
     private float reverseZoomDuration = 0.8f;
 
+    [SerializeField]
+    private float zoomedInFov = 70f;
 
     [SerializeField]
-    private float zoomedInFov = 100f;
-
-
-    [SerializeField]
-    private float zoomedInDistance = 20f;
-
-    [SerializeField]
-    private Camera playerCamera;
+    private Cinemachine.CinemachineVirtualCamera playerCamera;
 
     private bool reverse = false;
 
@@ -30,7 +25,6 @@ public class VisualController : MonoBehaviour
     public static VisualController Instance = null;
 
     private float zoomedOutFov = 10f;
-    private float zoomedOutDistance = 10f;
 
     void Awake()
     {
@@ -42,8 +36,7 @@ public class VisualController : MonoBehaviour
 
         zoomTimer = gameObject.AddComponent<Timer>();
 
-        zoomedOutFov = playerCamera.fieldOfView;
-        zoomedOutDistance = (playerCamera.transform.position - playerCamera.gameObject.transform.root.position).magnitude;
+        zoomedOutFov = playerCamera.m_Lens.FieldOfView;
     }
 
     void Update()
@@ -51,13 +44,12 @@ public class VisualController : MonoBehaviour
         if (zoomTimer.IsRunning())
         {
             float value = reverse ? 1 - zoomTimer.GetRelativeProgress() : zoomTimer.GetRelativeProgress();
-            playerCamera.fieldOfView = Mathf.Lerp(zoomedOutFov, zoomedInFov, value);
+            playerCamera.m_Lens.FieldOfView = Mathf.Lerp(zoomedOutFov, zoomedInFov, value);
         }
     }
 
     public void StartDollyZoomIn()
     {
-        Debug.Log("starting dolly zoom");
         reverse = false;
         if (zoomTimer.IsRunning())
         {
@@ -73,7 +65,6 @@ public class VisualController : MonoBehaviour
 
     public void StartDollyZoomOut()
     {
-        Debug.Log("stopping dolly zoom");
         reverse = true;
         if (zoomTimer.IsRunning())
         {

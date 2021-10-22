@@ -29,7 +29,7 @@ public class CatController : MonoBehaviour, ISpawnable
 
     [Tooltip("How strong the pushback of an attack is. 0 <=> no pushback")]
     [SerializeField]
-    private float attackPushMagnitude = 2.0f;
+    private float attackPushMagnitude = 1.0f;
 
     private EntityWanderer wanderer;
     private FOVComponent fovChecker;
@@ -102,7 +102,7 @@ public class CatController : MonoBehaviour, ISpawnable
             //pushForce.y = 0.5f;
             //playerGameObject.GetComponent<Rigidbody>()?.AddForce(pushForce, ForceMode.Impulse);
         }*/
-        playerGameObject.GetComponent<PlayerController>().GetHit(1, transform);
+        playerGameObject.GetComponent<PlayerController>().GetHit(attackPushMagnitude, transform);
 
     }
 

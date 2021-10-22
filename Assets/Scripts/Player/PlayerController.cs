@@ -377,13 +377,14 @@ public class PlayerController : MonoBehaviour
     public void StartDangerMode()
     {
         isInDanger = true;
-        playerSound.PlayAudioClip(PlSoundPlayer.PlayerClipType.dangerHint);
+        playerSound.PlayMusicClip(PlSoundPlayer.PlayerMusicClipType.catCue, false);
         VisualController.Instance.StartDollyZoomIn();
     }
 
     public void StopDangerMode()
     {
         isInDanger = true;
+        playerSound.StopAndPlayBackgroundMusicClip();
         VisualController.Instance.StartDollyZoomOut();
     }
 

@@ -43,8 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2baafe1d0b67071468cad8e33a6d3751, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoomDuration: 1
-  reverseZoomDuration: 0.8
-  zoomedInFov: 100
+  zoomDuration: 2.5
+  reverseZoomDuration: 1.5
+  zoomedInFov: 60
   zoomedInDistance: 20
   playerCamera: {fileID: 0}
