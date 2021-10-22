@@ -28,6 +28,31 @@ public class MenuNavigationManager : MonoBehaviour
         activeMenu = mainMenuManager;
     }
 
+    void Update()
+    {
+        CheckInputs();
+    }
+
+    private void CheckInputs()
+    {
+
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            SelectPreviousButton();
+        }
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            SelectNextButton();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+        {
+            UseCurrentButton();
+        }
+
+    }
+
+
     [SerializeField]
     GameObject mainMenu;
     MenuManager mainMenuManager;
