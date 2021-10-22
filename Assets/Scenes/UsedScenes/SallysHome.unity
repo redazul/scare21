@@ -15905,21 +15905,9 @@ PrefabInstance:
       value: VisualControls
       objectReference: {fileID: 0}
     - target: {fileID: 3038451478431835194, guid: 4632f55262674dc46b365b86701b5bac, type: 3}
-      propertyPath: zoomedInFov
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 3038451478431835194, guid: 4632f55262674dc46b365b86701b5bac, type: 3}
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 1736471844}
-    - target: {fileID: 3038451478431835194, guid: 4632f55262674dc46b365b86701b5bac, type: 3}
-      propertyPath: zoomDuration
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3038451478431835194, guid: 4632f55262674dc46b365b86701b5bac, type: 3}
-      propertyPath: reverseZoomDuration
-      value: 1.5
-      objectReference: {fileID: 0}
     - target: {fileID: 3038451478431835195, guid: 4632f55262674dc46b365b86701b5bac, type: 3}
       propertyPath: m_RootOrder
       value: 9
