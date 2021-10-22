@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Mushroom : MonoBehaviour, IInteractable, ISpawnable
 {
+    private const float XZ_ROTATION_RANGE = 50f;
+
     [Header("How many seconds of light mushroom has.")]
     public float BatteryLifeSeconds = 20f;
 
@@ -125,6 +127,8 @@ public class Mushroom : MonoBehaviour, IInteractable, ISpawnable
 
         transform.position = holder.DropMushroom();
         holder = null;
+        
+        transform.localEulerAngles = GetRandomRotation();
 
         currentUsedLight = mushroomLight;
         HUDManager.Instance.SetMushLightHudActive(false);
@@ -133,6 +137,23 @@ public class Mushroom : MonoBehaviour, IInteractable, ISpawnable
         {
             c.enabled = true;
         }
+    }
+
+    private Vector3 GetRandomRotation()
+    {
+        float rotX = Random.Range(-XZ_ROTATION_RANGE, XZ_ROTATION_RANGE);
+        if (rotX < 0)
+        {
+            rotX += 360f;
+        }
+        float rotZ = Random.Range(-XZ_ROTATION_RANGE, XZ_ROTATION_RANGE);
+        if (rotZ < 0)
+        {
+            rotZ += 360f;
+        }
+        float rotY = Random.Range(0, 360f);
+
+        return new Vector3(rotX, rotY, rotZ);
     }
 
     public void SetSpawned(bool wasSpawned)
