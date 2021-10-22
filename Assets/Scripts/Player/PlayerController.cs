@@ -1,4 +1,5 @@
 using StarterAssets;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,6 +45,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float angleCorrectionPerSec = 5f;
 
+
+
     //[Tooltip("How fast the move corrects rotation based on terrain movement (surface normals)")]
     //[SerializeField]
     //float rotateCorrectionSpeed = 50f;
@@ -54,7 +57,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject interactionPosition;
 
-    public Transform MushroomRoot;
+    [SerializeField]
+    private Transform mushroomRoot;
+
+    [SerializeField]
+    private Light mushroomTargetLight;
 
     private float carriedCheese = 0f;
     private float currentMovementSpeed = 1.0f;
@@ -65,6 +72,8 @@ public class PlayerController : MonoBehaviour
 
     private bool isDead = false;
     //the current cheese that the mouse carries
+
+    private PlSoundPlayer playerSound;
 
     //Mushroom
     Mushroom mushroom;
@@ -82,6 +91,7 @@ public class PlayerController : MonoBehaviour
         }
         rigidBody = GetComponent<Rigidbody>();
         animationControl = GetComponentInChildren<AnimationControl>();
+        playerSound = GetComponentInChildren<PlSoundPlayer>();
 
         UpdateMovementSpeedFromCheeseAmount();
         if (cheesePrefab == null)
@@ -246,6 +256,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void AddCheese(float amountToAdd)
     {
+        playerSound.PlayAudioClip(PlSoundPlayer.PlayerClipType.pickUp);
         ChangeCheeseAmount(amountToAdd);
     }
 
@@ -273,6 +284,7 @@ public class PlayerController : MonoBehaviour
         //spawn the cheese
         GameObject spawnedCheeseObject = SpawnDroppedItem(cheesePrefab);
         spawnedCheeseObject.GetComponent<Cheese>().SetAmount(amountToDrop);
+        playerSound.PlayAudioClip(PlSoundPlayer.PlayerClipType.drop);
 
         //update carried cheese amount
         ChangeCheeseAmount(-amountToDrop);
@@ -284,7 +296,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.LogWarning("prefab to be spawned when an item should be dropped is null. Make sure its assigned in the inspector.");
         }
-        Quaternion targetRotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+        Quaternion targetRotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
 
         return Instantiate(prefab, GetDisplacedDropPosition(), targetRotation);
     }
@@ -315,12 +327,14 @@ public class PlayerController : MonoBehaviour
 
     public void HoldMushroom(Mushroom m)
     {
+        playerSound.PlayAudioClip(PlSoundPlayer.PlayerClipType.pickUp);
         mushroom = m;
     }
 
     public Vector3 DropMushroom()
     {
         mushroom = null;
+        playerSound.PlayAudioClip(PlSoundPlayer.PlayerClipType.drop);
         return GetDisplacedDropPosition();
     }
 
@@ -331,6 +345,7 @@ public class PlayerController : MonoBehaviour
 
     public void ReduceHealth()
     {
+        playerSound.PlayAudioClip(PlSoundPlayer.PlayerClipType.hurt);
         ChangeHealth(-1);
     }
 
@@ -426,8 +441,8 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 GetDisplacedDropPosition()
     {
-        Vector3 displacement = transform.right * Random.Range(0.2f, 0.5f);
-        displacement *= (Random.value > 0.5f) ? 1 : -1;
+        Vector3 displacement = transform.right * UnityEngine.Random.Range(0.2f, 0.5f);
+        displacement *= (UnityEngine.Random.value > 0.5f) ? 1 : -1;
 
         return interactionPosition.transform.position + displacement;
     } 
@@ -441,6 +456,19 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
+    public Transform GetMushroomRoot()
+    {
+        return mushroomRoot;
+    }
+
+    /// <summary>
+    /// Returns a custom light source to control. If null, the mushrooms light will be used
+    /// </summary>
+    /// <returns></returns>
+    public Light GetMushroomTargetLight()
+    {
+        return mushroomTargetLight;
+    }
 
 
 #if UNITY_EDITOR

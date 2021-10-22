@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class Mushroom : MonoBehaviour, IInteractable, ISpawnable
 {
+    private const float XZ_ROTATION_RANGE = 50f;
+
     [Header("How many seconds of light mushroom has.")]
-    public float BatteryLifeSeconds = 10f;
+    public float BatteryLifeSeconds = 20f;
 
     public bool IsBatteryDepleted { get; private set; }
 
-    [SerializeField]
-    Light _light;
+    private Light mushroomLight;
+    private Light currentUsedLight;
 
     [SerializeField]
-    Collider _stemCollider, _headCollider;
+    List<Collider> collidersToDeactivateOnGrab = new List<Collider>();
 
     public bool IsLit { get; set; }
     public bool IsAttached { get; set; }
@@ -27,15 +29,14 @@ public class Mushroom : MonoBehaviour, IInteractable, ISpawnable
     private void Awake()
     {
         originalParent = transform.parent;
+        mushroomLight = GetComponentInChildren<Light>();
+        currentUsedLight = mushroomLight;
     }
-
 
     private void Start()
     {
         batteryLifeLeft = BatteryLifeSeconds;
     }
-
-
 
     // Test driver
     private void Update()
@@ -43,17 +44,18 @@ public class Mushroom : MonoBehaviour, IInteractable, ISpawnable
         if (References.GetPaused()) return;
 
         // "Battery Life"
-        if (IsLit)
+        if (IsLit && IsAttached)
         {
             batteryLifeLeft -= Time.deltaTime;
+            HUDManager.Instance.UpdateMushroomBattery(batteryLifeLeft / BatteryLifeSeconds);
+
             if (batteryLifeLeft < 0f)
             {
                 batteryLifeLeft = 0f;
                 IsBatteryDepleted = true;
-                print("Battery depleted!");
             }
 
-            _light.intensity = batteryLifeLeft / BatteryLifeSeconds;
+            currentUsedLight.intensity = batteryLifeLeft / BatteryLifeSeconds;
         }
     }
 
@@ -63,8 +65,15 @@ public class Mushroom : MonoBehaviour, IInteractable, ISpawnable
         PlayerController player = other.GetComponent<PlayerController>();
         if (player)
         {
-            AttachTo(player.MushroomRoot);
+            AttachTo(player.GetMushroomRoot());
+            Light customLight = player.GetMushroomTargetLight();
+            if(customLight != null)
+            {
+                currentUsedLight = customLight;
+            }
+
             player.HoldMushroom(this);
+            HUDManager.Instance.SetMushLightHudActive(true);
 
             holder = player;
         }
@@ -80,13 +89,13 @@ public class Mushroom : MonoBehaviour, IInteractable, ISpawnable
 
     public void TurnLightOn()
     {
-        _light.enabled = true;
+        currentUsedLight.enabled = true;
         IsLit = true;
     }
 
     public void TurnLightOff()
     {
-        _light.enabled = false;
+        currentUsedLight.enabled = false;
         IsLit = false;
     }
 
@@ -100,8 +109,9 @@ public class Mushroom : MonoBehaviour, IInteractable, ISpawnable
 
     void AttachTo(Transform other)
     {
-        _headCollider.enabled = false;
-        _stemCollider.enabled = false;
+        foreach(Collider c in collidersToDeactivateOnGrab){
+            c.enabled = false;
+        }
 
         transform.position = other.position;
         transform.rotation = other.rotation;
@@ -117,9 +127,33 @@ public class Mushroom : MonoBehaviour, IInteractable, ISpawnable
 
         transform.position = holder.DropMushroom();
         holder = null;
+        
+        transform.localEulerAngles = GetRandomRotation();
 
-        _headCollider.enabled = true;
-        _stemCollider.enabled = true;
+        currentUsedLight = mushroomLight;
+        HUDManager.Instance.SetMushLightHudActive(false);
+
+        foreach (Collider c in collidersToDeactivateOnGrab)
+        {
+            c.enabled = true;
+        }
+    }
+
+    private Vector3 GetRandomRotation()
+    {
+        float rotX = Random.Range(-XZ_ROTATION_RANGE, XZ_ROTATION_RANGE);
+        if (rotX < 0)
+        {
+            rotX += 360f;
+        }
+        float rotZ = Random.Range(-XZ_ROTATION_RANGE, XZ_ROTATION_RANGE);
+        if (rotZ < 0)
+        {
+            rotZ += 360f;
+        }
+        float rotY = Random.Range(0, 360f);
+
+        return new Vector3(rotX, rotY, rotZ);
     }
 
     public void SetSpawned(bool wasSpawned)

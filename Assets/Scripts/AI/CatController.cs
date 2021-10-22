@@ -58,7 +58,7 @@ public class CatController : MonoBehaviour, ISpawnable
         followPursuitTimer.SetPaused(true);
 
         attackReloadTimer = gameObject.AddComponent<Timer>();
-        attackReloadTimer.Init(attackReloadTime);
+        attackReloadTimer.Init(attackReloadTime, ContinueMovement);
         attackReloadTimer.SetPaused(true);
     }
 
@@ -84,6 +84,8 @@ public class CatController : MonoBehaviour, ISpawnable
         }
         if (playerGameObject != null && AIUtil.FlatDistance(transform.position, playerGameObject.transform.position) < playerAttackRange)
         {
+            navMeshAgent.isStopped = true; //movement will continue via attackReloadTimer
+
             attackReloadTimer.Reset();
             attackReloadTimer.SetPaused(false);
             AttackPlayer();
@@ -165,5 +167,10 @@ public class CatController : MonoBehaviour, ISpawnable
     public void SetSpawned(bool wasSpawned)
     {
         this.wasSpawned = wasSpawned;
+    }
+
+    private void ContinueMovement()
+    {
+        navMeshAgent.isStopped = false;
     }
 }

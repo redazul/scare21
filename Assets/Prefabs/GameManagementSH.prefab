@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4369915609351800652}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -77.1, y: -0.1, z: 9.8}
+  m_LocalPosition: {x: -77.1, y: -0.179, z: 9.8}
   m_LocalScale: {x: 8, y: 0.099999994, z: 25}
   m_Children: []
   m_Father: {fileID: 9131372795264379450}
@@ -70,7 +70,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4369915609570795444}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -89.3, y: -0.1, z: 44.73}
+  m_LocalPosition: {x: -89.3, y: -0.179, z: 44.73}
   m_LocalScale: {x: 25, y: 0.099999994, z: 9}
   m_Children: []
   m_Father: {fileID: 9131372795264379450}
@@ -115,7 +115,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4369915609630342360}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -113.64, y: -0.1, z: -9.58}
+  m_LocalPosition: {x: -113.64, y: -0.179, z: -9.58}
   m_LocalScale: {x: 15, y: 0.099999994, z: 8}
   m_Children: []
   m_Father: {fileID: 9131372795264379450}
@@ -160,7 +160,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4369915609689957833}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -93.8, y: -0.1, z: 9.8}
+  m_LocalPosition: {x: -93.8, y: -0.179, z: 9.8}
   m_LocalScale: {x: 15, y: 0.099999994, z: 25}
   m_Children: []
   m_Father: {fileID: 9131372795264379450}
@@ -205,7 +205,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4369915609803565792}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -156.7, y: -0.1, z: 47.93}
+  m_LocalPosition: {x: -156.7, y: -0.179, z: 47.93}
   m_LocalScale: {x: 6, y: 0.099999994, z: 3}
   m_Children: []
   m_Father: {fileID: 9131372795264379450}
@@ -250,7 +250,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4369915609829937168}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -93.61, y: -0.1, z: 53.67}
+  m_LocalPosition: {x: -93.61, y: -0.179, z: 53.67}
   m_LocalScale: {x: 11, y: 0.099999994, z: 8}
   m_Children: []
   m_Father: {fileID: 9131372795264379450}
@@ -295,7 +295,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4369915610777941017}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -93.8, y: -0.1, z: 38.03}
+  m_LocalPosition: {x: -93.8, y: -0.179, z: 38.03}
   m_LocalScale: {x: 26, y: 0.099999994, z: 12}
   m_Children: []
   m_Father: {fileID: 9131372795264379450}
@@ -340,7 +340,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4369915610973694357}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -149.85, y: -0.1, z: 2.17}
+  m_LocalPosition: {x: -149.85, y: -0.179, z: 2.17}
   m_LocalScale: {x: 15, y: 0.099999994, z: 25}
   m_Children: []
   m_Father: {fileID: 9131372795264379450}
@@ -385,7 +385,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4369915611108615628}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -141.4, y: -0.1, z: 51.71}
+  m_LocalPosition: {x: -141.4, y: -0.179, z: 51.71}
   m_LocalScale: {x: 16, y: 0.099999994, z: 6}
   m_Children: []
   m_Father: {fileID: 9131372795264379450}
@@ -430,7 +430,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4658086265299661707}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -150.35, y: -0.22, z: -5.07}
+  m_LocalPosition: {x: -150.35, y: -0.299, z: -5.07}
   m_LocalScale: {x: 15, y: 0.099999994, z: 15}
   m_Children: []
   m_Father: {fileID: 9131372795264379450}
@@ -533,6 +533,21 @@ MonoBehaviour:
   - {fileID: 4369915610777941016}
   - {fileID: 4369915610973694356}
   - {fileID: 4369915609689957832}
-  catPrefab: {fileID: 5385235964568095903, guid: ccd98d05090c4c440ae1cdc153d57489, type: 3}
-  trapSpawnAreas: []
-  trapPrefab: {fileID: 0}
+  catPrefab: {fileID: 7982041210098791126, guid: 7d706adf0def87443912ff0cabc21432, type: 3}
+  trapSpawnAreas:
+  - {fileID: 4369915611108615631}
+  - {fileID: 4369915610777941016}
+  - {fileID: 4369915610973694356}
+  - {fileID: 5634319108288365182}
+  - {fileID: 4369915609351800655}
+  - {fileID: 4369915609829937171}
+  trapPrefab: {fileID: 7161304466684872621, guid: d122c026593b32f4d87b3427c7f1cf73, type: 3}
+  mushroomSpawnAreas:
+  - {fileID: 4369915611108615631}
+  - {fileID: 4369915610777941016}
+  - {fileID: 4369915610973694356}
+  mushroomPrefab: {fileID: 5380471170510001155, guid: cea6dd12816f0964e9ff52a37258b216, type: 3}
+  doSpawnCheese: 1
+  doSpawnCats: 1
+  doSpawnTraps: 0
+  doSpawnMushrooms: 1

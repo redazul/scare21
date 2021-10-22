@@ -106,6 +106,12 @@ namespace StarterAssets
 		private void Start()
 		{
 			_hasAnimator = TryGetComponent(out _animator);
+			if (!_hasAnimator)
+			{
+				_animator = GetComponentInChildren<Animator>();
+				_hasAnimator = _animator != null;
+			}
+
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
 
@@ -118,7 +124,7 @@ namespace StarterAssets
 
 		private void Update()
 		{
-			_hasAnimator = TryGetComponent(out _animator);
+			//_hasAnimator = TryGetComponent(out _animator);
 			
 			JumpAndGravity();
 			GroundedCheck();
@@ -132,11 +138,11 @@ namespace StarterAssets
 
 		private void AssignAnimationIDs()
 		{
-			_animIDSpeed = Animator.StringToHash("Speed");
-			_animIDGrounded = Animator.StringToHash("Grounded");
-			_animIDJump = Animator.StringToHash("Jump");
-			_animIDFreeFall = Animator.StringToHash("FreeFall");
-			_animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+			_animIDSpeed = Animator.StringToHash("speed");
+			_animIDGrounded = Animator.StringToHash("grounded");
+			_animIDJump = Animator.StringToHash("jump");
+			_animIDFreeFall = Animator.StringToHash("freefall");
+			_animIDMotionSpeed = Animator.StringToHash("motionSpeed");
 		}
 
 		private void GroundedCheck()
@@ -244,7 +250,6 @@ namespace StarterAssets
 				// update animator if using character
 				if (_hasAnimator)
 				{
-					 Debug.Log("Here");
 					_animator.SetBool(_animIDJump, false);
 					_animator.SetBool(_animIDFreeFall, false);
 				}
@@ -258,6 +263,7 @@ namespace StarterAssets
 				// Jump
 				if (_input.jump && _jumpTimeoutDelta <= 0.0f && !isDead)
 				{
+
 					//Debug.Log("jump");
 					// the square root of H * -2 * G = how much velocity needed to reach desired height
 					_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
