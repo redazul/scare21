@@ -15,9 +15,12 @@ public class PlSoundPlayer : MonoBehaviour
     [SerializeField]
     private List<AudioClip> dropClips;
 
+    [SerializeField]
+    private List<AudioClip> dangerHintClips;
+
     public enum PlayerClipType
     {
-        hurt, pickUp, drop
+        hurt, pickUp, drop, dangerHint
     }
 
     void Awake()
@@ -48,11 +51,15 @@ public class PlSoundPlayer : MonoBehaviour
                 {
                     return GetRandomFromList(dropClips);
                 }
+            case PlayerClipType.dangerHint:
+                {
+                    return GetRandomFromList(dangerHintClips);
+                }
         }
         return null;
     }
 
-    private static AudioClip GetRandomFromList(List<AudioClip> list)
+    public static AudioClip GetRandomFromList(List<AudioClip> list)
     {
         if(list.Count == 0)
         {

@@ -45,8 +45,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float angleCorrectionPerSec = 5f;
 
-
-
     //[Tooltip("How fast the move corrects rotation based on terrain movement (surface normals)")]
     //[SerializeField]
     //float rotateCorrectionSpeed = 50f;
@@ -82,6 +80,8 @@ public class PlayerController : MonoBehaviour
 
     private bool useCharController;
 
+    private bool isInDanger;
+
     void Awake()
     {
         useCharController = GetComponent<CharacterController>() != null;
@@ -108,6 +108,7 @@ public class PlayerController : MonoBehaviour
         References.SetPaused(false);
     }
 
+
     private void Update()
     {
         ProcessPauseInteractions();
@@ -126,6 +127,7 @@ public class PlayerController : MonoBehaviour
 
     public void GetHit(float attackPushMagnitude, Transform other)
     {
+        ReduceHealth();
         if (attackPushMagnitude > 0.0f)
         {
             Vector3 pushForce = (transform.position - other.position).normalized * attackPushMagnitude;
@@ -370,6 +372,19 @@ public class PlayerController : MonoBehaviour
             }
             SetMenu(References.GAME_OVER);
         }
+    }
+
+    public void StartDangerMode()
+    {
+        isInDanger = true;
+        playerSound.PlayAudioClip(PlSoundPlayer.PlayerClipType.dangerHint);
+        VisualController.Instance.StartDollyZoomIn();
+    }
+
+    public void StopDangerMode()
+    {
+        isInDanger = true;
+        VisualController.Instance.StartDollyZoomOut();
     }
 
     void SetMenu(int menuIndex)

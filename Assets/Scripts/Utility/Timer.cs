@@ -112,4 +112,9 @@ public class Timer : MonoBehaviour
 
         return false;
     }
+
+    public void SetTimePassed(float timePassed)
+    {
+        this.timePassed = timePassed;
+    }
 }
