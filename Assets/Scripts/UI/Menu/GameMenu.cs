@@ -11,6 +11,49 @@ public class GameMenu : MonoBehaviour
     {
         References.SetGameMenu(this);
     }
+    void Update()
+    {
+        CheckInputs();
+    }
+
+    private void CheckInputs()
+    {
+
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            SelectPreviousButton();
+        }
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            SelectNextButton();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+        {
+            UseCurrentButton();
+        }
+
+    }
+
+    public void SetButtonSelected(MenuButton menuButton)
+    {
+        //menu.SetButtonSelected(menuButton);
+    }
+
+    public void UseCurrentButton()
+    {
+        //menu.UseButton();
+    }
+
+    public void SelectNextButton()
+    {
+        //menu.SelectNextButton();
+    }
+
+    public void SelectPreviousButton()
+    {
+        //menu.SelectPreviousButton();
+    }
 
     public void SetMenu(int menuIndex)
     {

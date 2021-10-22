@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class MenuNavigationManager : MonoBehaviour
 {
+    [SerializeField]
+    private AudioClip selectClip;
+
+    [SerializeField]
+    private AudioClip startClip;
+
+    private AudioSource soundAudioSource;
+
     public enum MenuNavigationTarget 
     {
         //careful: reordering might mess up unity editor values (adding is fine)
@@ -21,12 +29,40 @@ public class MenuNavigationManager : MonoBehaviour
 
         mainMenuManager = mainMenu.GetComponentInChildren<MenuManager>();
         optionsMenuManager = optionsMenu.GetComponentInChildren<MenuManager>();
+        soundAudioSource = GetComponent<AudioSource>();
+        soundAudioSource.loop = false;
+
     }
 
     void Start()
     {
         activeMenu = mainMenuManager;
     }
+
+    void Update()
+    {
+        CheckInputs();
+    }
+
+    private void CheckInputs()
+    {
+
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            SelectPreviousButton();
+        }
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            SelectNextButton();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+        {
+            UseCurrentButton();
+        }
+
+    }
+
 
     [SerializeField]
     GameObject mainMenu;
@@ -41,21 +77,29 @@ public class MenuNavigationManager : MonoBehaviour
     public void SetButtonSelected(MenuButton menuButton)
     {
         activeMenu.SetButtonSelected(menuButton);
+        soundAudioSource.clip = selectClip;
+        soundAudioSource.Play();
     }
 
     public void UseCurrentButton()
     {
         activeMenu.UseButton();
+        soundAudioSource.clip = startClip;
+        soundAudioSource.Play();
     }
 
     public void SelectNextButton()
     {
         activeMenu.SelectNextButton();
+        soundAudioSource.clip = selectClip;
+        soundAudioSource.Play();
     }
 
     public void SelectPreviousButton()
     {
         activeMenu.SelectPreviousButton();
+        soundAudioSource.clip = selectClip;
+        soundAudioSource.Play();
     }
 
     public void NavigateTo(MenuNavigationTarget target)

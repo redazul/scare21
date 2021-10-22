@@ -29,7 +29,7 @@ public class CatController : MonoBehaviour, ISpawnable
 
     [Tooltip("How strong the pushback of an attack is. 0 <=> no pushback")]
     [SerializeField]
-    private float attackPushMagnitude = 2.0f;
+    private float attackPushMagnitude = 1.0f;
 
     private EntityWanderer wanderer;
     private FOVComponent fovChecker;
@@ -94,14 +94,16 @@ public class CatController : MonoBehaviour, ISpawnable
 
     private void AttackPlayer()
     {
-        playerGameObject.GetComponent<PlayerController>().ReduceHealth();
+        /*playerGameObject.GetComponent<PlayerController>().ReduceHealth();
 
         if(attackPushMagnitude > 0.0f)
         {
-            Vector3 pushForce = (playerGameObject.transform.position - transform.position).normalized * attackPushMagnitude;
-            pushForce.y = 0.5f;
+            //Vector3 pushForce = (playerGameObject.transform.position - transform.position).normalized * attackPushMagnitude;
+            //pushForce.y = 0.5f;
             //playerGameObject.GetComponent<Rigidbody>()?.AddForce(pushForce, ForceMode.Impulse);
-        }
+        }*/
+        playerGameObject.GetComponent<PlayerController>().GetHit(attackPushMagnitude, transform);
+
     }
 
     private void OnFoundItemOfInterest(Collider closestItemOfInterest)
@@ -149,6 +151,7 @@ public class CatController : MonoBehaviour, ISpawnable
 
         navMeshAgent.isStopped = false;
         navMeshAgent.speed = pursuitSpeed;
+        playerGameObject.GetComponent<PlayerController>().StartDangerMode();
     }
 
     private void LoseInterest()
@@ -158,6 +161,7 @@ public class CatController : MonoBehaviour, ISpawnable
         navMeshAgent.isStopped = true;
         GetComponentInChildren<Light>().color = Color.yellow;
         followPursuitTimer.SetPaused(true);
+        playerGameObject.GetComponent<PlayerController>().StopDangerMode();
 
         //start wandering
         navMeshAgent.speed = wanderSpeed;
