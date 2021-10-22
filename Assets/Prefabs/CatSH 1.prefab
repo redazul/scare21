@@ -369,7 +369,7 @@ MonoBehaviour:
   timeToLosePursuitInterest: 1.25
   pursuitSpeed: 3.5
   wanderSpeed: 2
-  playerAttackRange: 2
+  playerAttackRange: 4
   attackReloadTime: 2
   attackPushMagnitude: 5
 --- !u!114 &7982041210098791147
