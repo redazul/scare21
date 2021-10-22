@@ -5860,7 +5860,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 6b3123b8e384a3046ba9c8e606d85fd8, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6b3123b8e384a3046ba9c8e606d85fd8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5906,6 +5906,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Horace
       objectReference: {fileID: 0}
+    - target: {fileID: 3282596272249470528, guid: 6b3123b8e384a3046ba9c8e606d85fd8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5c925420198ead143bd31a9c5aa2cd33, type: 2}
+    - target: {fileID: 4901607704759543822, guid: 6b3123b8e384a3046ba9c8e606d85fd8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5c925420198ead143bd31a9c5aa2cd33, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b3123b8e384a3046ba9c8e606d85fd8, type: 3}
 --- !u!1001 &835118312
@@ -5917,7 +5925,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 826c20c0cbf824e4ca41bb9c8c8499f4, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 826c20c0cbf824e4ca41bb9c8c8499f4, type: 3}
       propertyPath: m_LocalPosition.x
