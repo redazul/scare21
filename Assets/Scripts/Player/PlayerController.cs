@@ -73,6 +73,8 @@ public class PlayerController : MonoBehaviour
     private bool isDead = false;
     //the current cheese that the mouse carries
 
+    private PlSoundPlayer playerSound;
+
     //Mushroom
     Mushroom mushroom;
 
@@ -89,6 +91,7 @@ public class PlayerController : MonoBehaviour
         }
         rigidBody = GetComponent<Rigidbody>();
         animationControl = GetComponentInChildren<AnimationControl>();
+        playerSound = GetComponentInChildren<PlSoundPlayer>();
 
         UpdateMovementSpeedFromCheeseAmount();
         if (cheesePrefab == null)
@@ -253,6 +256,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void AddCheese(float amountToAdd)
     {
+        playerSound.PlayAudioClip(PlSoundPlayer.PlayerClipType.pickUp);
         ChangeCheeseAmount(amountToAdd);
     }
 
@@ -280,6 +284,7 @@ public class PlayerController : MonoBehaviour
         //spawn the cheese
         GameObject spawnedCheeseObject = SpawnDroppedItem(cheesePrefab);
         spawnedCheeseObject.GetComponent<Cheese>().SetAmount(amountToDrop);
+        playerSound.PlayAudioClip(PlSoundPlayer.PlayerClipType.drop);
 
         //update carried cheese amount
         ChangeCheeseAmount(-amountToDrop);
@@ -322,12 +327,14 @@ public class PlayerController : MonoBehaviour
 
     public void HoldMushroom(Mushroom m)
     {
+        playerSound.PlayAudioClip(PlSoundPlayer.PlayerClipType.pickUp);
         mushroom = m;
     }
 
     public Vector3 DropMushroom()
     {
         mushroom = null;
+        playerSound.PlayAudioClip(PlSoundPlayer.PlayerClipType.drop);
         return GetDisplacedDropPosition();
     }
 
@@ -338,6 +345,7 @@ public class PlayerController : MonoBehaviour
 
     public void ReduceHealth()
     {
+        playerSound.PlayAudioClip(PlSoundPlayer.PlayerClipType.hurt);
         ChangeHealth(-1);
     }
 
