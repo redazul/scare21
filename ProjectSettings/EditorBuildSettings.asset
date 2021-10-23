@@ -17,5 +17,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UsedScenes/SallysHome Takuto's Edit.unity
     guid: ef911195a8276ac4f810d63ee49a07ae
+  - enabled: 1
+    path: Assets/Scenes/UsedScenes/Cutscene1.unity
+    guid: 22e24f373951ea748a36ce6c49156910
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}

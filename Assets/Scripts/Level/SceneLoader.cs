@@ -8,7 +8,7 @@ public class SceneLoader : MonoBehaviour
     public enum AvailableScene
     {
         //careful: reordering might mess up unity editor values (adding is fine)
-        mainMenu, level1, credits, sandbox, sandbox2, playground
+        mainMenu, level1, credits, sandbox, sandbox2, playground, cutscene1
     }
 
     public static SceneLoader Instance;
@@ -68,6 +68,10 @@ public class SceneLoader : MonoBehaviour
             case AvailableScene.level1:
                 {
                     return "SallysHome Takuto's Edit";
+                }
+            case AvailableScene.cutscene1:
+                {
+                    return "Cutscene1";
                 }
             case AvailableScene.credits:
                 {
