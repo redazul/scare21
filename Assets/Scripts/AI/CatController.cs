@@ -32,7 +32,7 @@ public class CatController : MonoBehaviour, ISpawnable
     private float attackPushMagnitude = 1.0f;
 
     [SerializeField]
-    private AudioClip catAttackClip;
+    private List<AudioClip> catAttackClips;
 
     private EntityWanderer wanderer;
     private FOVComponent fovChecker;
@@ -109,7 +109,7 @@ public class CatController : MonoBehaviour, ISpawnable
             //pushForce.y = 0.5f;
             //playerGameObject.GetComponent<Rigidbody>()?.AddForce(pushForce, ForceMode.Impulse);
         }*/
-        audioSource.clip = catAttackClip;
+        audioSource.clip = PlSoundPlayer.GetRandomFromList(catAttackClips);
         audioSource.Play();
         playerGameObject.GetComponent<PlayerController>().GetHit(attackPushMagnitude, transform);
 
