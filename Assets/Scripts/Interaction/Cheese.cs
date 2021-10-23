@@ -3,7 +3,9 @@
  * Cheese Implementation
  */
 
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Cheese : MonoBehaviour, IInteractable, ISpawnable
 {
@@ -21,6 +23,11 @@ public class Cheese : MonoBehaviour, IInteractable, ISpawnable
     {
         avgScale = transform.localScale;
         SetAmount(GetRandomCheeseAmount());
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Interact(other.transform);
     }
 
     public void Interact(Transform other)
