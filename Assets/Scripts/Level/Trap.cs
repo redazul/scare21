@@ -14,7 +14,7 @@ public class Trap : MonoBehaviour, ISpawnable
     private List<AudioClip> triggerMissClips;
 
     private bool wasSpawned = false;
-
+    private bool armed = true;
     PlayerController player;
 
     private AudioSource audioSource;
@@ -31,6 +31,8 @@ public class Trap : MonoBehaviour, ISpawnable
 
     void OnTriggerEnter(Collider triggerCol)
     {
+        if(!armed) return;
+        
         if (triggerCol.CompareTag(PlayerController.PLAYER_TAG))
         {
             player = triggerCol.gameObject.transform.root.GetComponent<PlayerController>();
@@ -54,6 +56,7 @@ public class Trap : MonoBehaviour, ISpawnable
 
     private void TriggerTrap()
     {
+        armed = false;
         if (player != null)
         {
             player.GetHit(1, transform);
@@ -67,9 +70,9 @@ public class Trap : MonoBehaviour, ISpawnable
 
     public void PlayAudioClip(AudioClip clip)
     {
-        audioSource.Stop();
-        audioSource.clip = clip;
-        audioSource.Play();
+        // audioSource.Stop();
+        // audioSource.clip = clip;
+        audioSource.PlayOneShot(clip);
     }
 
     public void SetSoundVolume(float volume)

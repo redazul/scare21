@@ -109,8 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3c52e0cafdaac84f9ead0f1870a3ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToSnap: 0.5
-  playerClip: 0
+  timeToSnap: 0.2
   triggerHitClips:
   - {fileID: 8300000, guid: c243be3be56b1fb43af43448570c9813, type: 3}
   - {fileID: 8300000, guid: f2d2683add3f9c946b76673052f2f21c, type: 3}
