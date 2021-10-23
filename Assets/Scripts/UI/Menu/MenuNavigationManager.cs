@@ -10,12 +10,27 @@ public class MenuNavigationManager : MonoBehaviour
     [SerializeField]
     private AudioClip startClip;
 
-    private AudioSource soundAudioSource;
+    [SerializeField]
+    private AudioClip musicClip;
 
+    [SerializeField]
+    GameObject mainMenu;
+    MenuManager mainMenuManager;
+
+    [SerializeField]
+    GameObject optionsMenu;
+    MenuManager optionsMenuManager;
+
+    private AudioSource soundAudioSource;
+    private AudioSource musicAudioSource;
+
+    private MenuProgressControl menuProgressControl;
+
+    private MenuManager activeMenu;
     public enum MenuNavigationTarget 
     {
         //careful: reordering might mess up unity editor values (adding is fine)
-        mainMenu, optionsMenu, startGame, quitGame, showCredits
+        mainMenu, optionsMenu, startGame, quitGame, showCredits, resetProgress
     }
 
     public static MenuNavigationManager Instance = null;
@@ -25,18 +40,28 @@ public class MenuNavigationManager : MonoBehaviour
         {
             Debug.LogWarning("There is more than one MenuNavigationManager in this scene.");
         }
+        
+
         Instance = this;
 
         mainMenuManager = mainMenu.GetComponentInChildren<MenuManager>();
         optionsMenuManager = optionsMenu.GetComponentInChildren<MenuManager>();
-        soundAudioSource = GetComponent<AudioSource>();
+        menuProgressControl = GetComponent<MenuProgressControl>();
+
+        AudioSource[] audioSources = GetComponents<AudioSource>();
+        soundAudioSource = audioSources[0];
         soundAudioSource.loop = false;
+
+        musicAudioSource = audioSources[1];
+        musicAudioSource.loop = true;
 
     }
 
     void Start()
     {
         activeMenu = mainMenuManager;
+        musicAudioSource.clip = musicClip;
+        musicAudioSource.Play();
     }
 
     void Update()
@@ -60,19 +85,9 @@ public class MenuNavigationManager : MonoBehaviour
         {
             UseCurrentButton();
         }
-
     }
 
 
-    [SerializeField]
-    GameObject mainMenu;
-    MenuManager mainMenuManager;
-
-    [SerializeField]
-    GameObject optionsMenu;
-    MenuManager optionsMenuManager;
-
-    private MenuManager activeMenu;
 
     public void SetButtonSelected(MenuButton menuButton)
     {
@@ -128,6 +143,11 @@ public class MenuNavigationManager : MonoBehaviour
             case MenuNavigationTarget.showCredits:
                 {
                     SceneLoader.Instance.SwitchToScene(SceneLoader.AvailableScene.credits);
+                    break;
+                }
+            case MenuNavigationTarget.resetProgress:
+                {
+                    menuProgressControl.ResetProgress(); 
                     break;
                 }
             case MenuNavigationTarget.quitGame:

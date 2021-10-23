@@ -61,7 +61,6 @@ public class CheckPointArea : MonoBehaviour
         }
         if (!isActive)
         {
-            Debug.Log("undo barrier");
             barrierToDespawn.SetActive(false);
 
             if (!isCheckpoint)
