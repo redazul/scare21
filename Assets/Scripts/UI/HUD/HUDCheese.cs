@@ -90,6 +90,11 @@ public class HUDCheese : MonoBehaviour
         {
             return;
         }
-        cheeseAmountText.text = string.Format("{0:0.00}g", cheeseAmount);
+        cheeseAmountText.text = CheeseAmountToString(cheeseAmount);
+    }
+
+    public static string CheeseAmountToString(float cheeseAmount)
+    {
+        return string.Format("{0:0.00}g", cheeseAmount);
     }
 }

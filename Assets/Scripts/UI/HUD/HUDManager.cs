@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ public class HUDManager : MonoBehaviour
     private HUDCheese hudCheese;
     private HUDScreenOverlay hudScreenOverlay;
     private HUDMushLight hudMushLight;
+    private HUDMessageDisplay hudMessageDisplay;
 
     void Awake()
     {
@@ -26,6 +28,7 @@ public class HUDManager : MonoBehaviour
         hudSurvivors = GetComponentInChildren<HUDSurvivors>();
         hudScreenOverlay = GetComponentInChildren<HUDScreenOverlay>();
         hudMushLight = GetComponentInChildren<HUDMushLight>();
+        hudMessageDisplay = GetComponentInChildren<HUDMessageDisplay>();
     }
 
     public void UpdateCheeseAmount(float newCheeseAmount)
@@ -66,4 +69,13 @@ public class HUDManager : MonoBehaviour
         hudMushLight.SetBatteryBarVisible(mushLightHudActive);
     }
 
+    public void StartCheckpointPrompt(float cheeseNeeded)
+    {
+        hudMessageDisplay.ShowCheckpointPromptMessage(cheeseNeeded);
+    }
+
+    public void StopCheckpointPrompt()
+    {
+        hudMessageDisplay.HideMessage();
+    }
 }

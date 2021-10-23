@@ -67,7 +67,7 @@ public class SceneLoader : MonoBehaviour
                 }
             case AvailableScene.level1:
                 {
-                    return "SallysHome";
+                    return "SallysHome Takuto's Edit";
                 }
             case AvailableScene.credits:
                 {

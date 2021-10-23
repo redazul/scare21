@@ -159,7 +159,7 @@ MonoBehaviour:
   maxCheeseAmount: 7
   cheesePrefab: {fileID: 3748418416030519392, guid: 14eb8b92b8e173b46a92da8aa5701e08, type: 3}
   baseMovementSpeed: 2.5
-  movementReductionByCheese: 0.2
+  movementReductionByCheese: 0.3
   turnSpeedDegreePerSec: 250
   angleCorrectionPerSec: 5
   displayInteractionSphereGizmo: 1
@@ -196,8 +196,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26e54e5a728a9234ab24fcf1460ed8a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 2
-  SprintSpeed: 5.335
+  MoveSpeed: 4
+  SprintSpeed: 8
   RotationSmoothTime: 0.12
   SpeedChangeRate: 1
   JumpHeight: 1.2
@@ -490,7 +490,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 50d5306632b9e3348a3a9ffad6c74a59, type: 3}
   kitchenMusicClips:
   - {fileID: 8300000, guid: f2d42431e005d3d4fabcf565380c5d7d, type: 3}
-  playRandomClips: 1
+  playRandomVoiceClips: 1
   minTimeUntilRandomClip: 28
   maxTimeUntilRandomClip: 42
 --- !u!82 &2996350884353742038
@@ -1676,7 +1676,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4161759211896427010}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.2000041, y: 1.375, z: -4.0000014}
+  m_LocalPosition: {x: 0.19999695, y: 1.375, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1104274106331319518}
@@ -2381,7 +2381,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4161759212477949461}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.2000041, y: 1.375, z: -4.0000014}
+  m_LocalPosition: {x: 0.19999695, y: 1.375, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4161759213248355498}
@@ -5416,18 +5416,13 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 414c55a2cbcc6374583b61b74426f377, type: 3}
   m_PrefabInstance: {fileID: 6401631533978078604}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &194719675632107216 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -2709793182783671460, guid: 414c55a2cbcc6374583b61b74426f377, type: 3}
-  m_PrefabInstance: {fileID: 6401631533978078604}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &7610654913938104923 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -2709793182783671460, guid: 414c55a2cbcc6374583b61b74426f377, type: 3}
-  m_PrefabInstance: {fileID: 6401631533978078604}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6871807533163391591 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 414c55a2cbcc6374583b61b74426f377, type: 3}
+  m_PrefabInstance: {fileID: 6401631533978078604}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &194719675632107216 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -2709793182783671460, guid: 414c55a2cbcc6374583b61b74426f377, type: 3}
   m_PrefabInstance: {fileID: 6401631533978078604}
   m_PrefabAsset: {fileID: 0}

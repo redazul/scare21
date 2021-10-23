@@ -61,7 +61,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Light mushroomTargetLight;
 
+    //the current cheese that the mouse carries
     private float carriedCheese = 0f;
+
     private float currentMovementSpeed = 1.0f;
     //private float groundCheckDistance = 1.5f;
 
@@ -69,9 +71,10 @@ public class PlayerController : MonoBehaviour
     private AnimationControl animationControl;
 
     private bool isDead = false;
-    //the current cheese that the mouse carries
 
     private PlSoundPlayer playerSound;
+
+    private CheckPointArea currentCheckpointBarrier;
 
     //Mushroom
     Mushroom mushroom;
@@ -80,7 +83,7 @@ public class PlayerController : MonoBehaviour
 
     private bool useCharController;
 
-    private bool isInDanger;
+    //private bool isInDanger;
 
     private float _baseMoveSpeed = 1;
     private float _baseSprintSpeed = 2;
@@ -246,6 +249,12 @@ public class PlayerController : MonoBehaviour
     /// <returns>True, if the player interacted with anything</returns>
     private bool TryToInteract()
     {
+        if(currentCheckpointBarrier != null)
+        {
+            bool canUseCheese = TryUseCheeseOnBarrier();
+            return canUseCheese;
+        }
+
         Collider[] matchingColliders = Physics.OverlapSphere(interactionPosition.transform.position, INTERACTION_RADIUS);
 
         foreach (Collider col in matchingColliders)
@@ -258,6 +267,20 @@ public class PlayerController : MonoBehaviour
         }
 
         return false;
+    }
+
+    private bool TryUseCheeseOnBarrier()
+    {
+        float cheeseNeeded = currentCheckpointBarrier.GetCheeseNeeded();
+        if (cheeseNeeded > carriedCheese)
+        {
+            return false;
+        }
+
+        ChangeCheeseAmount(-cheeseNeeded);
+        currentCheckpointBarrier.SetBarrierActive(false);
+
+        return true;
     }
 
     /// <summary>
@@ -387,14 +410,14 @@ public class PlayerController : MonoBehaviour
 
     public void StartDangerMode()
     {
-        isInDanger = true;
+        //isInDanger = true;
         playerSound.PlayMusicClip(PlSoundPlayer.PlayerMusicClipType.catCue, false);
         VisualController.Instance.StartDollyZoomIn();
     }
 
     public void StopDangerMode()
     {
-        isInDanger = true;
+        //isInDanger = true;
         playerSound.StopAndPlayBackgroundMusicClip();
         VisualController.Instance.StartDollyZoomOut();
     }
@@ -495,6 +518,18 @@ public class PlayerController : MonoBehaviour
     public Light GetMushroomTargetLight()
     {
         return mushroomTargetLight;
+    }
+
+    public void StartCheesePrompt(CheckPointArea checkPointArea, float cheeseNeeded)
+    {
+        this.currentCheckpointBarrier = checkPointArea;
+        HUDManager.Instance.StartCheckpointPrompt(cheeseNeeded);
+    }
+
+    public void StopCheesePrompt()
+    {
+        this.currentCheckpointBarrier = null;
+        HUDManager.Instance.StopCheckpointPrompt();
     }
 
 
