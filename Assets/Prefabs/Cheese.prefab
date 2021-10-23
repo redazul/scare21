@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3748418416030519396}
   - component: {fileID: 3748418416030519397}
   - component: {fileID: 3748418416030519398}
-  - component: {fileID: 3748418416030519399}
   - component: {fileID: 2108472500}
+  - component: {fileID: 6118834945347613237}
   m_Layer: 9
   m_Name: Cheese
   m_TagString: Interactable
@@ -83,19 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3748418416030519399
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3748418416030519392}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2108472500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,3 +95,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7157705517c4af34d87917d93eb185a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &6118834945347613237
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3748418416030519392}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.53
+  m_Height: 24.464676
+  m_Direction: 1
+  m_Center: {x: 0.000000049670536, y: 2.232202, z: -0.00000009934107}

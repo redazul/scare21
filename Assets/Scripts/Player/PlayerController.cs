@@ -85,8 +85,14 @@ public class PlayerController : MonoBehaviour
 
     //private bool isInDanger;
 
+    private float _baseMoveSpeed = 1;
+    private float _baseSprintSpeed = 2;
+    private ThirdPersonController thirdPartyController;  
     void Awake()
     {
+        thirdPartyController = GetComponent<ThirdPersonController>();
+        _baseSprintSpeed = thirdPartyController.SprintSpeed;
+        _baseMoveSpeed = thirdPartyController.MoveSpeed;
         useCharController = GetComponent<CharacterController>() != null;
         if (!useCharController)
         {
@@ -173,7 +179,8 @@ public class PlayerController : MonoBehaviour
             animationControl?.SetMovementSpeed(0);
             return;
         }
-        Move(movement * Time.fixedDeltaTime * currentMovementSpeed);
+        // Move(movement * (Time.fixedDeltaTime * currentMovementSpeed));
+        // todo: get this from thirdpartmover
         animationControl?.SetMovementSpeed(currentMovementSpeed);
     }
 
@@ -365,7 +372,11 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateMovementSpeedFromCheeseAmount()
     {
-        currentMovementSpeed = Mathf.Max(0.1f, baseMovementSpeed - carriedCheese * movementReductionByCheese);
+        var sprintFactor = _baseSprintSpeed / _baseMoveSpeed;
+        var walkSpeed = Mathf.Max(0.1f, _baseMoveSpeed - carriedCheese * movementReductionByCheese);
+        var sprintSpeed = Mathf.Max(0.2f, _baseSprintSpeed - sprintFactor * carriedCheese * movementReductionByCheese);
+        thirdPartyController.MoveSpeed = walkSpeed;
+        thirdPartyController.SprintSpeed = sprintSpeed;
     }
 
     public void ReduceHealth()

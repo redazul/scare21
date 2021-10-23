@@ -146,9 +146,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc4f2406e4726c146b557bf360086304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToLosePursuitInterest: 1.25
-  pursuitSpeed: 1.9
-  wanderSpeed: 1.5
+  timeToLosePursuitInterest: 3
+  pursuitSpeed: 15
+  wanderSpeed: 2
   playerAttackRange: 2
   attackReloadTime: 2
   attackPushMagnitude: 5

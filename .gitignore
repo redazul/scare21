@@ -65,3 +65,7 @@ UserSettings/*.asset
 *.zip     #why is .zip on the gitignore? might be needed
 /WebBuild
 /WindowsBuild
+
+
+# jetbrains rider
+.idea/
