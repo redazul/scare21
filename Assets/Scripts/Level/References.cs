@@ -12,8 +12,6 @@ public class References : MonoBehaviour
     public const int PAUSE = 1;
     public const int OPTIONS = 2;
 
-    static CursorLockMode cursorStatePrev;
-
     static int survivors = 10;
     static int relativeLosses = 0;
     static int dayCounter = 0;
@@ -26,16 +24,28 @@ public class References : MonoBehaviour
         {
             Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None;
+
+            if (gameMenu) gameMenu.background.SetActive(true);
         }
         else
         {
             Time.timeScale = 1;
             Cursor.lockState = CursorLockMode.Locked;
+
+            if (gameMenu) gameMenu.background.SetActive(false);
         }
     }
     public static bool GetPaused()
     {
         return paused;
+    }
+
+    public static void DeactivateAllMenus()
+    {
+        if (gameMenu)
+        {
+            gameMenu.DeactivateAllMenus();
+        }
     }
 
     public static void SetGameMenu(GameMenu menu)

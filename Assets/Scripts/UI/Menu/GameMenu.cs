@@ -6,33 +6,11 @@ public class GameMenu : MonoBehaviour
 {
     [SerializeField] GameObject gameOver;
     [SerializeField] GameObject pause;
-    [SerializeField] GameObject options;
+
+    public GameObject background;
     private void Awake()
     {
         References.SetGameMenu(this);
-    }
-    void Update()
-    {
-        CheckInputs();
-    }
-
-    private void CheckInputs()
-    {
-
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            SelectPreviousButton();
-        }
-        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            SelectNextButton();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
-        {
-            UseCurrentButton();
-        }
-
     }
 
     public void SetPaused(bool paused)
@@ -63,26 +41,6 @@ public class GameMenu : MonoBehaviour
         }
     }
 
-    public void SetButtonSelected(MenuButton menuButton)
-    {
-        //menu.SetButtonSelected(menuButton);
-    }
-
-    public void UseCurrentButton()
-    {
-        //menu.UseButton();
-    }
-
-    public void SelectNextButton()
-    {
-        //menu.SelectNextButton();
-    }
-
-    public void SelectPreviousButton()
-    {
-        //menu.SelectPreviousButton();
-    }
-
     public void SetMenu(int menuIndex)
     {
         DeactivateAllMenus();
@@ -93,7 +51,6 @@ public class GameMenu : MonoBehaviour
         {
             case References.GAME_OVER: menu = gameOver; break;
             case References.PAUSE: menu = pause; break;
-            case References.OPTIONS: menu = options; break;
         }
 
         if (menu != gameObject)
@@ -106,7 +63,6 @@ public class GameMenu : MonoBehaviour
     {
         if (gameOver.activeInHierarchy) return References.GAME_OVER;
         if (pause.activeInHierarchy) return References.PAUSE;
-        if (options.activeInHierarchy) return References.OPTIONS;
 
         return -1;
     }
@@ -115,7 +71,6 @@ public class GameMenu : MonoBehaviour
     {
         gameOver.SetActive(false);
         pause.SetActive(false);
-        options.SetActive(false);
     }
 }
 
