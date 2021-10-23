@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,6 +45,8 @@ public class PlSoundPlayer : MonoBehaviour
 
     private AudioClip backgroundMusicClip;
 
+    private PlayerMusicClipType? currentMusicType = null;
+
     public enum PlayerClipType
     {
         hurt, pickUp, drop, random
@@ -80,6 +83,7 @@ public class PlSoundPlayer : MonoBehaviour
         if (isBackgroundMusic)
         {
             backgroundMusicClip = musicAudioSource.clip;
+            currentMusicType = plClip;
         }
         musicAudioSource.Stop();
         musicAudioSource.clip = GetClipFor(plClip);
@@ -148,7 +152,7 @@ public class PlSoundPlayer : MonoBehaviour
     {
         if (playRandomVoiceClips)
         {
-            noAudioPlayedTimer.Init(Random.Range(minTimeUntilRandomClip, maxTimeUntilRandomClip),
+            noAudioPlayedTimer.Init(UnityEngine.Random.Range(minTimeUntilRandomClip, maxTimeUntilRandomClip),
                 delegate
                 {
                     PlayAudioClip(PlayerClipType.random);
@@ -162,7 +166,7 @@ public class PlSoundPlayer : MonoBehaviour
         {
             Debug.LogError("given list was too small");
         }
-        return list[Random.Range(0, list.Count)];
+        return list[UnityEngine.Random.Range(0, list.Count)];
     }
 
     public void SetMusicVolume(float volume)
@@ -174,4 +178,10 @@ public class PlSoundPlayer : MonoBehaviour
     {
         soundAudioSource.volume = volume;
     }
+
+    public PlayerMusicClipType? GetActiveMusicType()
+    {
+        return currentMusicType;
+    }
+
 }
