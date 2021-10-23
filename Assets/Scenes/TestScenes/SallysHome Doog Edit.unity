@@ -28712,7 +28712,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 602955592}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -5.224, y: 96.969, z: -6.691}
 --- !u!136 &636306868
 CapsuleCollider:
@@ -40712,7 +40712,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 602955592}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -5.224, y: 0.686, z: -6.691}
 --- !u!136 &943192217
 CapsuleCollider:
@@ -48428,7 +48428,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 602955592}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -5.224, y: 179.467, z: -6.691}
 --- !u!136 &1108394842
 CapsuleCollider:
@@ -61550,7 +61550,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 602955592}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1407264743
 BoxCollider:
@@ -64366,7 +64366,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 602955592}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: -5.224, y: 281.051, z: -6.691}
 --- !u!136 &1466503992
 CapsuleCollider:
@@ -65550,6 +65550,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1080649449}
     m_Modifications:
+    - target: {fileID: 30350768377077520, guid: b02f20b01d57d544fbd61cd45670df21, type: 3}
+      propertyPath: musicClip
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5195772944942078451, guid: b02f20b01d57d544fbd61cd45670df21, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
