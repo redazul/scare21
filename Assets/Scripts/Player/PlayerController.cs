@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 
     private const float MAX_XZ_ROTATION_ANGLE = 30f;
 
-    private const float INTERACTION_RADIUS = 0.45f;
+    private const float INTERACTION_RADIUS = 1f;
     private const string INTERACTABLE_TAG = "Interactable";
 
     [Tooltip("the maximum amount of health that the player can have")]

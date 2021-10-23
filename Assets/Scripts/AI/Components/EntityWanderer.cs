@@ -85,7 +85,10 @@ public class EntityWanderer : MonoBehaviour
     private void StartDefaultMovement()
     {
         navMeshAgent.isStopped = false;
-        navMeshAgent.SetPath(currentPath);
+        if (currentPath != null)
+        {
+            navMeshAgent.SetPath(currentPath);
+        }
     }
     private void StopDefaultMovement()
     {

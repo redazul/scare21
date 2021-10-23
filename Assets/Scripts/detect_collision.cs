@@ -15,7 +15,7 @@ public class detect_collision : MonoBehaviour
     public CharacterController _chrController;
    
      void OnTriggerEnter(Collider other) {
-         Debug.Log(other.name);
+         //Debug.Log(other.name);
          if(other.name== "WallCollider")
          {
 
