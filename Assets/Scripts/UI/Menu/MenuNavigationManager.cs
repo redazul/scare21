@@ -67,7 +67,7 @@ public class MenuNavigationManager : MonoBehaviour
 
     void Update()
     {
-        CheckInputs();
+        if (activeMenu.gameObject.activeInHierarchy) CheckInputs();
     }
 
     private void CheckInputs()
