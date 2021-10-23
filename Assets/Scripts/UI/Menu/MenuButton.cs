@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 public class MenuButton : MonoBehaviour, IPointerEnterHandler
 {
@@ -13,15 +14,29 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler
     private readonly Color unselectedTextColor = new Color(0.8f, 0.8f, 0.8f);
 
     private Text buttonText;
+    private TextMeshProUGUI buttonTextTMP;
     private Image backgroundImage;
 
     [SerializeField]
     MenuNavigationManager.MenuNavigationTarget target;
 
-    void Awake()
+    void OnEnable()
     {
         this.buttonText = GetComponentInChildren<Text>();
+        buttonTextTMP = GetComponentInChildren<TextMeshProUGUI>();
+
         this.backgroundImage = GetComponent<Image>();
+
+        backgroundImage.color = unselectedBackgroundColor;
+
+        if (buttonText)
+        {
+            buttonText.color = unselectedTextColor;
+        }
+        else if (buttonTextTMP)
+        {
+            buttonTextTMP.color = unselectedTextColor;
+        }
     }
 
     public void Use()
@@ -31,7 +46,14 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler
 
     public void SetSelected(bool isSelected)
     {
-        this.buttonText.color = isSelected ? selectedTextColor : unselectedTextColor;
+        if (buttonText)
+        {
+            buttonText.color = isSelected ? selectedTextColor : unselectedTextColor;
+        }
+        else if (buttonTextTMP)
+        {
+            buttonTextTMP.color = isSelected ? selectedTextColor : unselectedTextColor;
+        }
         this.backgroundImage.color = isSelected ? selectedBackgroundColor : unselectedBackgroundColor;
 
     }

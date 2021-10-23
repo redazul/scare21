@@ -30,11 +30,11 @@ public class MenuNavigationManager : MonoBehaviour
     public enum MenuNavigationTarget 
     {
         //careful: reordering might mess up unity editor values (adding is fine)
-        mainMenu, optionsMenu, startGame, quitGame, showCredits, resetProgress
+        mainMenu, optionsMenu, startGame, quitGame, showCredits, resetProgress, resumeGame, restartScene, pauseMenu, mainMenuPause
     }
 
     public static MenuNavigationManager Instance = null;
-    void Awake()
+    void OnEnable()
     {
         if(Instance != null)
         {
@@ -46,6 +46,7 @@ public class MenuNavigationManager : MonoBehaviour
 
         mainMenuManager = mainMenu.GetComponentInChildren<MenuManager>();
         optionsMenuManager = optionsMenu.GetComponentInChildren<MenuManager>();
+
         menuProgressControl = GetComponent<MenuProgressControl>();
 
         AudioSource[] audioSources = GetComponents<AudioSource>();
@@ -71,14 +72,27 @@ public class MenuNavigationManager : MonoBehaviour
 
     private void CheckInputs()
     {
-
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        if (CompareTag("PauseMenu"))
         {
-            SelectPreviousButton();
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                SelectNextButton();
+            }
+            if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                SelectPreviousButton();
+            }
         }
-        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        else
         {
-            SelectNextButton();
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                SelectPreviousButton();
+            }
+            if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                SelectNextButton();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
@@ -153,6 +167,22 @@ public class MenuNavigationManager : MonoBehaviour
             case MenuNavigationTarget.quitGame:
                 {
                     SceneLoader.Instance.QuitGame();
+                    break;
+                }
+            case MenuNavigationTarget.resumeGame:
+                {
+                    References.DeactivateAllMenus();
+                    References.SetPaused(false);
+                    break;
+                }
+            case MenuNavigationTarget.restartScene:
+                {
+                    SceneLoader.Instance.ReloadScene();
+                    break;
+                }
+            case MenuNavigationTarget.mainMenuPause:
+                {
+                    SceneLoader.Instance.ReturnToMainMenu();
                     break;
                 }
         }

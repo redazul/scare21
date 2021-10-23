@@ -8,6 +8,7 @@ TagManager:
   - CinemachineTarget
   - ledge
   - wall
+  - PauseMenu
   layers:
   - Default
   - TransparentFX
