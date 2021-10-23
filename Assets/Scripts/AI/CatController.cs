@@ -31,6 +31,9 @@ public class CatController : MonoBehaviour, ISpawnable
     [SerializeField]
     private float attackPushMagnitude = 1.0f;
 
+    [SerializeField]
+    private AudioClip catAttackClip;
+
     private EntityWanderer wanderer;
     private FOVComponent fovChecker;
 
@@ -46,6 +49,7 @@ public class CatController : MonoBehaviour, ISpawnable
 
     private bool wasSpawned = false;
 
+    private AudioSource audioSource;
 
     void Awake()
     {
@@ -60,6 +64,9 @@ public class CatController : MonoBehaviour, ISpawnable
         attackReloadTimer = gameObject.AddComponent<Timer>();
         attackReloadTimer.Init(attackReloadTime, ContinueMovement);
         attackReloadTimer.SetPaused(true);
+
+        audioSource = GetComponent<AudioSource>();
+        audioSource.loop = false;
     }
 
     // Start is called before the first frame update
@@ -102,6 +109,8 @@ public class CatController : MonoBehaviour, ISpawnable
             //pushForce.y = 0.5f;
             //playerGameObject.GetComponent<Rigidbody>()?.AddForce(pushForce, ForceMode.Impulse);
         }*/
+        audioSource.clip = catAttackClip;
+        audioSource.Play();
         playerGameObject.GetComponent<PlayerController>().GetHit(attackPushMagnitude, transform);
 
     }

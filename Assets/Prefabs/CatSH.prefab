@@ -65,10 +65,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToLosePursuitInterest: 3
-  pursuitSpeed: 15
+  pursuitSpeed: 9
   wanderSpeed: 2
-  playerAttackRange: 2
-  attackReloadTime: 2
+  playerAttackRange: 4
+  attackReloadTime: 1.5
   attackPushMagnitude: 5
 --- !u!114 &5385235964568095906
 MonoBehaviour:
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5385235964568095903}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0fd58e258199b74438abb070dbb870f1, type: 3}
   m_Name: 
@@ -112,8 +112,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewRadius: 25.29
-  viewAngle: 127.21
-  timeBetweenChecks: 0.5
+  viewAngle: 140
+  timeBetweenChecks: 0.1
   eyeOrigin: {fileID: 8769885050419007365}
   isSearching: 1
   whatToLookFor:
