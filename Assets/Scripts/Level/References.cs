@@ -12,6 +12,8 @@ public class References : MonoBehaviour
     public const int PAUSE = 1;
     public const int OPTIONS = 2;
 
+    static CursorLockMode cursorStatePrev;
+
     static int survivors = 10;
     static int relativeLosses = 0;
     static int dayCounter = 0;
@@ -23,10 +25,12 @@ public class References : MonoBehaviour
         if (paused)
         {
             Time.timeScale = 0;
+            Cursor.lockState = CursorLockMode.None;
         }
         else
         {
             Time.timeScale = 1;
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
     public static bool GetPaused()

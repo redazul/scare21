@@ -5893,17 +5893,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be01c5524efe5f549ac67f47504de8fc, type: 3}
---- !u!114 &871075424 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9131372795264379397, guid: f6bbf761f066b4043bcd286f6b087f5c, type: 3}
-  m_PrefabInstance: {fileID: 4369915610850819481}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 935df67d048342b45affa32b92e2c82a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &881296875
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10171,18 +10160,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5195772944942078451, guid: b02f20b01d57d544fbd61cd45670df21, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 871075424}
-    - target: {fileID: 5195772944942078451, guid: b02f20b01d57d544fbd61cd45670df21, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ReturnToMainMenu
-      objectReference: {fileID: 0}
-    - target: {fileID: 5195772944942078451, guid: b02f20b01d57d544fbd61cd45670df21, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SceneLoader, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 5195772945312276900, guid: b02f20b01d57d544fbd61cd45670df21, type: 3}
       propertyPath: m_Name
       value: Menu
@@ -10230,42 +10207,6 @@ PrefabInstance:
     - target: {fileID: 5195772945312276902, guid: b02f20b01d57d544fbd61cd45670df21, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5195772945329444840, guid: b02f20b01d57d544fbd61cd45670df21, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 871075424}
-    - target: {fileID: 5195772945329444840, guid: b02f20b01d57d544fbd61cd45670df21, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ReloadScene
-      objectReference: {fileID: 0}
-    - target: {fileID: 5195772945329444840, guid: b02f20b01d57d544fbd61cd45670df21, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SceneLoader, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5195772946682506106, guid: b02f20b01d57d544fbd61cd45670df21, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 871075424}
-    - target: {fileID: 5195772946682506106, guid: b02f20b01d57d544fbd61cd45670df21, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ReturnToMainMenu
-      objectReference: {fileID: 0}
-    - target: {fileID: 5195772946682506106, guid: b02f20b01d57d544fbd61cd45670df21, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SceneLoader, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5195772946749168732, guid: b02f20b01d57d544fbd61cd45670df21, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 871075424}
-    - target: {fileID: 5195772946749168732, guid: b02f20b01d57d544fbd61cd45670df21, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ReloadScene
-      objectReference: {fileID: 0}
-    - target: {fileID: 5195772946749168732, guid: b02f20b01d57d544fbd61cd45670df21, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SceneLoader, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b02f20b01d57d544fbd61cd45670df21, type: 3}

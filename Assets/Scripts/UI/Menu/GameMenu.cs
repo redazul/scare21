@@ -35,6 +35,34 @@ public class GameMenu : MonoBehaviour
 
     }
 
+    public void SetPaused(bool paused)
+    {
+        if (!paused)
+        {
+            DeactivateAllMenus();
+        }
+
+        References.SetPaused(paused);
+    }
+
+    public void ReloadScene()
+    {
+        SceneLoader sceneLoader = FindObjectOfType<SceneLoader>();
+        if (sceneLoader)
+        {
+            sceneLoader.ReloadScene();
+        }
+    }
+
+    public void GoToMainMenu()
+    {
+        SceneLoader sceneLoader = FindObjectOfType<SceneLoader>();
+        if (sceneLoader)
+        {
+            sceneLoader.ReturnToMainMenu();
+        }
+    }
+
     public void SetButtonSelected(MenuButton menuButton)
     {
         //menu.SetButtonSelected(menuButton);
@@ -88,11 +116,6 @@ public class GameMenu : MonoBehaviour
         gameOver.SetActive(false);
         pause.SetActive(false);
         options.SetActive(false);
-    }
-
-    public void PauseGame(bool paused)
-    {
-        References.SetPaused(paused);
     }
 }
 
