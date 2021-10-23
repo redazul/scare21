@@ -35,6 +35,7 @@ public class anim_boss : MonoBehaviour
     public void stopClimb()
     {
         climbAnim = false;
+        Debug.Log("move forward at end of animation");
         moveForward = true;
 
     }
@@ -56,6 +57,8 @@ public class anim_boss : MonoBehaviour
     void Update()
     {
 
+        //_player.transform.Translate(Vector3.up * Time.deltaTime);
+
             
         if(climbAnim==true)
         {
@@ -74,37 +77,59 @@ public class anim_boss : MonoBehaviour
 
        
 
-        if(Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d"))
+        if(Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d") )
         {
+            
+            
+            //running
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 if(speed< 1f)
                 {
-                    speed=speed+ 0.003f;
+                    speed=speed+ 0.09f;
+                    
+                
                 }
-                _anim.SetFloat("speed",speed);
+
+                if(speed<1.01f)
+                {
+                    _anim.SetFloat("speed",speed);
+                }
+                
+            
+            //wallk
             }else{
                 if(speed<0.6f)
                 {
                     
-                speed = speed + 0.003f;
+                speed = speed + 0.09f;
                 }
 
                 if(speed>=0.6f)
                 {
                     
-                speed = speed - 0.003f;
+                speed = speed - 0.09f;
                 }
-                _anim.SetFloat("speed",speed);
+                if(speed<1.01f)
+                {
+                    _anim.SetFloat("speed",speed);
+                }
+                
 
             }
+
+            //not walking 
         }else{
             if(speed>0f)
             {
-                 speed = speed - 0.003f;
+                 speed = speed - 0.09f;
             }
                
-                 _anim.SetFloat("speed",speed);
+                 if(speed<1.01f)
+                 {
+                     _anim.SetFloat("speed",speed);
+                 }
+                 
 
         }
 
