@@ -23,7 +23,13 @@ public class PlSoundPlayer : MonoBehaviour
     private List<AudioClip> catCueMusicClips;
 
     [SerializeField]
-    private List<AudioClip> kitchenMusicClips;
+    private List<AudioClip> insideHouseMusicClips;
+
+    [SerializeField]
+    private List<AudioClip> outsideMusicClips;
+
+    [SerializeField]
+    private List<AudioClip> undergroundMusicClips;
 
     [SerializeField]
     private bool playRandomVoiceClips = true;
@@ -45,7 +51,7 @@ public class PlSoundPlayer : MonoBehaviour
 
     public enum PlayerMusicClipType
     {
-        catCue, kitchen
+        catCue, insideHouse, outside, underground
     }
 
     void Awake()
@@ -122,9 +128,17 @@ public class PlSoundPlayer : MonoBehaviour
                 {
                     return GetRandomFromList(catCueMusicClips);
                 }
-            case PlayerMusicClipType.kitchen:
+            case PlayerMusicClipType.insideHouse:
                 {
-                    return GetRandomFromList(kitchenMusicClips);
+                    return GetRandomFromList(insideHouseMusicClips);
+                }
+            case PlayerMusicClipType.underground:
+                {
+                    return GetRandomFromList(undergroundMusicClips);
+                }
+            case PlayerMusicClipType.outside:
+                {
+                    return GetRandomFromList(outsideMusicClips);
                 }
         }
         return null;

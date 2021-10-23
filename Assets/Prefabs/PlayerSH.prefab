@@ -488,8 +488,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a5f02e2b18005184b9ce58a6bac7e9a8, type: 3}
   catCueMusicClips:
   - {fileID: 8300000, guid: 50d5306632b9e3348a3a9ffad6c74a59, type: 3}
-  kitchenMusicClips:
+  insideHouseMusicClips:
   - {fileID: 8300000, guid: f2d42431e005d3d4fabcf565380c5d7d, type: 3}
+  outsideMusicClips:
+  - {fileID: 8300000, guid: 6c4fb6530a7d7a942bc7ab62246448c1, type: 3}
+  undergroundMusicClips:
+  - {fileID: 8300000, guid: c47f1f94e10b95249ac7d3754e1cd431, type: 3}
   playRandomVoiceClips: 1
   minTimeUntilRandomClip: 28
   maxTimeUntilRandomClip: 42
