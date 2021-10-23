@@ -6,7 +6,17 @@ ModelImporter:
   - first:
       74: -4101106161057644395
     second: Cat_Armature|idle
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eyeball
+    second: {fileID: 2100000, guid: 5c925420198ead143bd31a9c5aa2cd33, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Teeth
+    second: {fileID: 2100000, guid: 48163f9578df1c74e93be7472e8bb601, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
