@@ -188,9 +188,17 @@ namespace Scare.AI.Components
             foundItemCallBack = null;
         }
 
+        [SerializeField]
+        [Tooltip("If gizmo is visible for this component")]
+        private bool displayGizmo = true;
+
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
+            if (!displayGizmo)
+            {
+                return;
+            }
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, viewRadius);
 

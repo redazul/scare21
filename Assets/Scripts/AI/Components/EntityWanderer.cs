@@ -50,6 +50,12 @@ public class EntityWanderer : MonoBehaviour
         }
 
         timer = gameObject.AddComponent<Timer>();
+
+        if(nextWaypointIndex >= waypoints.Count || nextWaypointIndex < 0)
+        {
+            Debug.Log("Next waypoint was out of range. Setting next waypoint index to 0.");
+            nextWaypointIndex = 0;
+        }
     }
 
     public void StartWandering(bool resumeLastPath)
@@ -211,7 +217,7 @@ public class EntityWanderer : MonoBehaviour
 
     private void DrawNextTargetWaypointGizmo()
     {
-        if (waypoints.Count > 0)
+        if (waypoints.Count > 0 && nextWaypointIndex < waypoints.Count)
         {
             Gizmos.color = new Color(0.2f, 0.2f, 0.9f, 0.3f);
             Gizmos.DrawSphere(waypoints[nextWaypointIndex], 0.8f+ displacementRadius);

@@ -29,9 +29,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject cheesePrefab;
 
-    [Tooltip("Movement speed when the player does not carry cheese")]
-    [SerializeField]
-    private float baseMovementSpeed = 1.0f;
+    //[Tooltip("Movement speed when the player does not carry cheese")]
+    //[SerializeField]
+    //private float baseMovementSpeed = 1.0f;
 
     [Tooltip("The reduction of movement speed by carried cheese. If this is high, the player gets very slow from picking up cheese. Values should be within 0 and 1")]
     [SerializeField]

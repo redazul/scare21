@@ -15,6 +15,10 @@ public class CatController : MonoBehaviour, ISpawnable
     [SerializeField]
     private float pursuitSpeed = 2.2f;
 
+    [Tooltip("How far a pursuit will go until updating the player position")]
+    [SerializeField]
+    private float pursuitDistance = 5f;
+
     [Tooltip("The speed of the navMeshAgent when wandering around.")]
     [SerializeField]
     private float wanderSpeed = 1.6f;
@@ -80,10 +84,10 @@ public class CatController : MonoBehaviour, ISpawnable
     {
         if (References.GetPaused()) return;
 
-        CheckAttackPlayerOnPursuit();
+        UpdatePursuit();
     }
 
-    private void CheckAttackPlayerOnPursuit()
+    private void UpdatePursuit()
     {
         if (!isPursuing || attackReloadTimer.IsRunning())
         {
@@ -133,13 +137,11 @@ public class CatController : MonoBehaviour, ISpawnable
 
     private void UpdatePlayerPursuit()
     {
-
         lastSeenPlayerPos = playerGameObject.transform.position;
 
         NavMeshHit closestNavMeshPosition;
         NavMesh.SamplePosition(lastSeenPlayerPos, out closestNavMeshPosition, 2.0f, NavMesh.AllAreas);
         navMeshAgent.SetDestination(closestNavMeshPosition.position);
-
 
         if (!isPursuing)
         {
